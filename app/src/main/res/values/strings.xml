@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MakeMyBudget</string>
+    <string name="facebook_app_id">1484785888621970</string>
+    <string name="fb_login_protocol_scheme">fb1484785888621970</string>
+    <string name="facebook_client_token">91dfede37d4a713fd9101cbe8053f504</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

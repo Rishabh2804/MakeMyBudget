@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "696597701405",
+    "project_id": "makemybudget-1d369",
+    "storage_bucket": "makemybudget-1d369.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:696597701405:android:9df5a2f2be5c68ca18b7f4",
+        "android_client_info": {
+          "package_name": "com.example.makemybudget"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "696597701405-9poac161pt51b6hgoi4nqeq2t3lvl0ao.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.makemybudget",
+            "certificate_hash": "6cabfbc18083c9483fff9253810d76d17254b021"
+          }
+        },
+        {
+          "client_id": "696597701405-67rriuiru7qkmj9312tjfnsr6suv4nj8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCWyH1hmP8C2r3r6jF5fbxfS-WZeN3kPc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "696597701405-67rriuiru7qkmj9312tjfnsr6suv4nj8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
