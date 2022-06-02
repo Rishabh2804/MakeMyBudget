@@ -10,64 +10,83 @@ import java.util.*
 class ListHandlerRepo(application: Application) {
     private val listHandlerDao = TransactionDB.getDatabase(application).listHandlerDao()
 
-    fun getAllTransactionsByDate(date: Long): LiveData<List<Transaction>> =
-        listHandlerDao.getTransactions(date)
+    fun getAllTransactionsByDate(user_id: String, date: Long): LiveData<List<Transaction>> =
+        listHandlerDao.getTransactions(user_id, date)
 
-    fun getAllTransactionsByCategory(category: TransactionCategory): LiveData<List<Transaction>> =
-        listHandlerDao.getTransactionsByCategory(category)
+    fun getAllTransactionsByCategory(
+        user_id: String,
+        category: TransactionCategory
+    ): LiveData<List<Transaction>> =
+        listHandlerDao.getTransactionsByCategory(user_id, category)
 
-    fun getAllTransactionsByType(type: TransactionType): LiveData<List<Transaction>> =
-        listHandlerDao.getTransactionsByType(type)
+    fun getAllTransactionsByType(
+        user_id: String,
+        type: TransactionType
+    ): LiveData<List<Transaction>> =
+        listHandlerDao.getTransactionsByType(user_id, type)
 
-    fun getAllTransactionsByMode(mode: TransactionMode): LiveData<List<Transaction>> =
-        listHandlerDao.getTransactionsByMode(mode)
+    fun getAllTransactionsByMode(
+        user_id: String,
+        mode: TransactionMode
+    ): LiveData<List<Transaction>> =
+        listHandlerDao.getTransactionsByMode(user_id, mode)
 
-    fun getAllTransactionsByStatus(status: TransactionStatus): LiveData<List<Transaction>> =
-        listHandlerDao.getTransactionsByStatus(status)
+    fun getAllTransactionsByStatus(
+        user_id: String,
+        status: TransactionStatus
+    ): LiveData<List<Transaction>> =
+        listHandlerDao.getTransactionsByStatus(user_id, status)
 
-    fun getAmountByCategory(category: TransactionCategory): LiveData<Double> =
-        listHandlerDao.getAmountByCategory(category)
+    fun getAmountByCategory(user_id: String, category: TransactionCategory): LiveData<Double> =
+        listHandlerDao.getAmountByCategory(user_id, category)
 
-    fun getAmountByType(type: TransactionType): LiveData<Double> =
-        listHandlerDao.getAmountByType(type)
+    fun getAmountByType(user_id: String, type: TransactionType): LiveData<Double> =
+        listHandlerDao.getAmountByType(user_id, type)
 
-    fun getAmountByMode(mode: TransactionMode): LiveData<Double> =
-        listHandlerDao.getAmountByMode(mode)
+    fun getAmountByMode(user_id: String, mode: TransactionMode): LiveData<Double> =
+        listHandlerDao.getAmountByMode(user_id, mode)
 
-    fun getAmountByStatus(status: TransactionStatus): LiveData<Double> =
-        listHandlerDao.getAmountByStatus(status)
+    fun getAmountByStatus(user_id: String, status: TransactionStatus): LiveData<Double> =
+        listHandlerDao.getAmountByStatus(user_id, status)
 
-    fun getAmountByDate(date: Long): LiveData<Double> =
-        listHandlerDao.getAmountByDate(date)
+    fun getAmountByDate(user_id: String, date: Long): LiveData<Double> =
+        listHandlerDao.getAmountByDate(user_id, date)
 
-    fun getAmountByMonth(monthYear: Long): LiveData<Double> =
-        listHandlerDao.getAmountByMonth(monthYear)
+    fun getAmountByMonth(user_id: String, monthYear: Long): LiveData<Double> =
+        listHandlerDao.getAmountByMonth(user_id, monthYear)
 
-    fun getAmountByModeAndDate(mode: TransactionMode, date: Long): LiveData<Double> =
-        listHandlerDao.getAmountByModeAndDate(mode, date)
+    fun getAmountByModeAndDate(
+        user_id: String,
+        mode: TransactionMode,
+        date: Long
+    ): LiveData<Double> =
+        listHandlerDao.getAmountByModeAndDate(user_id, mode, date)
 
     fun getAmountByStatusAndType(
+        user_id: String,
         transactionStatus: TransactionStatus,
         transactionType: TransactionType
     ): LiveData<Double> =
-        listHandlerDao.getAmountByStatusAndType(transactionStatus, transactionType)
+        listHandlerDao.getAmountByStatusAndType(user_id, transactionStatus, transactionType)
 
     fun getAmountByModeAndStatus(
+        user_id: String,
         transactionMode: TransactionMode,
         transactionStatus: TransactionStatus
     ): LiveData<Double> =
-        listHandlerDao.getAmountByModeAndStatus(transactionMode, transactionStatus)
+        listHandlerDao.getAmountByModeAndStatus(user_id, transactionMode, transactionStatus)
 
     fun getAmountByModeAndType(
+        user_id: String,
         transactionMode: TransactionMode,
         transactionType: TransactionType
     ): LiveData<Double> =
-        listHandlerDao.getAmountByModeAndType(transactionMode, transactionType)
+        listHandlerDao.getAmountByModeAndType(user_id, transactionMode, transactionType)
 
-    fun getTransactionsByMonthYear(monthYear: Long): LiveData<List<Transaction>> =
-        listHandlerDao.getTransactionsByMonth(monthYear)
+    fun getTransactionsByMonthYear(user_id: String, monthYear: Long): LiveData<List<Transaction>> =
+        listHandlerDao.getTransactionsByMonth(user_id, monthYear)
 
-    fun getTransactionsByMonth(): LiveData<List<Transaction>> =
-        listHandlerDao.getTransactionsAllMonths()
+    fun getTransactionsByMonth(user_id: String): LiveData<List<Transaction>> =
+        listHandlerDao.getTransactionsAllMonths(user_id)
 
 }

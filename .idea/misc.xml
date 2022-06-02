@@ -3,11 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/rishabh/.gradle/caches/transforms-3/99b2bf7a6024f79e661741d0d57d1be1/transformed/facebook-common-13.2.0/res/drawable/com_facebook_button_icon.xml" value="0.2595" />
+        <entry key="..\:/Users/rishabh/AndroidStudioProjects/MakeMyBudget/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.219" />
+        <entry key="..\:/Users/rishabh/AndroidStudioProjects/MakeMyBudget/app/src/main/res/drawable/com_facebook_logo.xml" value="0.2585" />
         <entry key="..\:/Users/rishabh/AndroidStudioProjects/MakeMyBudget/app/src/main/res/drawable/facebook_logo.xml" value="0.1955" />
         <entry key="..\:/Users/rishabh/AndroidStudioProjects/MakeMyBudget/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.1955" />
         <entry key="..\:/Users/rishabh/AndroidStudioProjects/MakeMyBudget/app/src/main/res/drawable/ic_baseline_vpn_key_24.xml" value="0.1955" />
         <entry key="..\:/Users/rishabh/AndroidStudioProjects/MakeMyBudget/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/rishabh/AndroidStudioProjects/MakeMyBudget/app/src/main/res/layout/fragment_front_screen.xml" value="0.264" />
         <entry key="..\:/Users/rishabh/AndroidStudioProjects/MakeMyBudget/app/src/main/res/layout/fragment_login_screen.xml" value="0.264" />
+        <entry key="..\:/Users/rishabh/AndroidStudioProjects/MakeMyBudget/app/src/main/res/layout/fragment_register_screen.xml" value="0.264" />
+        <entry key="..\:/Users/rishabh/AndroidStudioProjects/MakeMyBudget/app/src/main/res/layout/fragment_transaction_detail.xml" value="0.25" />
       </map>
     </option>
   </component>
