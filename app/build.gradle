@@ -4,14 +4,18 @@ plugins {
     id 'com.google.gms.google-services'
     id 'androidx.navigation.safeargs'
     id 'kotlin-kapt'
+    id 'com.jakewharton.butterknife'
 }
 
 android {
 
     buildFeatures {
-        dataBinding true
         viewBinding true
+
     }
+
+    dataBinding { enabled = true }
+
 
     compileSdk 32
 
@@ -38,13 +42,24 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    namespace 'com.example.makeMyBudget'
 }
 
 dependencies {
 
+    //Pie chart
+    implementation 'com.github.blackfizz:eazegraph:1.2.5l@aar'
+    implementation 'com.nineoldandroids:library:2.4.0'
+
+    implementation 'com.airbnb.android:epoxy-databinding:2.6.0'
+
+    implementation "com.airbnb.android:epoxy:5.0.0-beta05"
+    // Add the annotation processor if you are using Epoxy's annotations (recommended)
+    annotationProcessor "com.airbnb.android:epoxy-processor:5.0.0-beta05"
 
     // Kotlin
     implementation("androidx.fragment:fragment-ktx:1.4.1")
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
     // Testing Fragments in Isolation
     debugImplementation("androidx.fragment:fragment-testing:1.4.1")
 

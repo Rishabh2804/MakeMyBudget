@@ -57,6 +57,9 @@ interface ListHandler {
     @Query("SELECT SUM(transactionAmount) FROM transactions WHERE user_id = :user_id and monthYear = :monthYear")
     fun getAmountByMonth(user_id: String, monthYear: Long): LiveData<Double>
 
+    @Query("SELECT year FROM transactions WHERE user_id = :user_id GROUP BY year")
+    fun getYears(user_id: String): LiveData<List<Int>>
+
     @Query("SELECT SUM(transactionAmount) FROM transactions WHERE user_id = :user_id and transactionMode = :transactionMode and transactionDate = :date")
     fun getAmountByModeAndDate(
         user_id: String,

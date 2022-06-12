@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TransactionLibrary.TransactionDetailFragment">
+    tools:context=".TransactionLibrary.AddOrEditTransactionFragment">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -54,7 +54,7 @@
         <EditText
             android:id="@+id/trans_desc_input"
             android:layout_width="372dp"
-            android:layout_height="48dp"
+            android:layout_height="47dp"
             android:layout_marginTop="8dp"
             android:ems="10"
             android:gravity="start|top"
@@ -179,11 +179,10 @@
             android:id="@+id/tags_spinner"
             android:layout_width="359dp"
             android:layout_height="28dp"
-            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.557"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/transaction_tags" />
+            tools:layout_editor_absoluteY="475dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

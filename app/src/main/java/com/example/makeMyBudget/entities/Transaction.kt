@@ -13,6 +13,7 @@ data class Transaction(
     val user_id: Long,
     @PrimaryKey(autoGenerate = true) val trans_id: Long,
 
+    val title : String,
     val description: String,
     val transactionAmount: Double,
 

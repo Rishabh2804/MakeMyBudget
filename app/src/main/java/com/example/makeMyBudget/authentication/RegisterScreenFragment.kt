@@ -1,4 +1,4 @@
-package com.example.makeMyBudget.initialScreens
+package com.example.makeMyBudget.authentication
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -33,6 +33,13 @@ class RegisterScreenFragment : Fragment() {
         binding.registerButton.setOnClickListener {
             handleCustomLogin()
         }
+
+        binding.googleLoginButton.setOnClickListener {
+            RegisterScreenFragmentDirections.actionRegisterScreenFragmentToGoogleLoginFragment()
+        }
+        binding.fbLoginButton.setOnClickListener {
+            RegisterScreenFragmentDirections.actionRegisterScreenFragmentToFacebookLoginFragment()
+        }
         return binding.root
     }
 
@@ -47,8 +54,8 @@ class RegisterScreenFragment : Fragment() {
             Toast.makeText(context, "Passwords do not match", Toast.LENGTH_SHORT).show()
         } else {
             firebaseAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener {
-                    if (it.isSuccessful) {
+                .addOnCompleteListener { auth ->
+                    if (auth.isSuccessful) {
                         Toast.makeText(context, "Successfully registered", Toast.LENGTH_SHORT)
                             .show()
                         val user = User(email, password, "0")

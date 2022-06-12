@@ -7,12 +7,24 @@
 
     <fragment
         android:id="@+id/loginScreenFragment"
-        android:name="com.example.makeMyBudget.initialScreens.LoginScreenFragment"
+        android:name="com.example.makeMyBudget.authentication.LoginScreenFragment"
         android:label="fragment_login_screen"
         tools:layout="@layout/fragment_login_screen" >
         <action
             android:id="@+id/action_loginScreenFragment_to_registerScreenFragment"
             app:destination="@id/registerScreenFragment" />
+        <action
+            android:id="@+id/action_loginScreenFragment_to_mainScreenFragment"
+            app:destination="@id/mainScreenFragment" />
+        <action
+            android:id="@+id/action_loginScreenFragment_to_userBudgetDetailsFragment"
+            app:destination="@id/userBudgetDetailsFragment" />
+        <action
+            android:id="@+id/action_loginScreenFragment_to_googleLoginFragment"
+            app:destination="@id/googleLoginFragment" />
+        <action
+            android:id="@+id/action_loginScreenFragment_to_facebookLoginFragment"
+            app:destination="@id/facebookLoginFragment" />
     </fragment>
     <fragment
         android:id="@+id/frontScreenFragment"
@@ -40,17 +52,24 @@
     </fragment>
     <fragment
         android:id="@+id/registerScreenFragment"
-        android:name="com.example.makeMyBudget.initialScreens.RegisterScreenFragment"
+        android:name="com.example.makeMyBudget.authentication.RegisterScreenFragment"
         android:label="fragment_register_screen"
-        tools:layout="@layout/fragment_register_screen" />
+        tools:layout="@layout/fragment_register_screen" >
+        <action
+            android:id="@+id/action_registerScreenFragment_to_googleLoginFragment"
+            app:destination="@id/googleLoginFragment" />
+        <action
+            android:id="@+id/action_registerScreenFragment_to_facebookLoginFragment"
+            app:destination="@id/facebookLoginFragment" />
+    </fragment>
     <fragment
         android:id="@+id/transactionDetailFragment"
-        android:name="com.example.makeMyBudget.TransactionLibrary.TransactionDetailFragment"
+        android:name="com.example.makeMyBudget.TransactionLibrary.AddOrEditTransactionFragment"
         android:label="fragment_transaction_detail"
-        tools:layout="@layout/fragment_transaction_detail" />
+        tools:layout="@layout/fragment_add_or_edit_transaction" />
     <fragment
         android:id="@+id/userBudgetDetailsFragment"
-        android:name="com.example.makeMyBudget.UserBudgetDetailsFragment"
+        android:name="com.example.makeMyBudget.initialScreens.UserBudgetDetailsFragment"
         android:label="fragment_user_budget_details"
         tools:layout="@layout/fragment_user_budget_details" />
     <fragment
@@ -58,4 +77,14 @@
         android:name="com.example.makeMyBudget.initialScreens.MainScreenFragment"
         android:label="fragment_main_screen"
         tools:layout="@layout/fragment_main_screen" />
+    <fragment
+        android:id="@+id/googleLoginFragment"
+        android:name="com.example.makeMyBudget.authentication.GoogleLoginFragment"
+        android:label="fragment_google_login"
+        tools:layout="@layout/fragment_google_login" />
+    <fragment
+        android:id="@+id/facebookLoginFragment"
+        android:name="com.example.makeMyBudget.authentication.FacebookLoginFragment"
+        android:label="fragment_facebook_login"
+        tools:layout="@layout/fragment_facebook_login" />
 </navigation>
