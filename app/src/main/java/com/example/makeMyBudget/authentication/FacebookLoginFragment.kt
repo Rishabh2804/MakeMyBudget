@@ -11,7 +11,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
-import com.example.makeMyBudget.R
+import com.example.makemybudget.R
+
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
@@ -19,10 +20,7 @@ import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 
 class FacebookLoginFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,6 +68,7 @@ class FacebookLoginFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_facebook_login, container, false)
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     private fun handleFBLogin(result: LoginResult) {
         val credentials = FacebookAuthProvider.getCredential(result.accessToken.token)
         GlobalScope.launch(Dispatchers.IO) {
@@ -77,24 +76,28 @@ class FacebookLoginFragment : Fragment() {
             val allCheck: Boolean = sharedPreferences.getBoolean("allCheck", false)
             auth.addOnCompleteListener {
                 if (it.isSuccessful) {
+                    Toast.makeText(activity, "Login Successful", Toast.LENGTH_SHORT).show()
                     val user = auth.result?.user
                 } else {
                     Toast.makeText(activity, "Login Failed", Toast.LENGTH_SHORT).show()
                 }
             }
             withContext(Dispatchers.Main) {
+
                 sharedPreferences.edit().putBoolean("isRegistered", true).apply()
                 val action: NavDirections = if (allCheck)
-                    LoginScreenFragmentDirections.actionLoginScreenFragmentToUserBudgetDetailsFragment()
+                    FacebookLoginFragmentDirections.actionFacebookLoginFragmentToUserBudgetDetailsFragment()
                 else
-                    LoginScreenFragmentDirections.actionLoginScreenFragmentToMainScreenFragment()
+                    FacebookLoginFragmentDirections.actionFacebookLoginFragmentToMainScreenFragment()
 
                 findNavController().navigate(action)
             }
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+        callBackManager.onActivityResult(requestCode, resultCode, data)
+
     }
 }

@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import android.widget.ListView
 import android.widget.Spinner
 import android.widget.TextView
-import com.example.makeMyBudget.databinding.FragmentAddOrEditTransactionBinding
-import com.example.makeMyBudget.databinding.FragmentTransactionTabBinding
+import com.example.makemybudget.R
+import com.example.makemybudget.databinding.FragmentTransactionTabBinding
 import kotlin.collections.ArrayList
 
 class TransactionTabFragment : Fragment() {

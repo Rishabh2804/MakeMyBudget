@@ -4,9 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".TransactionLibrary.AddOrEditTransactionFragment">
-
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/contraint_layout"
@@ -72,8 +70,8 @@
             android:layout_marginStart="28dp"
             android:layout_marginTop="8dp"
             android:text="Amount : "
-            app:layout_constraintEnd_toStartOf="@+id/textView6"
-            app:layout_constraintHorizontal_bias="0.549"
+            app:layout_constraintEnd_toStartOf="@+id/trans_amount_input"
+            app:layout_constraintHorizontal_bias="0.043"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/trans_desc_input" />
 
@@ -177,17 +175,15 @@
 
         <Spinner
             android:id="@+id/tags_spinner"
-            android:layout_width="359dp"
+            android:layout_width="match_parent"
             android:layout_height="28dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.557"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="475dp" />
+            app:layout_constraintTop_toBottomOf="@+id/transaction_tags" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
-
-    <!--ek screen aayegi alag jisme transactio details add hongi
-    bulkul isi tareh
-
-    -->

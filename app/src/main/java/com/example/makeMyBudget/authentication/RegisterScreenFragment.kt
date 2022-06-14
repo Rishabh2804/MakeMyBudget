@@ -6,8 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.example.makeMyBudget.databinding.FragmentRegisterScreenBinding
+import androidx.navigation.fragment.findNavController
 import com.example.makeMyBudget.entities.User
+import com.example.makemybudget.databinding.FragmentRegisterScreenBinding
 import com.google.firebase.auth.FirebaseAuth
 
 class RegisterScreenFragment : Fragment() {
@@ -34,12 +35,14 @@ class RegisterScreenFragment : Fragment() {
             handleCustomLogin()
         }
 
+
         binding.googleLoginButton.setOnClickListener {
-            RegisterScreenFragmentDirections.actionRegisterScreenFragmentToGoogleLoginFragment()
+            findNavController().navigate(RegisterScreenFragmentDirections.actionRegisterScreenFragmentToGoogleLoginFragment())
         }
         binding.fbLoginButton.setOnClickListener {
-            RegisterScreenFragmentDirections.actionRegisterScreenFragmentToFacebookLoginFragment()
+            findNavController().navigate(RegisterScreenFragmentDirections.actionRegisterScreenFragmentToFacebookLoginFragment())
         }
+
         return binding.root
     }
 

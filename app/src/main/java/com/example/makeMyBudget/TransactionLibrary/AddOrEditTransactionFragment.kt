@@ -10,8 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.core.view.isVisible
-import com.example.makeMyBudget.R
-import com.example.makeMyBudget.databinding.FragmentAddOrEditTransactionBinding
+import com.example.makemybudget.R
+import com.example.makemybudget.databinding.FragmentAddOrEditTransactionBinding
 import java.text.SimpleDateFormat
 import java.util.*
 

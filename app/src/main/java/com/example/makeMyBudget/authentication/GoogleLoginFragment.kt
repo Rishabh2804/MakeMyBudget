@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
-import com.example.makeMyBudget.R
+import com.example.makemybudget.R
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -85,9 +85,13 @@ class GoogleLoginFragment : Fragment() {
     private fun firebaseAuthWithGoogle(account: GoogleSignInAccount) {
         val credentials = GoogleAuthProvider.getCredential(account.idToken, null)
         GlobalScope.launch(Dispatchers.IO) {
-            val auth = firebaseAuth.signInWithCredential(credentials)
-            val user = auth.result.user
-            withContext(Dispatchers.Main) {
+
+            val auth = firebaseAuth.signInWithCredential(credentials).addOnSuccessListener {
+                Toast.makeText(context, "Google sign in success 🎉", Toast.LENGTH_SHORT)
+                    .show()
+
+                val user = it.user
+
                 if (user != null) {
                     sharedPreferences.edit().putBoolean("isLoggedIn", true).apply()
                     sharedPreferences.edit().putBoolean("isRegistered", true).apply()
@@ -99,9 +103,9 @@ class GoogleLoginFragment : Fragment() {
 
     private fun action() {
         val action: NavDirections = if (allCheck)
-            LoginScreenFragmentDirections.actionLoginScreenFragmentToUserBudgetDetailsFragment()
+            GoogleLoginFragmentDirections.actionGoogleLoginFragmentToUserBudgetDetailsFragment()
         else
-            LoginScreenFragmentDirections.actionLoginScreenFragmentToMainScreenFragment()
+            GoogleLoginFragmentDirections.actionGoogleLoginFragmentToMainScreenFragment()
 
         findNavController().navigate(action)
     }

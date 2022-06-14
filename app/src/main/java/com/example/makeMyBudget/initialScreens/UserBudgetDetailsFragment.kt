@@ -5,8 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.makeMyBudget.databinding.FragmentFrontScreenBinding
-import com.example.makeMyBudget.databinding.FragmentUserBudgetDetailsBinding
+import com.example.makemybudget.databinding.FragmentUserBudgetDetailsBinding
 
 class UserBudgetDetailsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {

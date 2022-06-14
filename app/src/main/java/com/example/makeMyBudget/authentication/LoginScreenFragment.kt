@@ -11,8 +11,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
-import com.example.makeMyBudget.R
-import com.example.makeMyBudget.databinding.FragmentLoginScreenBinding
+import com.example.makemybudget.R
+import com.example.makemybudget.databinding.FragmentLoginScreenBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -100,6 +100,8 @@ class LoginScreenFragment : Fragment() {
                                     "Welcome to MakeMyBudget",
                                     Toast.LENGTH_SHORT
                                 ).show()
+                                action()
+
                             } else {
                                 Toast.makeText(
                                     context,
@@ -107,6 +109,7 @@ class LoginScreenFragment : Fragment() {
                                     Toast.LENGTH_SHORT
                                 )
                                     .show()
+
                             }
                         }
                 }
@@ -116,5 +119,13 @@ class LoginScreenFragment : Fragment() {
 
 
         return binding.root
+    }
+
+    private fun action() {
+        var action =LoginScreenFragmentDirections.actionLoginScreenFragmentToMainScreenFragment()
+        if (!allCheck)
+            action =LoginScreenFragmentDirections.actionLoginScreenFragmentToUserBudgetDetailsFragment()
+
+        findNavController().navigate(action)
     }
 }

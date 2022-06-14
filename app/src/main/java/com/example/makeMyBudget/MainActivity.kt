@@ -2,7 +2,8 @@ package com.example.makeMyBudget
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.makeMyBudget.R
+import com.example.makemybudget.R
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
