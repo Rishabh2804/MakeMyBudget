@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import com.example.makeMyBudget.daoS.TransactionDB
 import com.example.makeMyBudget.entities.*
-import java.time.YearMonth
 import java.util.*
 
 class ListHandlerRepo(application: Application) {
@@ -89,10 +88,10 @@ class ListHandlerRepo(application: Application) {
     fun getYears(user_id: String): LiveData<List<Int>> =
         listHandlerDao.getYears(user_id)
 
-    fun countTransactionsByMonthYear(user_id: String, monthYear: Long): LiveData<Int> =
+    fun countTransactionsByMonthYear(user_id: String, monthYear: Int): LiveData<Int> =
         listHandlerDao.countTransactionsByMonth(user_id, monthYear)
 
-    fun getTransactionsByMonthYear(user_id: String, monthYear: Long): LiveData<List<Transaction>> =
+    fun getTransactionsByMonthYear(user_id: String, monthYear: Int): LiveData<List<Transaction>> =
         listHandlerDao.getTransactionsByMonth(user_id, monthYear)
 
     fun getTransactionsByMonth(user_id: String): LiveData<List<Transaction>> =
@@ -104,4 +103,10 @@ class ListHandlerRepo(application: Application) {
     fun getTransactionsByYear(user_id: String, year: Int): LiveData<List<Transaction>> =
         listHandlerDao.getTransactionsByYear(user_id, year)
 
+    fun getAmountByMonthYearAndType(
+        user_id: String,
+        transactionType: Int,
+        monthYear: Int
+    ): LiveData<Double> =
+        listHandlerDao.getAmountByMonthYearAndType(user_id, transactionType, monthYear)
 }

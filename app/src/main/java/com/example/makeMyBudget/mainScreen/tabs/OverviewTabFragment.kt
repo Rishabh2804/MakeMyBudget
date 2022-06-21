@@ -33,7 +33,6 @@ class OverviewTabFragment : Fragment() {
     private lateinit var viewModel: MainScreenViewModel
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var binding: FragmentOverviewTabBinding
-    private lateinit var colors: Array<Int>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,33 +50,33 @@ class OverviewTabFragment : Fragment() {
             "Mode",
         )
 
-        colors = arrayOf()
         val pieChartAdapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_spinner_item,
             pieChartChoices
         )
 
-        binding.spinner.adapter = pieChartAdapter
+        binding.pieChartSpinner.adapter = pieChartAdapter
 
         setPieChart("Category")
-        binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                viewModel.setChoice(pieChartChoices[position])
-                viewModel.choice.observe(viewLifecycleOwner) {
-                    setPieChart(it)
+        binding.pieChartSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    viewModel.setChoice(pieChartChoices[position])
+                    viewModel.choice.observe(viewLifecycleOwner) {
+                        setPieChart(it)
+                    }
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
                 }
             }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-
-            }
-        }
 
         val barChartYears: MutableList<String> = mutableListOf()
         viewModel.years.observe(viewLifecycleOwner) {
@@ -132,9 +131,13 @@ class OverviewTabFragment : Fragment() {
 
 
     fun setPieChart(pieChartMode: String) {
+
+        val colors: Array<Int>
+        var pieEntries: ArrayList<PieModel>
+
         when (pieChartMode) {
             "Category" -> {
-                var pieEntries = arrayListOf<PieModel>()
+
                 colors = arrayOf(
                     R.color.category_food,
                     R.color.category_clothing,
@@ -164,7 +167,6 @@ class OverviewTabFragment : Fragment() {
             }
 
             "Type" -> {
-                var pieEntries = arrayListOf<PieModel>()
                 colors = arrayOf(
                     R.color.type_income,
                     R.color.type_expense
@@ -187,7 +189,6 @@ class OverviewTabFragment : Fragment() {
             }
 
             "Mode" -> {
-                var pieEntries = arrayListOf<PieModel>()
                 colors = arrayOf(
                     R.color.mode_cash,
                     R.color.mode_credit_card,

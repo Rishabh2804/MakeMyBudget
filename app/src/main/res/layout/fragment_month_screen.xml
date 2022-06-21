@@ -36,7 +36,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/textView10"
+            android:id="@+id/view_details_link"
             android:layout_width="166dp"
             android:layout_height="56dp"
             android:layout_marginLeft="20dp"

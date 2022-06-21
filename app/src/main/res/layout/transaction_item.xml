@@ -5,48 +5,62 @@
     android:id="@+id/item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/transaction_pending">
+    android:background="#D3EBFD"
+    android:paddingBottom="10dp">
+
+    <View
+        android:id="@+id/expenseOrIncome"
+        android:layout_width="5dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:background="#BC6565"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </View>
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/category_icon"
+        android:id="@+id/categorized_image"
         android:layout_width="46dp"
         android:layout_height="38dp"
 
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="4dp"
         android:src="@drawable/common_google_signin_btn_icon_dark"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/expenseOrIncome"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/category_name"
+        android:id="@+id/month_transaction"
         android:layout_width="57dp"
         android:layout_height="18dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/category_icon"
+        app:layout_constraintEnd_toEndOf="@+id/categorized_image"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/category_icon"
-        app:layout_constraintTop_toBottomOf="@+id/category_icon"
+        app:layout_constraintStart_toStartOf="@+id/categorized_image"
+        app:layout_constraintTop_toBottomOf="@+id/categorized_image"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/trans_title"
+        android:id="@+id/transaction_title"
         android:layout_width="87dp"
         android:layout_height="15dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
         android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@+id/textView6"
+        app:layout_constraintEnd_toEndOf="@+id/amount"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textView6"
+        app:layout_constraintStart_toStartOf="@+id/amount"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/amount"
         android:layout_width="87dp"
         android:layout_height="15dp"
         android:layout_marginStart="36dp"
@@ -54,12 +68,12 @@
         android:text="TextView"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/category_name"
-        app:layout_constraintTop_toBottomOf="@+id/trans_title"
+        app:layout_constraintStart_toEndOf="@+id/month_transaction"
+        app:layout_constraintTop_toBottomOf="@+id/transaction_title"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/date"
+        android:id="@+id/GainOrLoss"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -69,12 +83,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/view_details_link"
+        android:id="@+id/profitOrLoss"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
         android:text="View Details ➡"
         app:layout_constraintBottom_toBottomOf="@+id/item"
-        app:layout_constraintEnd_toEndOf="@+id/date" />
+        app:layout_constraintEnd_toEndOf="@+id/GainOrLoss" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

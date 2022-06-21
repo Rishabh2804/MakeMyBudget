@@ -25,9 +25,4 @@ class ViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
             }
         }
     }
-
-
-
-
-
 }

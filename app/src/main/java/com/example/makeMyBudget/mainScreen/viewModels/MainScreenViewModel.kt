@@ -89,7 +89,7 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
             monthlyTransactionData.value?.add(
                 repo.countTransactionsByMonthYear(
                     _userID.value!!,
-                    (monthYear + i).toLong()
+                    (monthYear + i)
                 ).value!!
             )
         }

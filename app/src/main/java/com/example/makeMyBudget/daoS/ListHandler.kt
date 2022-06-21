@@ -4,8 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
 import com.example.makeMyBudget.entities.*
-import java.time.Year
-import java.util.*
 
 @Dao
 interface ListHandler {
@@ -65,6 +63,9 @@ interface ListHandler {
     @Query("SELECT year FROM transactions WHERE user_id = :user_id GROUP BY year")
     fun getYears(user_id: String): LiveData<List<Int>>
 
+    @Query("SELECT SUM(transactionAmount) FROM transactions WHERE user_id= :user_id and transactionType= :transactionType and monthYear= :monthYear")
+    fun getAmountByMonthYearAndType(user_id: String, transactionType: Int, monthYear: Int) : LiveData<Double>
+
     @Query("SELECT SUM(transactionAmount) FROM transactions WHERE user_id = :user_id and transactionMode = :transactionMode and transactionDate = :date")
     fun getAmountByModeAndDate(
         user_id: String,
@@ -94,10 +95,10 @@ interface ListHandler {
     ): LiveData<Double>
 
     @Query("SELECT * FROM transactions WHERE user_id = :user_id and monthYear = :monthYear ORDER BY transactionDate DESC")
-    fun getTransactionsByMonth(user_id: String, monthYear: Long): LiveData<List<Transaction>>
+    fun getTransactionsByMonth(user_id: String, monthYear: Int): LiveData<List<Transaction>>
 
     @Query("SELECT COUNT(*) FROM transactions WHERE user_id = :userId and monthYear = :monthYear ORDER BY transactionDate DESC")
-    fun countTransactionsByMonth(userId: String, monthYear: Long): LiveData<Int>
+    fun countTransactionsByMonth(userId: String, monthYear: Int): LiveData<Int>
 
     @Query("SELECT * FROM transactions WHERE user_id = :user_id and year = :year ORDER BY transactionDate")
     fun getTransactionsByYear(user_id: String, year: Int): LiveData<List<Transaction>>
