@@ -1,4 +1,4 @@
-package com.example.makeMyBudget
+package com.example.makeMyBudget.mainScreen.tabs
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.makemybudget.R
 
-class OverviewTabFragment : Fragment() {
+class TransactionsLogTabFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -17,7 +17,7 @@ class OverviewTabFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_overview_tab, container, false)
+        return inflater.inflate(R.layout.fragment_recent_transactions_tab, container, false)
     }
 
 }

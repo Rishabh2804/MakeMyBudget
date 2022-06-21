@@ -1,4 +1,4 @@
-package com.example.makeMyBudget
+package com.example.makeMyBudget.mainScreen.tabs
 
 import android.content.SharedPreferences
 import android.os.Bundle

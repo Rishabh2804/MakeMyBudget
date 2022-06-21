@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
 import com.example.makeMyBudget.entities.*
+import java.time.Year
 import java.util.*
 
 @Dao
@@ -36,6 +37,7 @@ interface ListHandler {
         transactionStatus: TransactionStatus
     ): LiveData<List<Transaction>>
 
+
     @Query("SELECT SUM(transactionAmount) FROM transactions WHERE user_id = :user_id and transactionCategory = :transactionCategory")
     fun getAmountByCategory(
         user_id: String,
@@ -56,6 +58,9 @@ interface ListHandler {
 
     @Query("SELECT SUM(transactionAmount) FROM transactions WHERE user_id = :user_id and monthYear = :monthYear")
     fun getAmountByMonth(user_id: String, monthYear: Long): LiveData<Double>
+
+    @Query("SELECT SUM(transactionAmount) FROM transactions WHERE user_id = :user_id and year = :year ORDER BY transactionDate")
+    fun getAmountByYear(user_id: String, year: Int): LiveData<Double>
 
     @Query("SELECT year FROM transactions WHERE user_id = :user_id GROUP BY year")
     fun getYears(user_id: String): LiveData<List<Int>>
@@ -91,7 +96,17 @@ interface ListHandler {
     @Query("SELECT * FROM transactions WHERE user_id = :user_id and monthYear = :monthYear ORDER BY transactionDate DESC")
     fun getTransactionsByMonth(user_id: String, monthYear: Long): LiveData<List<Transaction>>
 
+    @Query("SELECT COUNT(*) FROM transactions WHERE user_id = :userId and monthYear = :monthYear ORDER BY transactionDate DESC")
+    fun countTransactionsByMonth(userId: String, monthYear: Long): LiveData<Int>
+
+    @Query("SELECT * FROM transactions WHERE user_id = :user_id and year = :year ORDER BY transactionDate")
+    fun getTransactionsByYear(user_id: String, year: Int): LiveData<List<Transaction>>
+
+    @Query("SELECT COUNT(*) FROM transactions WHERE user_id = :user_id and year = :year ORDER BY transactionDate")
+    fun countTransactionsByYear(user_id: String, year: Int): LiveData<Int>
+
     @Query("SELECT * FROM transactions WHERE user_id = :user_id GROUP BY monthYear ORDER BY year, month DESC")
     fun getTransactionsAllMonths(user_id: String): LiveData<List<Transaction>>
+
 
 }

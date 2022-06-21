@@ -1,5 +1,6 @@
 buildscript {
     repositories {
+        google()
         mavenCentral()
     }
     dependencies {
@@ -18,4 +19,7 @@ plugins {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+allprojects {
 }

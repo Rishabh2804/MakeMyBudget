@@ -1,6 +1,8 @@
 package com.example.makeMyBudget.authentication
 
+import R2.string.default_web_client_id
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Patterns
@@ -13,10 +15,20 @@ import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.example.makemybudget.R
 import com.example.makemybudget.databinding.FragmentLoginScreenBinding
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.login.LoginManager
+import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
+import kotlinx.coroutines.*
 
 
 class LoginScreenFragment : Fragment() {
@@ -27,11 +39,15 @@ class LoginScreenFragment : Fragment() {
 
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var binding: FragmentLoginScreenBinding
+    private lateinit var action : NavDirections
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
-    private var allCheck: Boolean = false
     private val SIGN_IN_CODE = 12345
-
+    private lateinit var callBackManager: CallbackManager
+    
+    private var allCheck: Boolean = false
+    
+    
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,8 +57,6 @@ class LoginScreenFragment : Fragment() {
         val isRegistered: Boolean = sharedPreferences.getBoolean("isRegistered", false)
         val isLoggedIn: Boolean = sharedPreferences.getBoolean("isLoggedIn", false)
         allCheck = sharedPreferences.getBoolean("allCheck", false)
-
-        var action: NavDirections
 
         // Initialize Firebase Auth
         firebaseAuth = FirebaseAuth.getInstance()
@@ -61,15 +75,13 @@ class LoginScreenFragment : Fragment() {
         binding.customRegisterButton.setBackgroundColor(resources.getColor(R.color.white))
         binding.customRegisterButton.setTextColor(resources.getColor(R.color.black))
         binding.googleLoginButton.setOnClickListener {
-            action =
-                LoginScreenFragmentDirections.actionLoginScreenFragmentToGoogleLoginFragment()
-            findNavController().navigate(action)
+            googleLogin()
         }
+
         binding.fbLoginButton.setOnClickListener {
-            action =
-                LoginScreenFragmentDirections.actionLoginScreenFragmentToFacebookLoginFragment()
-            findNavController().navigate(action)
+            fbLogin()
         }
+
         binding.customRegisterButton.setOnClickListener {
             action =
                 LoginScreenFragmentDirections.actionLoginScreenFragmentToRegisterScreenFragment()
@@ -122,10 +134,99 @@ class LoginScreenFragment : Fragment() {
     }
 
     private fun action() {
-        var action =LoginScreenFragmentDirections.actionLoginScreenFragmentToMainScreenFragment()
-        if (!allCheck)
-            action =LoginScreenFragmentDirections.actionLoginScreenFragmentToUserBudgetDetailsFragment()
-
+        val action : NavDirections = if (!allCheck)
+            LoginScreenFragmentDirections.actionLoginScreenFragmentToUserBudgetDetailsFragment()
+        else
+            LoginScreenFragmentDirections.actionLoginScreenFragmentToMainScreenFragment()
+        
         findNavController().navigate(action)
+    }
+
+    private fun googleLogin() {
+        val intent = googleSignInClient.signInIntent
+        startActivityForResult(intent, SIGN_IN_CODE)
+        action()
+    }
+
+    private fun fbLogin() {
+        callBackManager = CallbackManager.Factory.create()
+
+        LoginManager.getInstance().logInWithReadPermissions(this, listOf("public_profile", "email"))
+
+        LoginManager.getInstance()
+            .registerCallback(
+                callBackManager,
+                object : FacebookCallback<LoginResult> {
+                    override fun onCancel() {
+                        Toast.makeText(activity, "Login Cancelled", Toast.LENGTH_SHORT).show()
+                    }
+
+                    override fun onError(error: FacebookException) {
+                        Toast.makeText(activity, "Login Failed", Toast.LENGTH_SHORT).show()
+                    }
+
+                    override fun onSuccess(result: LoginResult) {
+                        handleFBLogin(result)
+                    }
+
+                }
+            )
+    }
+
+    @OptIn(DelicateCoroutinesApi::class)
+    private fun handleFBLogin(result: LoginResult) {
+        val credentials = FacebookAuthProvider.getCredential(result.accessToken.token)
+        GlobalScope.launch(Dispatchers.IO) {
+            val auth = firebaseAuth.signInWithCredential(credentials)
+            val allCheck: Boolean = sharedPreferences.getBoolean("allCheck", false)
+            auth.addOnCompleteListener {
+                if (it.isSuccessful) {
+                    Toast.makeText(activity, "Login Successful", Toast.LENGTH_SHORT).show()
+                    val user = auth.result?.user
+                } else {
+                    Toast.makeText(activity, "Login Failed", Toast.LENGTH_SHORT).show()
+                }
+            }
+            withContext(Dispatchers.Main) {
+
+                sharedPreferences.edit().putBoolean("isRegistered", true).apply()
+                action()
+            }
+        }
+    }
+
+    private fun firebaseAuthWithGoogle(account: GoogleSignInAccount) {
+        val credentials = GoogleAuthProvider.getCredential(account.idToken, null)
+        GlobalScope.launch(Dispatchers.IO) {
+
+            val auth = firebaseAuth.signInWithCredential(credentials).addOnSuccessListener {
+                Toast.makeText(context, "Google sign in success 🎉", Toast.LENGTH_SHORT)
+                    .show()
+
+                val user = it.user
+
+                if (user != null) {
+                    sharedPreferences.edit().putBoolean("isLoggedIn", true).apply()
+                    sharedPreferences.edit().putBoolean("isRegistered", true).apply()
+                    action()
+                }
+            }
+        }
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == SIGN_IN_CODE) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                val account = task.getResult(ApiException::class.java)
+                firebaseAuthWithGoogle(account!!)
+            } catch (e: ApiException) {
+                Toast.makeText(context, "Google sign in failed ☹", Toast.LENGTH_SHORT)
+                    .show()
+            }
+            super.onActivityResult(requestCode, resultCode, data)
+        } else
+            callBackManager.onActivityResult(requestCode, resultCode, data)
     }
 }

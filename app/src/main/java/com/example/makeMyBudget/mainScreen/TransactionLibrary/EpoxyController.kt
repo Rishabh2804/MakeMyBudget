@@ -1,4 +1,4 @@
-package com.example.makeMyBudget.TransactionLibrary
+package com.example.makeMyBudget.mainScreen.TransactionLibrary
 
 import com.airbnb.epoxy.AsyncEpoxyController
 
