@@ -54,7 +54,7 @@ class TransactionListAdapter(private val listener: (Long) -> Unit) :
                     layout.setBackgroundColor(status_color[1])
                 else -> layout.setBackgroundColor(status_color[2])
             }
-            
+
             title.text = transaction.title
 
             mode.text = transaction.transactionMode.name

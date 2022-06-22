@@ -13,7 +13,7 @@ import com.example.makeMyBudget.mainScreen.TransactionLibrary.TransactionListAda
 import com.example.makemybudget.R
 
 @EpoxyModelClass
-abstract class EpoxyViewHolder : EpoxyModelWithHolder<EpoxyViewHolder.Holder>() {
+abstract class TransactionLogModel : EpoxyModelWithHolder<TransactionLogModel.Holder>() {
 
     @EpoxyAttribute
     lateinit var title: String

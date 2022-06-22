@@ -93,7 +93,7 @@ class AddOrEditTransactionFragment : Fragment() {
         val user_id = firebaseAuth.currentUser!!.uid
         viewModel.setUserId(user_id)
 
-        val transaction_id = AddOrEditTransactionFragmentArgs.fromBundle(arguments).transId
+        val transaction_id = AddOrEditTransactionFragmentArgs.fromBundle(requireArguments()).transId
         viewModel.setTransId(transaction_id)
 
         viewModel.transaction.observe(viewLifecycleOwner) {

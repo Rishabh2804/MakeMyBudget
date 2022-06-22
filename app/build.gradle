@@ -7,11 +7,17 @@ plugins {
     id 'com.jakewharton.butterknife'
 }
 
+kapt {
+    correctErrorTypes = true
+}
+
 android {
 
     buildFeatures {
         viewBinding true
+
     }
+
 
     dataBinding { enabled = true }
 
@@ -56,14 +62,13 @@ dependencies {
     implementation 'com.nineoldandroids:library:2.4.0'
 
     implementation 'com.airbnb.android:epoxy-databinding:2.6.0'
-
     implementation "com.airbnb.android:epoxy:5.0.0-beta05"
-    // Add the annotation processor if you are using Epoxy's annotations (recommended)
     annotationProcessor "com.airbnb.android:epoxy-processor:5.0.0-beta05"
 
     // Kotlin
     implementation("androidx.fragment:fragment-ktx:1.4.1")
     implementation 'com.google.android.gms:play-services-auth:20.2.0'
+
     // Testing Fragments in Isolation
     debugImplementation("androidx.fragment:fragment-testing:1.4.1")
 

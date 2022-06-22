@@ -2,7 +2,7 @@ package com.example.makeMyBudget.mainScreen.TransactionLibrary
 
 import com.airbnb.epoxy.AsyncEpoxyController
 
-class EpoxyController() : AsyncEpoxyController() {
+class MonthsEpoxyController() : AsyncEpoxyController() {
     var transactYears = mutableListOf<EpoxyData>()
         set(value) {
             field = value

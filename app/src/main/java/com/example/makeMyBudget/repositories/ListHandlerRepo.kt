@@ -105,7 +105,7 @@ class ListHandlerRepo(application: Application) {
 
     fun getAmountByMonthYearAndType(
         user_id: String,
-        transactionType: Int,
+        transactionType: TransactionType,
         monthYear: Int
     ): LiveData<Double> =
         listHandlerDao.getAmountByMonthYearAndType(user_id, transactionType, monthYear)
