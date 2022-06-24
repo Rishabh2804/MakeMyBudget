@@ -64,9 +64,9 @@ class MainScreenFragment : Fragment() {
         })
 
         val userId = firebaseAuth.currentUser?.uid!!
-        viewModel.setUserId(userId)
+        viewModel.setUserID(userId)
 
-        binding.viewPager.adapter = ViewPagerAdapter(parentFragmentManager)
+        binding.viewPager.adapter = ViewPagerAdapter(parentFragmentManager, this)
 
         val activeIncome = sharedPreferences.getString("income", "0")?.toDouble()
         val totalGains = viewModel.gains.value

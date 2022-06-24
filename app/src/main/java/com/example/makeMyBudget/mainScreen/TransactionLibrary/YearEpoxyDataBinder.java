@@ -6,6 +6,6 @@ import com.example.makemybudget.R;
 
 
 @EpoxyDataBindingPattern(rClass = R.class, layoutPrefix = "item")
-public interface MonthsEpoxyDataBinder {
+public interface YearEpoxyDataBinder {
 
 }

@@ -11,13 +11,14 @@
     </data>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/id_card_view"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
 
-        app:cardMaxElevation="50dp"
+        android:layout_height="150dp"
         android:layout_margin="4dp"
         app:cardCornerRadius="15dp"
-        app:cardElevation="50dp">
+        app:cardElevation="50dp"
+        app:cardMaxElevation="50dp">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -25,6 +26,7 @@
             android:layout_margin="12dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/month_card"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 

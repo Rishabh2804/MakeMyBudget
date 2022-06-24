@@ -63,7 +63,10 @@
         android:id="@+id/transactionDetailFragment"
         android:name="com.example.makeMyBudget.mainScreen.TransactionLibrary.TransactionDetailFragment"
         android:label="fragment_transaction_detail"
-        tools:layout="@layout/fragment_transaction_detail" />
+        tools:layout="@layout/fragment_transaction_detail" >
+        <argument android:name="trans_id"
+            app:argType="long" />
+    </fragment>
     <fragment
         android:id="@+id/userBudgetDetailsFragment"
         android:name="com.example.makeMyBudget.initialScreens.UserBudgetDetailsFragment"
@@ -77,6 +80,12 @@
         <action
             android:id="@+id/action_mainScreenFragment_to_addOrEditTransactionFragment"
             app:destination="@id/addOrEditTransactionFragment" />
+        <action
+            android:id="@+id/action_mainScreenFragment_to_transactionDetailFragment"
+            app:destination="@id/transactionDetailFragment" />
+        <action
+            android:id="@+id/action_mainScreenFragment_to_monthScreenFragment"
+            app:destination="@id/monthScreenFragment" />
     </fragment>
     <fragment
         android:id="@+id/facebookLoginFragment"
@@ -112,5 +121,28 @@
         <action
             android:id="@+id/action_addOrEditTransactionFragment_to_mainScreenFragment"
             app:destination="@id/mainScreenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/monthScreenFragment"
+        android:name="com.example.makeMyBudget.mainScreen.TransactionLibrary.MonthScreenFragment"
+        android:label="fragment_month_screen"
+        tools:layout="@layout/fragment_month_screen" >
+        <argument
+            android:name="monthYear"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_monthScreenFragment_to_transactionDetailFragment"
+            app:destination="@id/transactionDetailFragment" />
+        <action
+            android:id="@+id/action_monthScreenFragment_to_addOrEditTransactionFragment"
+            app:destination="@id/addOrEditTransactionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/calenderViewFragment"
+        android:name="com.example.makeMyBudget.mainScreen.TransactionLibrary.CalendarViewFragment"
+        android:label="CalenderViewFragment" >
+        <argument
+            android:name="monthYear"
+            app:argType="integer" />
     </fragment>
 </navigation>

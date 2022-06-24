@@ -128,7 +128,6 @@ class LoginScreenFragment : Fragment() {
 
         }
 
-
         return binding.root
     }
 

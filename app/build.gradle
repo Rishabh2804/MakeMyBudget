@@ -18,9 +18,7 @@ android {
 
     }
 
-
     dataBinding { enabled = true }
-
 
     compileSdk 32
 
@@ -52,7 +50,11 @@ android {
 
 dependencies {
 
+    implementation 'com.github.kevingermainbusiness:ItemDecorator:1.0.15'
+
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    implementation 'com.applandeo:material-calendar-view:1.7.0'
+    implementation 'sun.bob:mcalendarview:1.0.0'
 
     implementation 'com.google.gms:google-services:4.3.10'
     implementation "androidx.viewpager2:viewpager2:1.0.0"
@@ -63,7 +65,7 @@ dependencies {
 
     implementation 'com.airbnb.android:epoxy-databinding:2.6.0'
     implementation "com.airbnb.android:epoxy:5.0.0-beta05"
-    annotationProcessor "com.airbnb.android:epoxy-processor:5.0.0-beta05"
+    kapt "com.airbnb.android:epoxy-processor:5.0.0-beta05"
 
     // Kotlin
     implementation("androidx.fragment:fragment-ktx:1.4.1")

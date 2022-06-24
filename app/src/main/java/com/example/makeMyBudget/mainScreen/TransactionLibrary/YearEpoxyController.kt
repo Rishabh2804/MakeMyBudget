@@ -1,8 +1,9 @@
 package com.example.makeMyBudget.mainScreen.TransactionLibrary
 
+import androidx.fragment.app.Fragment
 import com.airbnb.epoxy.AsyncEpoxyController
 
-class MonthsEpoxyController() : AsyncEpoxyController() {
+class YearEpoxyController(val fragment: Fragment) : AsyncEpoxyController() {
     var transactYears = mutableListOf<EpoxyData>()
         set(value) {
             field = value
@@ -11,9 +12,9 @@ class MonthsEpoxyController() : AsyncEpoxyController() {
 
     override fun buildModels() {
         transactYears.forEachIndexed { index, epoxyData ->
-            if(epoxyData.toDisplay) {
+            val monthAdapter = MonthAdapter(epoxyData.mutableList, fragment)
 
-            }
+
         }
     }
 }

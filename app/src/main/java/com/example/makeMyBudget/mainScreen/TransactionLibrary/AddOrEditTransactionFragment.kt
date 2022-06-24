@@ -36,7 +36,6 @@ class AddOrEditTransactionFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        // Inflate the layout for this fragment
         binding = FragmentAddOrEditTransactionBinding.inflate(inflater, container, false)
 
         val mode: String? = sharedPreferences.getString("mode", "")!!
@@ -101,6 +100,7 @@ class AddOrEditTransactionFragment : Fragment() {
                 setData(it)
             }
         }
+
         binding.cancelButton.setOnClickListener {
 
             val dialog = AlertDialog.Builder(requireContext())
@@ -160,7 +160,7 @@ class AddOrEditTransactionFragment : Fragment() {
         val monthyear = year * 100 + month
         val type: TransactionType =
             TransactionType.values()[binding.radioGroup.checkedRadioButtonId]
-        val status: TransactionStatus = TransactionStatus.UPCOMING
+        val status: TransactionStatus = TransactionStatus.PENDING
         val transaction = Transaction(
             viewModel.userID.value!!,
             viewModel.transactionID.value!!,
@@ -179,6 +179,7 @@ class AddOrEditTransactionFragment : Fragment() {
             mode,
             status
         )
+
         viewModel.insertOrUpdate(transaction)
         Toast.makeText(requireContext(), "Transaction added/updated", Toast.LENGTH_SHORT).show()
         findNavController().navigate(AddOrEditTransactionFragmentDirections.actionAddOrEditTransactionFragmentToMainScreenFragment())

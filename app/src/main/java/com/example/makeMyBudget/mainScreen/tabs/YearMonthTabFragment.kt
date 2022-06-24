@@ -13,7 +13,7 @@ import com.example.makemybudget.R
 import com.example.makemybudget.databinding.FragmentTransactionTabBinding
 import kotlin.collections.ArrayList
 
-class TransactionTabFragment : Fragment() {
+class YearMonthTabFragment (val fragment: Fragment): Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

@@ -3,8 +3,6 @@ package com.example.makeMyBudget.entities
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
-import java.time.Month
-import java.time.Year
 import java.util.*
 
 @Entity(tableName = "transactions")
@@ -62,6 +60,5 @@ enum class TransactionMode {
 
 enum class TransactionStatus {
     COMPLETED,
-    UPCOMING,
-    MISSED,
+    PENDING,
 }

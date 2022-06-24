@@ -1,0 +1,16 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scroll_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.makeMyBudget.mainScreen.tabs.TransactionsLogTabFragment"
+    tools:ignore="SpeakableTextPresentCheck">
+
+    <com.airbnb.epoxy.EpoxyRecyclerView
+        android:id="@+id/transactions_log_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.airbnb.epoxy.EpoxyRecyclerView>
+</androidx.constraintlayout.widget.ConstraintLayout>
