@@ -68,11 +68,16 @@ class MainScreenFragment : Fragment() {
 
         binding.viewPager.adapter = ViewPagerAdapter(parentFragmentManager, this)
 
-        val activeIncome = sharedPreferences.getString("income", "0")?.toDouble()
-        val totalGains = viewModel.gains.value
-        val totalExpenses = viewModel.expense.value
+        val activeMonthlyIncome = sharedPreferences.getString("income", "0")?.toDouble()
+        val activeYearlyPackage = activeMonthlyIncome?.times(12)
 
-        val totalCredit = totalGains?.plus((activeIncome!!))
+        val totalGains = viewModel.allTimeGains.value
+        val totalExpenses = viewModel.allTimeExpense.value
+
+        val yearlyGains = viewModel.yearlyGains.value
+        val yearlyExpenses = viewModel.yearlyExpenses.value
+
+        val totalCredit = totalGains?.plus((activeMonthlyIncome!!.times(12)))
         binding.totalCredit.text = totalCredit.toString()
 
         val totalBalance = totalCredit?.minus(totalExpenses!!)

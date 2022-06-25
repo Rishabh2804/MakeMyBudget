@@ -1,6 +1,5 @@
-package com.example.makeMyBudget.mainScreen.TransactionLibrary;
+package com.example.makeMyBudget.mainScreen.transactionLibrary;
 
-import com.airbnb.epoxy.EpoxyDataBindingLayouts;
 import com.airbnb.epoxy.EpoxyDataBindingPattern;
 import com.example.makemybudget.R;
 

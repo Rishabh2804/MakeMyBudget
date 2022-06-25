@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.makeMyBudget.mainScreen.TransactionLibrary.MonthScreenFragment">
+    tools:context="com.example.makeMyBudget.mainScreen.transactionLibrary.MonthScreenFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
@@ -124,19 +124,24 @@
             android:textSize="30sp" />
     </androidx.cardview.widget.CardView>
 
-    <ScrollView
-        android:id="@+id/transaction_history"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/basicInfo">
+<!--    <ScrollView-->
+<!--        android:id="@+id/transaction_history"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="4dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.4"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/basicInfo">-->
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/transaction_items"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </ScrollView>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/basicInfo"
+            />
+<!--    </ScrollView>-->
 </androidx.constraintlayout.widget.ConstraintLayout>

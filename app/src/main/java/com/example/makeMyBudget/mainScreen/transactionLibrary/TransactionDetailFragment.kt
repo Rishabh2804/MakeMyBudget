@@ -1,4 +1,4 @@
-package com.example.makeMyBudget.mainScreen.TransactionLibrary
+package com.example.makeMyBudget.mainScreen.transactionLibrary
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

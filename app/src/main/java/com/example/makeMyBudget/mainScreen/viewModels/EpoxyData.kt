@@ -1,6 +1,4 @@
-package com.example.makeMyBudget.mainScreen.TransactionLibrary
-
-import com.example.makeMyBudget.entities.Transaction
+package com.example.makeMyBudget.mainScreen.transactionLibrary
 
 data class EpoxyData(
     val year: Int,

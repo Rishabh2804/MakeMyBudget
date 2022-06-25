@@ -27,11 +27,11 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
         this.monthYear.value = monthYear
     }
 
-    val gains: LiveData<Double> = Transformations.switchMap(_userID) {
+    val allTimeGains: LiveData<Double> = Transformations.switchMap(_userID) {
         listHandlerRepo.getAmountByType(it, TransactionType.INCOME)
     }
 
-    val expense: LiveData<Double> = Transformations.switchMap(_userID) {
+    val allTimeExpense: LiveData<Double> = Transformations.switchMap(_userID) {
         listHandlerRepo.getAmountByType(it, TransactionType.EXPENSE)
     }
 
@@ -101,6 +101,14 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
 
     val monthlyGains: LiveData<Double> = Transformations.switchMap(monthYear) {
         listHandlerRepo.getAmountByMonthYearAndType(userID.value!!, TransactionType.INCOME, it)
+    }
+
+    val yearlyExpenses : LiveData<List<Transaction>> = Transformations.switchMap(monthYear) {
+        listHandlerRepo.getTransactionsByYear(userID.value!!, it)
+    }
+
+    val yearlyGains : LiveData<List<Transaction>> = Transformations.switchMap(monthYear) {
+        listHandlerRepo.getTransactionsByYear(userID.value!!, it)
     }
 
     val monthlyAmountData: MutableLiveData<MutableList<Double>> = MutableLiveData(mutableListOf())

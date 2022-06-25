@@ -132,6 +132,14 @@
 
         </androidx.viewpager.widget.ViewPager>
 
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="169dp"
+            android:layout_height="24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/heading_Balance"
+            app:layout_constraintEnd_toEndOf="@+id/cardView2"
+            app:layout_constraintTop_toTopOf="@+id/heading_Balance" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

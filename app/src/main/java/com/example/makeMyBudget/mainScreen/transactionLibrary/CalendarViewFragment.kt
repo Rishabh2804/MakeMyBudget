@@ -1,5 +1,6 @@
-package com.example.makeMyBudget.mainScreen.TransactionLibrary
+package com.example.makeMyBudget.mainScreen.transactionLibrary
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,9 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.example.makeMyBudget.entities.TransactionType
 import com.example.makeMyBudget.mainScreen.MainScreenFragmentDirections
+import com.example.makeMyBudget.mainScreen.SwipeHandler
 import com.example.makeMyBudget.mainScreen.viewModels.MainScreenViewModel
+import com.example.makeMyBudget.mainScreen.viewModels.TransactionViewModel
 import com.example.makemybudget.R
 import com.example.makemybudget.databinding.FragmentCalendarViewBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -25,6 +30,7 @@ class CalendarViewFragment : Fragment() {
 
     private lateinit var binding: FragmentCalendarViewBinding
     private lateinit var viewModel: MainScreenViewModel
+    private lateinit var transactionViewModel: TransactionViewModel
     private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreateView(
@@ -34,10 +40,11 @@ class CalendarViewFragment : Fragment() {
 
         binding = FragmentCalendarViewBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(MainScreenViewModel::class.java)
+        transactionViewModel = ViewModelProvider(this).get(TransactionViewModel::class.java)
         firebaseAuth = FirebaseAuth.getInstance()
 
-
         viewModel.setUserID(firebaseAuth.currentUser?.uid.toString())
+        transactionViewModel.setUserID(firebaseAuth.currentUser?.uid.toString())
 
         var monthYear = CalendarViewFragmentArgs.fromBundle(arguments!!).monthYear
         val month = monthYear % 100
@@ -89,8 +96,21 @@ class CalendarViewFragment : Fragment() {
         }
 
         viewModel.getTransactionsByDate(date).observe(viewLifecycleOwner) { it ->
-            binding.dailyTransactions.adapter =
-                TransactionListAdapter(it.toMutableList(), this, listener)
+            val adapter =
+                TransactionListAdapter(it.toMutableList(), this,requireContext(), transactionViewModel, listener)
+            val swipeHandler = object : SwipeHandler() {
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    if (direction == ItemTouchHelper.LEFT) {
+                        adapter.deleteTransaction(viewHolder.adapterPosition)
+                    } else if (direction == ItemTouchHelper.RIGHT) {
+                        adapter.completeTransaction(viewHolder.adapterPosition)
+                    }
+                }
+            }
+
+            binding.dailyTransactions.adapter = adapter
+            ItemTouchHelper(swipeHandler).attachToRecyclerView(binding.dailyTransactions)
+
         }
     }
 

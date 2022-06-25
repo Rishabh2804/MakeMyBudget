@@ -1,4 +1,4 @@
-package com.example.makeMyBudget.mainScreen.TransactionLibrary
+package com.example.makeMyBudget.mainScreen.transactionLibrary
 
 data class MonthCardDetail(
     val month: String,

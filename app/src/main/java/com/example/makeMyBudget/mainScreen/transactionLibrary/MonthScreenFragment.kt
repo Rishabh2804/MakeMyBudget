@@ -1,4 +1,4 @@
-package com.example.makeMyBudget.mainScreen.TransactionLibrary
+package com.example.makeMyBudget.mainScreen.transactionLibrary
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -9,7 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
+import com.example.makeMyBudget.mainScreen.SwipeHandler
 import com.example.makeMyBudget.mainScreen.viewModels.MainScreenViewModel
+import com.example.makeMyBudget.mainScreen.viewModels.TransactionViewModel
 import com.example.makemybudget.databinding.FragmentMonthScreenBinding
 import com.google.firebase.auth.FirebaseAuth
 
@@ -41,7 +45,7 @@ class MonthScreenFragment : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var auth: FirebaseAuth
     private lateinit var viewModel: MainScreenViewModel
-
+    private lateinit var transactionViewModel: TransactionViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,12 +54,16 @@ class MonthScreenFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentMonthScreenBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(MainScreenViewModel::class.java)
+        transactionViewModel = ViewModelProvider(this).get(TransactionViewModel::class.java)
         auth = FirebaseAuth.getInstance()
         sharedPreferences = activity?.getSharedPreferences("user_auth", Context.MODE_PRIVATE)!!
 
         val monthYear = MonthScreenFragmentArgs.fromBundle(
             requireArguments()
         ).monthYear
+
+        transactionViewModel.setUserID(auth.currentUser?.uid!!)
+        viewModel.setUserID(auth.currentUser?.uid!!)
 
         viewModel.setMonthYear(monthYear)
 
@@ -93,10 +101,31 @@ class MonthScreenFragment : Fragment() {
 
     fun showMonthlyTransactions(monthYear: Int) {
         viewModel.monthlyTransactions.observe(viewLifecycleOwner) {
-            binding.transactionItems.adapter =
-                TransactionListAdapter(it.toMutableList(), this, listener)
+            val adapter =
+                TransactionListAdapter(
+                    it.toMutableList(),
+                    this,
+                    requireContext(),
+                    transactionViewModel,
+                    listener
+                )
+
+            binding.transactionItems.adapter = adapter
+            val swipeHandler = object : SwipeHandler() {
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    if (direction == ItemTouchHelper.LEFT) {
+                        adapter.deleteTransaction(viewHolder.adapterPosition)
+                    } else if (direction == ItemTouchHelper.RIGHT) {
+                        adapter.completeTransaction(viewHolder.adapterPosition)
+                    }
+                }
+            }
+
+            val itemTouchHelper = ItemTouchHelper(swipeHandler)
+            itemTouchHelper.attachToRecyclerView(binding.transactionItems)
         }
     }
+
 
     private val listener: (id: Long) -> Unit = {
         findNavController().navigate(

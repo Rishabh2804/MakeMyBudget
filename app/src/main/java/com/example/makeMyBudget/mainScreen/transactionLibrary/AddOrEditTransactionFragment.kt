@@ -1,4 +1,4 @@
-package com.example.makeMyBudget.mainScreen.TransactionLibrary
+package com.example.makeMyBudget.mainScreen.transactionLibrary
 
 import android.app.DatePickerDialog
 import android.content.Context
@@ -90,7 +90,7 @@ class AddOrEditTransactionFragment : Fragment() {
         firebaseAuth = FirebaseAuth.getInstance()
 
         val user_id = firebaseAuth.currentUser!!.uid
-        viewModel.setUserId(user_id)
+        viewModel.setUserID(user_id)
 
         val transaction_id = AddOrEditTransactionFragmentArgs.fromBundle(requireArguments()).transId
         viewModel.setTransId(transaction_id)
@@ -234,4 +234,5 @@ class AddOrEditTransactionFragment : Fragment() {
             }
         }
     }
+
 }

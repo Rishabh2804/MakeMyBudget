@@ -50,9 +50,14 @@ android {
 
 dependencies {
 
-    implementation 'com.github.kevingermainbusiness:ItemDecorator:1.0.15'
+    //Swipe Decorator Library
+    implementation 'com.github.xabaras:RecyclerViewSwipeDecorator:1.4'
 
+
+    //MPAndroidChart Library (for bar chart)
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+    //Material Calendar Library (for calendar view)
     implementation 'com.applandeo:material-calendar-view:1.7.0'
     implementation 'sun.bob:mcalendarview:1.0.0'
 
