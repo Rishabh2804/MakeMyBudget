@@ -1,18 +1,18 @@
 package com.example.makeMyBudget.mainScreen
 
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.makeMyBudget.mainScreen.tabs.OverviewTabFragment
 import com.example.makeMyBudget.mainScreen.tabs.YearMonthTabFragment
 import com.example.makeMyBudget.mainScreen.tabs.TransactionsLogTabFragment
 
-class ViewPagerAdapter(fm: FragmentManager, val fragment: Fragment) : FragmentPagerAdapter(fm) {
-    override fun getCount(): Int {
+class ViewPagerAdapter( val fragment: Fragment) : FragmentStateAdapter(fragment) {
+
+    override fun getItemCount(): Int {
         return 3
     }
 
-    override fun getItem(position: Int): Fragment {
+    override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> {
                 OverviewTabFragment()

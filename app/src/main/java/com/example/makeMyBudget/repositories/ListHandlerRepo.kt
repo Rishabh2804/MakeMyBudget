@@ -109,6 +109,10 @@ class ListHandlerRepo(application: Application) {
     ): LiveData<Double> =
         listHandlerDao.getAmountByMonthYearAndType(user_id, transactionType, monthYear)
 
+
+    fun getAmountByYearAndType(user_id: String, transactionType: TransactionType, year: Int) : LiveData<Double> =
+        listHandlerDao.getAmountByYearAndType(user_id, transactionType, year)
+
     fun getTransactionDatesByMonthYear(user_id: String, monthYear: Int): LiveData<List<Long>> =
         listHandlerDao.getTransactionDatesByMonthYear(user_id, monthYear)
 
@@ -127,4 +131,6 @@ class ListHandlerRepo(application: Application) {
 
     fun getPendingTransactions(user_id: String, date: Long): LiveData<List<Transaction>> =
         listHandlerDao.getPendingTransactions(user_id, date)
+
+
 }

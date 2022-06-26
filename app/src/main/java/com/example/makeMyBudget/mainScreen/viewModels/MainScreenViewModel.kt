@@ -8,6 +8,7 @@ import androidx.lifecycle.Transformations
 import com.example.makeMyBudget.entities.*
 import com.example.makeMyBudget.repositories.ListHandlerRepo
 import java.util.*
+import kotlin.collections.HashMap
 
 class MainScreenViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -103,13 +104,11 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
         listHandlerRepo.getAmountByMonthYearAndType(userID.value!!, TransactionType.INCOME, it)
     }
 
-    val yearlyExpenses : LiveData<List<Transaction>> = Transformations.switchMap(monthYear) {
-        listHandlerRepo.getTransactionsByYear(userID.value!!, it)
-    }
+    fun getYearlyExpenses(year: Int) =
+        listHandlerRepo.getAmountByYearAndType(userID.value!!, TransactionType.EXPENSE, year)
 
-    val yearlyGains : LiveData<List<Transaction>> = Transformations.switchMap(monthYear) {
-        listHandlerRepo.getTransactionsByYear(userID.value!!, it)
-    }
+    fun getYearlyGains(year: Int) =
+        listHandlerRepo.getAmountByYearAndType(userID.value!!, TransactionType.INCOME, year)
 
     val monthlyAmountData: MutableLiveData<MutableList<Double>> = MutableLiveData(mutableListOf())
     val monthlyTransactionData: MutableLiveData<MutableList<Int>> = MutableLiveData(mutableListOf())

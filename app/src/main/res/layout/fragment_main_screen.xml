@@ -56,13 +56,13 @@
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/left_amount_text"
+                android:id="@+id/savings_amount_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:layout_marginStart="10dp"
                 android:layout_marginBottom="10dp"
-                android:text="Balance"
+                android:text="Savings"
                 android:textColor="#D36FE4"
                 android:textSize="20sp" />
 
@@ -77,7 +77,7 @@
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/total_credit"
+                android:id="@+id/credit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
@@ -87,7 +87,7 @@
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/left_amount"
+                android:id="@+id/savings"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
@@ -110,32 +110,36 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_height="50dp"
 
             android:layout_marginTop="24dp"
+            android:background="#FB9B0D"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardView2"
+            app:tabIndicatorFullWidth="true"
+            app:tabIndicatorGravity="center"
+            app:tabTextColor="#501E1E"
             tools:ignore="SpeakableTextPresentCheck">
 
 
         </com.google.android.material.tabs.TabLayout>
 
-        <androidx.viewpager.widget.ViewPager
+        <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tabLayout"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tabLayout">
 
-        </androidx.viewpager.widget.ViewPager>
+        </androidx.viewpager2.widget.ViewPager2>
 
         <Spinner
             android:id="@+id/spinner"
-            android:layout_width="169dp"
-            android:layout_height="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@+id/heading_Balance"
             app:layout_constraintEnd_toEndOf="@+id/cardView2"
             app:layout_constraintTop_toTopOf="@+id/heading_Balance" />
