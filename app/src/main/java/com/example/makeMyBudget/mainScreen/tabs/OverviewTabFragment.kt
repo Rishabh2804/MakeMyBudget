@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.example.makeMyBudget.entities.TransactionCategory
+import com.example.makeMyBudget.entities.TransactionMode
 import com.example.makeMyBudget.entities.TransactionType
 import com.example.makeMyBudget.mainScreen.viewModels.MainScreenViewModel
 import com.example.makemybudget.R
@@ -201,7 +202,7 @@ class OverviewTabFragment : Fragment() {
                     it.forEachIndexed { index, mode ->
                         pieEntries.add(
                             PieModel(
-                                TransactionType.values()[index].name,
+                                TransactionMode.values()[index].name,
                                 mode.toFloat(),
                                 colors[index]
                             )

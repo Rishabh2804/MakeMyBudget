@@ -62,10 +62,6 @@ class MainScreenFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(MainScreenViewModel::class.java)
         firebaseAuth = FirebaseAuth.getInstance()
 
-//        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Transaction Log"))
-//        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Calendar"))
-//        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Statistics"))
-
         binding.viewPager.adapter = ViewPagerAdapter(this)
 
         binding.tabLayout.tabGravity = TabLayout.GRAVITY_FILL

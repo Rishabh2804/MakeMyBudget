@@ -71,12 +71,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/trans_desc_input" />
 
-        <TextView
+        <EditText
             android:id="@+id/trans_amount_input"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="130dp"
+            android:layout_height="26dp"
             android:layout_marginStart="30dp"
+            android:inputType="text"
             android:text="InputAmount"
+            app:layout_constraintEnd_toEndOf="@+id/trans_date_input"
             app:layout_constraintStart_toEndOf="@+id/trans_amount_msg"
             app:layout_constraintTop_toTopOf="@+id/trans_amount_msg" />
 
@@ -158,7 +160,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/from_date_input" />
 
-        <androidx.recyclerview.widget.RecyclerView
+        <TextView
             android:id="@+id/transaction_tags"
             android:layout_width="match_parent"
             android:layout_height="26dp"
@@ -166,6 +168,8 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="20dp"
             android:orientation="horizontal"
+            android:text="Transaction Category"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.757"
             app:layout_constraintStart_toStartOf="parent"
@@ -189,8 +193,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
             android:text="CANCEL"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/save_button"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tags_spinner">
@@ -204,7 +209,9 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="25dp"
+            android:layout_marginBottom="10dp"
             android:text="SAVE"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/cancel_button"
             app:layout_constraintTop_toBottomOf="@+id/tags_spinner">
@@ -217,7 +224,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="70dp"
             android:layout_marginTop="10dp"
+            android:layout_marginEnd="40dp"
             android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/trans_amount_input"
             app:layout_constraintTop_toBottomOf="@+id/trans_desc_input">
 
