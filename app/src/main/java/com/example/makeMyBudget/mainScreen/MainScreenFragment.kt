@@ -3,7 +3,6 @@ package com.example.makeMyBudget.mainScreen
 import android.content.SharedPreferences
 import android.icu.util.Calendar
 import android.os.Bundle
-import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,14 +10,12 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.makeMyBudget.mainScreen.viewModels.MainScreenViewModel
-import com.example.makemybudget.R
 import com.example.makemybudget.databinding.FragmentMainScreenBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import java.util.*
 import kotlin.collections.HashMap
 
 
@@ -105,7 +102,6 @@ class MainScreenFragment : Fragment() {
 
         binding.spinner.adapter = choicesAdapter
 
-
         incomeRegister = sharedPreferences.getHashMap("income_register")
 
         binding.spinner.onItemSelectedListener = object :
@@ -121,7 +117,6 @@ class MainScreenFragment : Fragment() {
                         val totalMonthlyEarnings = allTimeMonthlyEarnings()
                         val totalGains = viewModel.allTimeGains.value
                         val totalExpenses = viewModel.allTimeExpense.value
-
 
                         val totalCredit = totalMonthlyEarnings.plus(totalGains!!)
                         val totalSavings = totalCredit.minus(totalExpenses!!)
@@ -157,7 +152,7 @@ class MainScreenFragment : Fragment() {
         }
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main_screen, container, false)
+        return binding.root
     }
 
     fun allTimeMonthlyEarnings(): Double {

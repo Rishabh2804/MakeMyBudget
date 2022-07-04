@@ -1,4 +1,4 @@
-package com.example.makeMyBudget.mainScreen
+package com.example.makeMyBudget.mainScreen.viewModels
 
 import android.view.View
 import android.widget.ImageView

@@ -49,11 +49,8 @@ class LoginScreenFragment : Fragment() {
         binding = FragmentLoginScreenBinding.inflate(inflater, container, false)
 
         // Configure Google Sign In
-//        val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//            .requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build()
 
         // Build a GoogleSignInClient with the options specified by googleSignInOptions.
-//            googleSignInClient = GoogleSignIn.getClient(requireContext(), googleSignInOptions)
 
         // Set the click listeners
         binding.customRegisterButton.setBackgroundColor(resources.getColor(R.color.white))

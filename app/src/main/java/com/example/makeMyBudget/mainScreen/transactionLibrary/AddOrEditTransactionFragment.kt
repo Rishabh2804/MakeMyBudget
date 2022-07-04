@@ -101,6 +101,7 @@ class AddOrEditTransactionFragment : Fragment() {
             }
         }
 
+
         binding.cancelButton.setOnClickListener {
 
             val dialog = AlertDialog.Builder(requireContext())
@@ -112,6 +113,8 @@ class AddOrEditTransactionFragment : Fragment() {
                 }
 
             }
+
+            dialog.create().show()
         }
 
         binding.saveButton.setOnClickListener {
@@ -130,23 +133,23 @@ class AddOrEditTransactionFragment : Fragment() {
             Locale.getDefault()
         ).parse(binding.transDateInput.text.toString())!!
         val isRecurring = binding.isRecurringCheckBox.isChecked
-        val fromdate: Date
-        val todate: Date
+        val fromDate: Date
+        val toDate: Date
         if (isRecurring) {
-            fromdate = SimpleDateFormat(
+            fromDate = SimpleDateFormat(
                 "dd-MM-yyyy",
                 Locale.getDefault()
             ).parse(binding.fromDateInput.text.toString())!!
-            todate = SimpleDateFormat(
+            toDate = SimpleDateFormat(
                 "dd-MM-yyyy",
                 Locale.getDefault()
             ).parse(binding.toDateInput.text.toString())!!
         } else {
-            fromdate = SimpleDateFormat(
+            fromDate = SimpleDateFormat(
                 "dd-MM-yyyy",
                 Locale.getDefault()
             ).parse(binding.transDateInput.text.toString())!!
-            todate = SimpleDateFormat(
+            toDate = SimpleDateFormat(
                 "dd-MM-yyyy",
                 Locale.getDefault()
             ).parse(binding.transDateInput.text.toString())!!
@@ -157,7 +160,7 @@ class AddOrEditTransactionFragment : Fragment() {
             TransactionCategory.values()[binding.tagsSpinner.selectedItemPosition]
         val month = binding.transDateInput.text.toString().substring(3, 5).toInt()
         val year = binding.transDateInput.text.toString().substring(6).toInt()
-        val monthyear = year * 100 + month
+        val monthYear = year * 100 + month
         val type: TransactionType =
             TransactionType.values()[binding.radioGroup.checkedRadioButtonId]
         val status: TransactionStatus = TransactionStatus.PENDING
@@ -169,11 +172,11 @@ class AddOrEditTransactionFragment : Fragment() {
             amount,
             date,
             isRecurring,
-            fromdate,
-            todate,
+            fromDate,
+            toDate,
             month,
             year,
-            monthyear,
+            monthYear,
             type,
             category,
             mode,
@@ -188,7 +191,7 @@ class AddOrEditTransactionFragment : Fragment() {
     private fun setData(transaction: Transaction) {
         binding.transTitleInput.setText(transaction.title)
         binding.transDescInput.setText(transaction.description)
-        binding.transAmountInput.text = (transaction.transactionAmount.toString())
+        binding.transAmountMsg.text = (transaction.transactionAmount.toString())
         binding.transDateInput.setText(transaction.transactionDate.toString())
         if (transaction.isRecurring) {
             binding.isRecurringCheckBox.isChecked = true

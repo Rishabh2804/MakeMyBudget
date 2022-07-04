@@ -6,14 +6,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ListView
 import android.widget.Spinner
-import android.widget.TextView
-import com.example.makemybudget.R
-import com.example.makemybudget.databinding.FragmentTransactionTabBinding
+import androidx.lifecycle.ViewModelProvider
+import com.example.makeMyBudget.mainScreen.transactionLibrary.YearEpoxyController
+import com.example.makeMyBudget.mainScreen.viewModels.MainScreenViewModel
+import com.example.makeMyBudget.mainScreen.viewModels.convertIntoEpoxyData
+import com.example.makemybudget.databinding.FragmentYearMonthTabBinding
+import com.google.firebase.auth.FirebaseAuth
 import kotlin.collections.ArrayList
 
-class YearMonthTabFragment (val fragment: Fragment): Fragment() {
+class YearMonthTabFragment(val fragment: Fragment) : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -21,41 +23,52 @@ class YearMonthTabFragment (val fragment: Fragment): Fragment() {
         val user: String = "https://www.codechef.com/users/"
     }
 
-    private lateinit var years : ArrayList<Spinner>
-    private lateinit var binding: FragmentTransactionTabBinding
+    private lateinit var years: ArrayList<Spinner>
+    private lateinit var binding: FragmentYearMonthTabBinding
     private lateinit var sharedPreferences: SharedPreferences
-    private val months = arrayListOf<String>(
-        "JANUARY",
-        "FEBRUARY",
-        "MARCH",
-        "APRIL",
-        "MAY",
-        "JUNE",
-        "JULY",
-        "AUGUST",
-        "SEPTEMBER",
-        "OCTOBER",
-        "NOVEMBER",
-        "DECEMBER"
-    )
+    private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var viewModel: MainScreenViewModel
+
+    companion object {
+        val months = arrayListOf<String>(
+            "JANUARY",
+            "FEBRUARY",
+            "MARCH",
+            "APRIL",
+            "MAY",
+            "JUNE",
+            "JULY",
+            "AUGUST",
+            "SEPTEMBER",
+            "OCTOBER",
+            "NOVEMBER",
+            "DECEMBER",
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+        // Inflate the layout for this fragment
+        binding = FragmentYearMonthTabBinding.inflate(inflater, container, false)
+        firebaseAuth = FirebaseAuth.getInstance()
+        viewModel = ViewModelProvider(this).get(MainScreenViewModel::class.java)
+        sharedPreferences = activity?.getSharedPreferences("user_auth", 0)!!
+        viewModel.setUserID(firebaseAuth.currentUser!!.uid)
 
-        years = ArrayList()
-        binding = FragmentTransactionTabBinding.inflate(inflater, container, false)
-
-
-        binding.floatingActionButton.setOnClickListener{
-            val newYear : Spinner = Spinner(requireContext())
-            years.add(newYear)
-
+        val yearEpoxyController = YearEpoxyController(fragment)
+        //yearEpoxyController.transactYears= list
+        binding.epoxy.setController(yearEpoxyController)
+        binding.epoxy.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
+        viewModel.epoxyDataList.observe(viewLifecycleOwner) {
+            val list = convertIntoEpoxyData(it, sharedPreferences)
+            yearEpoxyController.transactYears = list
+            yearEpoxyController.requestModelBuild()
         }
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_transaction_tab, container, false)
+        return binding.root
     }
 
 

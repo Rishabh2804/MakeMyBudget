@@ -4,7 +4,7 @@ import android.graphics.Canvas
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.makemybudget.R
-import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
+import com.kevincodes.recyclerview.ItemDecorator
 
 abstract class SwipeHandler :
     ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
@@ -25,21 +25,21 @@ abstract class SwipeHandler :
         actionState: Int,
         isCurrentlyActive: Boolean
     ) {
-        RecyclerViewSwipeDecorator.Builder(
-            c,
-            recyclerView,
-            viewHolder,
-            dX,
-            dY,
-            actionState,
-            isCurrentlyActive
-        )
-            .addSwipeLeftBackgroundColor(R.color.mode_credit_card)
-            .addSwipeLeftActionIcon(R.drawable.bill)
-            .addSwipeRightBackgroundColor(R.color.mode_debit_card)
-            .addSwipeRightActionIcon(R.drawable.bill)
-            .create().decorate()
+        ItemDecorator.Builder(c, recyclerView, viewHolder, dX, actionState)
+            .set(
+                // Swipe to the right
+                backgroundColorFromStartToEnd = R.color.swipe_right,
+                iconResIdFromStartToEnd = R.drawable.swipe_complete,
+                textFromStartToEnd = "Complete",
+                textSizeFromStartToEnd = 10f,
 
-        super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+                // Swipe to the left
+                backgroundColorFromEndToStart = R.color.swipe_left,
+                iconResIdFromEndToStart = R.drawable.swipe_delete,
+                textFromEndToStart = "Delete",
+                textSizeFromEndToStart = 10f,
+            )
+
+        super.onChildDraw(c, recyclerView, viewHolder, dX / 3, dY, actionState, isCurrentlyActive)
     }
 }

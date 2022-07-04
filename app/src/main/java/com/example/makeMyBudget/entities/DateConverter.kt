@@ -15,5 +15,4 @@ class DateConverter {
         return date.time
     }
 
-
 }

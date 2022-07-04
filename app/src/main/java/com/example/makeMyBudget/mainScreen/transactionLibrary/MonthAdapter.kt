@@ -32,11 +32,11 @@ class MonthAdapter(val MonthCardList: MutableList<MonthCardDetail>, val fragment
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val view: CardView = view.findViewById(R.id.id_card_view)
         val layout: ConstraintLayout = view.findViewById(R.id.month_card)
-        val monthName: TextView = view.findViewById(R.id.month_transaction)
-        val gainOrLoss: TextView = view.findViewById(R.id.GainOrLoss)
-        val profit: TextView = view.findViewById(R.id.profitOrLoss)
+        val monthName: TextView = view.findViewById(R.id.trans_mode)
+        val gainOrLoss: TextView = view.findViewById(R.id.trans_date)
+        val profit: TextView = view.findViewById(R.id.view_details)
         val balance: TextView = view.findViewById(R.id.net_balance)
-        val viewDetails: TextView = view.findViewById(R.id.detailsInside)
+        private val viewDetails: TextView = view.findViewById(R.id.net_balance_amount)
 
         init {
             viewDetails.setOnClickListener {
@@ -55,28 +55,15 @@ class MonthAdapter(val MonthCardList: MutableList<MonthCardDetail>, val fragment
             } else {
                 "Gain"
             }
-            profit.text = monthCardDetail.profit.toString()
+
             balance.text = monthCardDetail.amount.toString()
 
         }
     }
 
-    val type_color = arrayListOf(
+    val typeColor = arrayListOf(
         R.color.type_income,
         R.color.type_expense
     )
 
-    class diffView : DiffUtil.ItemCallback<MonthCardDetail>() {
-        override fun areItemsTheSame(oldItem: MonthCardDetail, newItem: MonthCardDetail): Boolean {
-            return oldItem.month == newItem.month
-        }
-
-        override fun areContentsTheSame(
-            oldItem: MonthCardDetail,
-            newItem: MonthCardDetail
-        ): Boolean {
-            return oldItem == newItem
-        }
-
-    }
 }

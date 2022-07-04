@@ -10,10 +10,12 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.makeMyBudget.mainScreen.SwipeHandler
 import com.example.makeMyBudget.mainScreen.viewModels.MainScreenViewModel
 import com.example.makeMyBudget.mainScreen.viewModels.TransactionViewModel
+import com.example.makemybudget.R
 import com.example.makemybudget.databinding.FragmentMonthScreenBinding
 import com.google.firebase.auth.FirebaseAuth
 
@@ -75,15 +77,31 @@ class MonthScreenFragment : Fragment() {
             findNavController().navigateUp()
         }
 
+        binding.toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.calendarView -> {
+                    findNavController().navigate(
+                        MonthScreenFragmentDirections.actionMonthScreenFragmentToCalenderViewFragment(
+                            monthYear
+                        )
+                    )
+                }
+            }
+            true
+        }
+
         val activeIncome = sharedPreferences.getString("income", "0")?.toDouble()
         val totalGains = viewModel.monthlyGains.value
         val totalExpenses = viewModel.monthlyExpenses.value
 
-        binding.amountSpent.text = totalExpenses.toString()
-        binding.netBalance.text = totalGains.toString()
-
         val totalCredit = totalGains?.plus((activeIncome!!))
         val totalBalance = totalCredit?.minus(totalExpenses!!)
+
+        val progressRatio = totalBalance?.div(totalCredit)
+        binding.progressBar.progress = progressRatio!!.toInt()
+
+        binding.amountSpent.text = totalExpenses.toString()
+        binding.netBalanceAmount.text = totalBalance.toString()
 
         binding.amountSaved.text = totalBalance.toString()
 
@@ -95,9 +113,10 @@ class MonthScreenFragment : Fragment() {
             )
         }
 
+        showMonthlyTransactions(monthYear)
+
         return binding.root
     }
-
 
     fun showMonthlyTransactions(monthYear: Int) {
         viewModel.monthlyTransactions.observe(viewLifecycleOwner) {
@@ -111,12 +130,14 @@ class MonthScreenFragment : Fragment() {
                 )
 
             binding.transactionItems.adapter = adapter
+            binding.transactionItems.layoutManager = LinearLayoutManager(requireContext())
+
             val swipeHandler = object : SwipeHandler() {
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                     if (direction == ItemTouchHelper.LEFT) {
-                        adapter.deleteTransaction(viewHolder.adapterPosition)
+                        adapter.deleteTransaction(viewHolder.adapterPosition, it.toMutableList())
                     } else if (direction == ItemTouchHelper.RIGHT) {
-                        adapter.completeTransaction(viewHolder.adapterPosition)
+                        adapter.completeTransaction(viewHolder.adapterPosition, it.toMutableList())
                     }
                 }
             }
@@ -132,4 +153,5 @@ class MonthScreenFragment : Fragment() {
             MonthScreenFragmentDirections.actionMonthScreenFragmentToTransactionDetailFragment(it)
         )
     }
+
 }

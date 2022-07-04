@@ -1,4 +1,4 @@
-package com.example.makeMyBudget.mainScreen
+package com.example.makeMyBudget.mainScreen.TransactionLibrary
 
 import android.content.Context
 import androidx.fragment.app.Fragment
@@ -7,8 +7,12 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.epoxy.AsyncEpoxyController
 import com.example.makeMyBudget.entities.Transaction
+import com.example.makeMyBudget.mainScreen.MainScreenFragmentDirections
+import com.example.makeMyBudget.mainScreen.SwipeHandler
 import com.example.makeMyBudget.mainScreen.transactionLibrary.TransactionListAdapter
 import com.example.makeMyBudget.mainScreen.viewModels.TransactionViewModel
+import com.example.makeMyBudget.mainScreen.viewModels.transactionLog
+
 
 class TransactionLogEpoxyController(
     val fragment: Fragment,
@@ -31,9 +35,9 @@ class TransactionLogEpoxyController(
             val swipeHandler = object : SwipeHandler() {
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                     if (direction == ItemTouchHelper.LEFT) {
-                        adapter.deleteTransaction(viewHolder.adapterPosition)
+                        adapter.deleteTransaction(viewHolder.adapterPosition, item.transactionLog)
                     } else if (direction == ItemTouchHelper.RIGHT) {
-                        adapter.completeTransaction(viewHolder.adapterPosition)
+                        adapter.completeTransaction(viewHolder.adapterPosition, item.transactionLog)
                     }
                 }
             }

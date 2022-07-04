@@ -4,9 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavDirections
-import androidx.navigation.fragment.NavHostFragment
-import com.example.makemybudget.databinding.FragmentLoginScreenBinding
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
@@ -36,13 +33,13 @@ class FBLogin {
                     callBackManager,
                     object : FacebookCallback<LoginResult> {
                         override fun onCancel() {
-                            Toast.makeText(fragment.activity, "Login Cancelled", Toast.LENGTH_SHORT)
+                            Toast.makeText(fragment.requireActivity(), "Login Cancelled", Toast.LENGTH_SHORT)
                                 .show()
                         }
 
                         override fun onError(error: FacebookException) {
                             Toast.makeText(
-                                fragment.activity, "Login Failed", Toast.LENGTH_SHORT
+                                fragment.requireActivity(), "Login Failed", Toast.LENGTH_SHORT
                             ).show()
                         }
 
@@ -59,7 +56,7 @@ class FBLogin {
 
             firebaseAuth = FirebaseAuth.getInstance()
             sharedPreferences =
-                fragment.activity!!.getSharedPreferences("user_auth", Context.MODE_PRIVATE)
+                fragment.requireActivity()!!.getSharedPreferences("user_auth", Context.MODE_PRIVATE)
 
 
             val credentials = FacebookAuthProvider.getCredential(result.accessToken.token)
@@ -69,11 +66,11 @@ class FBLogin {
 
                 auth.addOnCompleteListener {
                     if (it.isSuccessful) {
-                        Toast.makeText(fragment.activity, "Login Successful", Toast.LENGTH_SHORT)
+                        Toast.makeText(fragment.requireActivity(), "Login Successful", Toast.LENGTH_SHORT)
                             .show()
                         val user = auth.result?.user
                     } else {
-                        Toast.makeText(fragment.activity, "Login Failed", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(fragment.requireActivity(), "Login Failed", Toast.LENGTH_SHORT).show()
                     }
                 }
 

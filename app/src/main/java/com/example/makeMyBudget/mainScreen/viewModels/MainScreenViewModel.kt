@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import com.example.makeMyBudget.daoS.MonthDetail
 import com.example.makeMyBudget.entities.*
 import com.example.makeMyBudget.repositories.ListHandlerRepo
 import java.util.*
@@ -85,12 +86,39 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
     fun getDates(monthYear: Int) =
         listHandlerRepo.getTransactionDatesByMonthYear(_userID.value!!, monthYear)
 
-
     fun getTransactionsByDate(date: Long) =
         listHandlerRepo.getTransactionByDate(_userID.value!!, date)
 
     fun getAmountByDateAndType(date: Long, type: TransactionType) =
         listHandlerRepo.getTransactionAmountByDateAndType(_userID.value!!, date, type)
+
+    val monthlyTransactionsInfo = Transformations.switchMap(_userID) {
+        listHandlerRepo.getMonthlyTransactionInfo(_userID.value!!)
+    }
+
+    val yearlyTransactionsInfo = Transformations.switchMap(_userID) {
+        listHandlerRepo.getYearlyTransactionInfo(_userID.value!!)
+    }
+
+    val pieChartCategoryData = Transformations.switchMap(_userID) {
+        listHandlerRepo.getAmountByCategoryAll(_userID.value!!)
+    }
+
+    val pieChartTypeData = Transformations.switchMap(_userID) {
+        listHandlerRepo.getAmountByTypeAll(_userID.value!!)
+    }
+
+    val pieChartModeData = Transformations.switchMap(_userID) {
+        listHandlerRepo.getAmountByModeAll(_userID.value!!)
+    }
+
+    val barChartMonthsInfo = Transformations.switchMap(_userID) {
+        listHandlerRepo.getMonthlyTransactionInfo(_userID.value!!)
+    }
+
+    val barChartYearsInfo = Transformations.switchMap(_userID) {
+        listHandlerRepo.getYearlyTransactionInfo(_userID.value!!)
+    }
 
     val monthlyTransactions: LiveData<List<Transaction>> = Transformations.switchMap(monthYear) {
         listHandlerRepo.getTransactionsByMonthYear(userID.value!!, it)
@@ -110,59 +138,9 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
     fun getYearlyGains(year: Int) =
         listHandlerRepo.getAmountByYearAndType(userID.value!!, TransactionType.INCOME, year)
 
-    val monthlyAmountData: MutableLiveData<MutableList<Double>> = MutableLiveData(mutableListOf())
-    val monthlyTransactionData: MutableLiveData<MutableList<Int>> = MutableLiveData(mutableListOf())
-
-    val yearlyAmountData: MutableLiveData<MutableList<Double>> = MutableLiveData(mutableListOf())
-    val yearlyTransactionData: MutableLiveData<MutableList<Int>> = MutableLiveData(mutableListOf())
-
-    fun fetchMonthlyAmountData(year: Int) {
-        monthlyAmountData.value = mutableListOf()
-        val monthYear = year * 100
-        for (i in 1..12) {
-            monthlyAmountData.value?.add(
-                listHandlerRepo.getAmountByMonth(
-                    _userID.value!!,
-                    (monthYear + i).toLong()
-                ).value!!
-            )
-        }
+    val epoxyDataList: LiveData<Map<Int, List<MonthDetail>>> = Transformations.switchMap(userID) {
+        listHandlerRepo.getMonthDetailByYear(it)
     }
 
-    fun fetchMonthlyTransactionsData(year: Int) {
-        monthlyTransactionData.value = mutableListOf()
-        val monthYear = year * 100
-        for (i in 1..12) {
-            monthlyTransactionData.value?.add(
-                listHandlerRepo.countTransactionsByMonthYear(
-                    _userID.value!!,
-                    (monthYear + i)
-                ).value!!
-            )
-        }
-    }
 
-    fun fetchYearlyAmountData() {
-        yearlyAmountData.value = mutableListOf()
-        years.value?.forEach {
-            yearlyAmountData.value?.add(
-                listHandlerRepo.getAmountByYear(
-                    _userID.value!!,
-                    it
-                ).value!!
-            )
-        }
-    }
-
-    fun fetchYearlyTransactionsData() {
-        yearlyTransactionData.value = mutableListOf()
-        years.value?.forEach {
-            yearlyTransactionData.value?.add(
-                listHandlerRepo.countTransactionsByYear(
-                    _userID.value!!,
-                    it
-                ).value!!
-            )
-        }
-    }
 }

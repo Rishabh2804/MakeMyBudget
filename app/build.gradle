@@ -52,7 +52,7 @@ dependencies {
 
     //Swipe Decorator Library
     implementation 'com.github.xabaras:RecyclerViewSwipeDecorator:1.4'
-
+    implementation 'com.github.kevingermainbusiness:ItemDecorator:1.0.15'
 
     //MPAndroidChart Library (for bar chart)
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'

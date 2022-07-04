@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.compose.runtime.compositionLocalOf
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -18,9 +17,10 @@ import com.example.makeMyBudget.entities.TransactionStatus
 import com.example.makeMyBudget.entities.TransactionType
 import com.example.makeMyBudget.mainScreen.viewModels.TransactionViewModel
 import com.example.makemybudget.R
+import java.text.SimpleDateFormat
 
 class TransactionListAdapter(
-    val transactionList: MutableList<Transaction>,
+    var transactionList: MutableList<Transaction>,
     val fragment: Fragment,
     val context: Context,
     private val viewModel: TransactionViewModel,
@@ -34,7 +34,7 @@ class TransactionListAdapter(
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.bindview(transactionList[position])
+        holder.bindView(transactionList[position])
     }
 
     override fun getItemCount(): Int {
@@ -43,7 +43,7 @@ class TransactionListAdapter(
 
     inner class Holder(val view: View) : RecyclerView.ViewHolder(view) {
         init {
-            val viewDetails: TextView = view.findViewById(R.id.profitOrLoss)
+            val viewDetails: TextView = view.findViewById(R.id.view_details)
             viewDetails.setOnClickListener {
                 listener.invoke(transactionList[adapterPosition].trans_id)
             }
@@ -51,13 +51,13 @@ class TransactionListAdapter(
 
         val layout: ConstraintLayout = view.findViewById(R.id.item)
         val title: TextView = view.findViewById(R.id.year)
-        val mode: TextView = view.findViewById(R.id.month_transaction)
+        val mode: TextView = view.findViewById(R.id.trans_mode)
         val amount: TextView = view.findViewById(R.id.amount)
-        val date: TextView = view.findViewById(R.id.GainOrLoss)
+        val date: TextView = view.findViewById(R.id.trans_date)
         private val typeHere: View = view.findViewById(R.id.expenseOrIncome)
         val image: ImageView = view.findViewById(R.id.categorized_image)
 
-        fun bindview(transaction: Transaction) {
+        fun bindView(transaction: Transaction) {
             val isUpcoming = transaction.transactionDate.time > System.currentTimeMillis()
 
             if (transaction.transactionStatus == TransactionStatus.COMPLETED)
@@ -70,7 +70,8 @@ class TransactionListAdapter(
             title.text = transaction.title
             mode.text = transaction.transactionMode.name
             amount.text = transaction.transactionAmount.toString()
-            date.text = transaction.transactionDate.toString()
+            date.text =
+                SimpleDateFormat("DD/MM/YYYY").format(transaction.transactionDate)
 
             val type = transaction.transactionType
             if (type == TransactionType.INCOME)
@@ -87,31 +88,62 @@ class TransactionListAdapter(
         }
     }
 
-    fun deleteTransaction(position: Int) {
+    fun deleteTransaction(position: Int, transactionList2: MutableList<Transaction>) {
+        val layout =
+            LayoutInflater.from(context).inflate(R.layout.fragment_transaction_completed, null)
+        "Transaction Deleted :)".also {
+            layout.findViewById<TextView>(R.id.text_transaction).text = it
+        }
+
         val builder = AlertDialog.Builder(context)
             .setTitle("Delete Transaction")
             .setMessage("Are you sure you want to delete this transaction?")
+            .setCancelable(true)
             .setPositiveButton("Yes") { _, _ ->
-                viewModel.setTransId(transactionList[position].trans_id)
-                viewModel.delete(viewModel.transaction.value!!)
-                transactionList.removeAt(position)
-                notifyItemRemoved(position)
+                viewModel.delete(transactionList2[position])
+                transactionList2.removeAt(position)
+                transactionList = transactionList2
+                notifyDataSetChanged()
+                val dialog = AlertDialog.Builder(context)
+                    .setView(layout)
+                    .setNegativeButton("OK") { _, _ ->
+                    }
+                dialog.create().show()
             }
             .setNegativeButton("No") { _, _ ->
-                // do nothing; 
+                // do nothing;
                 // just close the alert dialog
             }
 
         builder.create().show()
     }
 
-    fun completeTransaction(position: Int) {
-        viewModel.setTransId(transactionList[position].trans_id)
-        viewModel.complete()
-        val transaction = transactionList[position]
-        transaction.transactionStatus = TransactionStatus.COMPLETED
-        transactionList[position] = transaction
-        notifyItemChanged(position)
+    fun completeTransaction(position: Int, transactionList2: MutableList<Transaction>) {
+        val layout =
+            LayoutInflater.from(context).inflate(R.layout.fragment_transaction_completed, null)
+        "Transaction Completed :)".also {
+            layout.findViewById<TextView>(R.id.text_transaction).text = it
+        }
+        val builder = AlertDialog.Builder(context)
+            .setTitle("Complete Transaction")
+            .setMessage("Mark this transaction as completed?")
+            .setCancelable(true)
+            .setPositiveButton("YES") { _, _ ->
+                viewModel.complete(transactionList2[position])
+                transactionList2.removeAt(position)
+                transactionList = transactionList2
+                notifyDataSetChanged()
+                val dialog = AlertDialog.Builder(context)
+                    .setView(layout)
+                    .setNegativeButton("OK") { _, _ ->
+
+                    }
+                dialog.create().show()
+            }
+            .setNegativeButton("NO") { _, _ ->
+
+            }
+        builder.create().show()
     }
 
     val typeColor = arrayListOf(

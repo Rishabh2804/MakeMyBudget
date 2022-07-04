@@ -6,8 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.example.makeMyBudget.mainScreen.TransactionLogEpoxyController
-import com.example.makeMyBudget.mainScreen.TransactionLogItem
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.makeMyBudget.mainScreen.TransactionLibrary.TransactionLogEpoxyController
+import com.example.makeMyBudget.mainScreen.TransactionLibrary.TransactionLogItem
 import com.example.makeMyBudget.mainScreen.viewModels.MainScreenViewModel
 import com.example.makeMyBudget.mainScreen.viewModels.TransactionViewModel
 import com.example.makemybudget.R
@@ -31,7 +32,6 @@ class TransactionsLogTabFragment(val fragment: Fragment) : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-
         binding = FragmentTransactionsLogTabBinding.inflate(inflater, container, false)
         firebaseAuth = FirebaseAuth.getInstance()
         viewModel = ViewModelProvider(this).get(MainScreenViewModel::class.java)
@@ -40,26 +40,11 @@ class TransactionsLogTabFragment(val fragment: Fragment) : Fragment() {
         viewModel.setUserID(firebaseAuth.currentUser?.uid!!)
         transactionViewModel.setUserID(firebaseAuth.currentUser?.uid!!)
 
-        viewModel
         val transStatus = mutableListOf<TransactionLogItem>(
             TransactionLogItem("Completed", mutableListOf()),
             TransactionLogItem("Pending", mutableListOf()),
             TransactionLogItem("Upcoming", mutableListOf()),
         )
-
-        viewModel.getCompletedTransactions().observe(viewLifecycleOwner) {
-            transStatus[0].transactionLog = it.toMutableList()
-        }
-
-        viewModel.getPendingTransactions(Date(System.currentTimeMillis()).time)
-            .observe(viewLifecycleOwner) {
-                transStatus[1].transactionLog = it.toMutableList()
-            }
-
-        viewModel.getUpcomingTransactions(Date(System.currentTimeMillis()).time)
-            .observe(viewLifecycleOwner) {
-                transStatus[2].transactionLog = it.toMutableList()
-            }
 
         val epoxyController =
             TransactionLogEpoxyController(fragment, requireContext(), transactionViewModel)
@@ -67,8 +52,31 @@ class TransactionsLogTabFragment(val fragment: Fragment) : Fragment() {
 
         binding.transactionsLogRecyclerView.setController(epoxyController)
 
+        binding.transactionsLogRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        viewModel.getCompletedTransactions().observe(viewLifecycleOwner) {
+            transStatus[0] = TransactionLogItem("Completed", it.toMutableList())
+            epoxyController.transactionLog = transStatus
+            epoxyController.requestModelBuild()
+        }
+
+        viewModel.getPendingTransactions(Date(System.currentTimeMillis()).time)
+            .observe(viewLifecycleOwner) {
+                transStatus[1] = TransactionLogItem("Pending", it.toMutableList())
+                epoxyController.transactionLog = transStatus
+                epoxyController.requestModelBuild()
+            }
+
+        viewModel.getUpcomingTransactions(Date(System.currentTimeMillis()).time)
+            .observe(viewLifecycleOwner) {
+                transStatus[2] = TransactionLogItem("Upcoming", it.toMutableList())
+                epoxyController.transactionLog = transStatus
+                epoxyController.requestModelBuild()
+            }
+
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_transactions_log_tab, container, false)
+        return binding.root
     }
 
 }

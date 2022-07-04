@@ -1,9 +1,7 @@
 package com.example.makeMyBudget.authentication
 
-
 import android.content.SharedPreferences
 import android.widget.Toast
-
 import androidx.fragment.app.Fragment
 import com.example.makemybudget.R
 import com.google.android.gms.auth.api.signin.GoogleSignIn
