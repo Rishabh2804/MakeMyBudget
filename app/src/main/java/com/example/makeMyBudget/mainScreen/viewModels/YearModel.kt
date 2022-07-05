@@ -51,7 +51,6 @@ abstract class YearModel : EpoxyModelWithHolder<YearModel.holder>() {
             button = itemView.findViewById(R.id.drop_down_button)
             list = itemView.findViewById(R.id.view)
         }
-
     }
 
 }

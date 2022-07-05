@@ -16,7 +16,7 @@ import com.example.makeMyBudget.mainScreen.tabs.CalendarViewFragmentArgs
 import com.example.makeMyBudget.mainScreen.transactionLibrary.TransactionListAdapter
 import com.example.makeMyBudget.mainScreen.viewModels.MainScreenViewModel
 import com.example.makeMyBudget.mainScreen.viewModels.TransactionViewModel
-import com.example.makemybudget.databinding.FragmentCalendarViewBinding
+import com.example.makemybudget.databinding.FragmentCalenderViewBinding
 import com.google.firebase.auth.FirebaseAuth
 import sun.bob.mcalendarview.listeners.OnDateClickListener
 import sun.bob.mcalendarview.listeners.OnMonthChangeListener
@@ -27,7 +27,8 @@ class CalenderViewFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
-    private lateinit var binding: FragmentCalendarViewBinding
+
+    private lateinit var binding: FragmentCalenderViewBinding
     private lateinit var viewModel: MainScreenViewModel
     private lateinit var transactionViewModel: TransactionViewModel
     private lateinit var firebaseAuth: FirebaseAuth
@@ -37,7 +38,7 @@ class CalenderViewFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // declaring the binding and viewModel
-        binding = FragmentCalendarViewBinding.inflate(inflater, container, false)
+        binding = FragmentCalenderViewBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(MainScreenViewModel::class.java)
         transactionViewModel = ViewModelProvider(this).get(TransactionViewModel::class.java)
         // declaring the firebaseAuth
@@ -105,7 +106,13 @@ class CalenderViewFragment : Fragment() {
 
         viewModel.getTransactionsByDate(date).observe(viewLifecycleOwner) { it ->
             val adapter =
-                TransactionListAdapter(it.toMutableList(), this, requireContext(), transactionViewModel, listener)
+                TransactionListAdapter(
+                    it.toMutableList(),
+                    this,
+                    requireContext(),
+                    transactionViewModel,
+                    listener
+                )
             val swipeHandler = object : SwipeHandler() {
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                     if (direction == ItemTouchHelper.LEFT) {

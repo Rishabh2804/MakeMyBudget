@@ -47,7 +47,7 @@ class TransactionLogEpoxyController(
             transactionLog {
                 id(index)
                 title(item.title)
-                adapter(adapter)
+//                adapter(adapter)
                 itemTouchHelper(itemTouchHelper)
             }
 

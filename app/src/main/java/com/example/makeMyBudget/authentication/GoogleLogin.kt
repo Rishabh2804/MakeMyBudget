@@ -1,5 +1,6 @@
 package com.example.makeMyBudget.authentication
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -26,6 +27,9 @@ class GoogleLogin {
         private const val SIGN_IN_CODE = 12345
 
         fun login(fragment: Fragment) {
+            sharedPreferences =
+                fragment.requireActivity()!!.getSharedPreferences("user_auth", Context.MODE_PRIVATE)
+
             this.fragment = fragment
 
             val googleSignInOptions =
@@ -44,6 +48,9 @@ class GoogleLogin {
         }
 
         fun firebaseAuthWithGoogle(account: GoogleSignInAccount) {
+            sharedPreferences =
+                fragment.requireActivity()!!.getSharedPreferences("user_auth", Context.MODE_PRIVATE)
+
             firebaseAuth = FirebaseAuth.getInstance()
             val credentials = GoogleAuthProvider.getCredential(account.idToken, null)
             GlobalScope.launch(Dispatchers.IO) {
