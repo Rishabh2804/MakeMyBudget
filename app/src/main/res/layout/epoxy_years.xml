@@ -3,16 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
+<!--    <data>-->
 
-        <variable
-            name="year_name"
-            type="String" />
+<!--        <variable-->
+<!--            name="year_name"-->
+<!--            type="String" />-->
 
-        <variable
-            name="onClick"
-            type="android.view.View.OnClickListener" />
-    </data>
+<!--        <variable-->
+<!--            name="onClick"-->
+<!--            type="android.view.View.OnClickListener" />-->
+<!--    </data>-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -23,7 +23,6 @@
             android:layout_width="0dp"
             android:layout_height="32dp"
             android:layout_marginStart="5dp"
-            android:text="@{year_name}"
             app:layout_constraintBottom_toTopOf="@id/view"
             app:layout_constraintEnd_toStartOf="@+id/drop_down_button"
             app:layout_constraintHorizontal_bias="1.0"
@@ -37,7 +36,6 @@
             android:layout_marginEnd="5dp"
             android:background="@android:color/transparent"
             android:minWidth="32dp"
-            android:onClick="@{onClick}"
             app:layout_constraintBottom_toBottomOf="@id/year"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/year"

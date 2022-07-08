@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,6 +9,9 @@
     android:background="#E0EDF8"
     tools:context="com.example.makeMyBudget.initialScreens.UserBudgetDetailsFragment">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <EditText
         android:id="@+id/income"
         android:layout_width="209dp"
@@ -38,7 +43,7 @@
         android:id="@+id/warningBudget"
         android:layout_width="219dp"
         android:layout_height="26dp"
-        android:text="Required field is empty"
+        android:text="*Required field is empty*"
         android:textColor="#FD6559"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
@@ -121,7 +126,7 @@
         android:id="@+id/warningUsername"
         android:layout_width="219dp"
         android:layout_height="26dp"
-        android:text="Required field is empty"
+        android:text="*Required field is empty*"
         android:textColor="#FD6559"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
@@ -141,5 +146,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/income"
         app:layout_constraintVertical_bias="0.0" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

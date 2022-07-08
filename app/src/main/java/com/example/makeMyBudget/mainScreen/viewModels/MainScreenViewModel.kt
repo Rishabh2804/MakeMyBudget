@@ -132,15 +132,16 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
         listHandlerRepo.getAmountByMonthYearAndType(userID.value!!, TransactionType.INCOME, it)
     }
 
-    fun getYearlyExpenses(year: Int) =
-        listHandlerRepo.getAmountByYearAndType(userID.value!!, TransactionType.EXPENSE, year)
+    val getYearlyExpenses = Transformations.switchMap(_userID) {
+        listHandlerRepo.getAmountByYearAndType(it, TransactionType.EXPENSE)
+    }
 
-    fun getYearlyGains(year: Int) =
-        listHandlerRepo.getAmountByYearAndType(userID.value!!, TransactionType.INCOME, year)
+    val getYearlyGains = Transformations.switchMap(_userID) {
+        listHandlerRepo.getAmountByYearAndType(it, TransactionType.INCOME)
+    }
 
     val epoxyDataList: LiveData<Map<Int, List<MonthDetail>>> = Transformations.switchMap(userID) {
         listHandlerRepo.getMonthDetailByYear(it)
     }
-
 
 }

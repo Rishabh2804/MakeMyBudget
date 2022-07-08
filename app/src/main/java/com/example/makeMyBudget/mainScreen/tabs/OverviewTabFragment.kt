@@ -87,13 +87,21 @@ class OverviewTabFragment : Fragment() {
             it.forEach { year ->
                 barChartYears.add(year.toString())
             }
+
+            val barChartAdapter = ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_spinner_item,
+                barChartYears
+            )
+
+            binding.barChartSpinner.adapter = barChartAdapter
         }
 
-        val barChartAdapter = ArrayAdapter(
-            requireContext(),
-            android.R.layout.simple_spinner_item,
-            barChartYears
-        )
+//        val barChartAdapter = ArrayAdapter(
+//            requireContext(),
+//            android.R.layout.simple_spinner_item,
+//            barChartYears
+//        )
 
         var barChartMode = "Yearly"
         var year: Int = -1
@@ -110,7 +118,7 @@ class OverviewTabFragment : Fragment() {
             setBarChart(barChartMode, year)
         }
 
-        binding.barChartSpinner.adapter = barChartAdapter
+
 
         setBarChart(barChartMode, year)
         binding.barChartSpinner.onItemSelectedListener =
@@ -121,6 +129,11 @@ class OverviewTabFragment : Fragment() {
                     position: Int,
                     id: Long
                 ) {
+                    year = if (barChartMode == "Yearly") {
+                        -1
+                    } else {
+                        barChartYears[position].toInt()
+                    }
                     setBarChart(barChartMode, year)
                 }
 
@@ -136,7 +149,7 @@ class OverviewTabFragment : Fragment() {
     private fun addDataToPieChart(pieDataSet: PieDataSet) {
         val pieData = PieData(pieDataSet)
         binding.pieChart.data = pieData
-
+        binding.pieChart.invalidate()
         binding.pieChart.description.isEnabled = false
         binding.pieChart.legend.isEnabled = false
 

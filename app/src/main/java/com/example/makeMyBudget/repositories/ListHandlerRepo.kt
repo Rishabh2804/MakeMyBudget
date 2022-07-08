@@ -126,12 +126,12 @@ class ListHandlerRepo(application: Application) {
     ): LiveData<Map<Int, List<MonthDetail>>> =
         listHandlerDao.getMonthDetailByYear(user_id)
 
+
     fun getAmountByYearAndType(
         user_id: String,
         transactionType: TransactionType,
-        year: Int
-    ): LiveData<Double> =
-        listHandlerDao.getAmountByYearAndType(user_id, transactionType, year)
+    ): LiveData<Map<Int,Double>> =
+        listHandlerDao.getAmountByYearAndType(user_id, transactionType)
 
     fun getTransactionDatesByMonthYear(user_id: String, monthYear: Int): LiveData<List<Long>> =
         listHandlerDao.getTransactionDatesByMonthYear(user_id, monthYear)

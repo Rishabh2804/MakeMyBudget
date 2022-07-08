@@ -7,6 +7,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.compose.NavHost
+import androidx.navigation.fragment.findNavController
+import com.example.makeMyBudget.mainScreen.MainScreenFragment.Companion.saveHashMap
 import com.example.makemybudget.databinding.FragmentUserBudgetDetailsBinding
 
 class UserBudgetDetailsFragment : Fragment() {
@@ -21,7 +24,10 @@ class UserBudgetDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentUserBudgetDetailsBinding.inflate(inflater, container, false)
+
         sharedPreferences = activity?.getSharedPreferences("user_auth", Context.MODE_PRIVATE)!!
+
+        val incomeRegister = HashMap<Int, Double>()
 
         binding.saveButton.setOnClickListener {
             if (binding.username.text.isEmpty()) {
@@ -38,11 +44,18 @@ class UserBudgetDetailsFragment : Fragment() {
                     editor.putString("income", "0")
                 } else {
                     editor.putString("income", binding.income.text.toString())
+                    incomeRegister[0] = binding.income.text.toString().toDouble()
                 }
+
+                sharedPreferences.saveHashMap("income_register", incomeRegister)
+
                 editor.putBoolean("allCheck", true)
                 editor.apply()
+
+                findNavController().navigate(UserBudgetDetailsFragmentDirections.actionUserBudgetDetailsFragmentToMainScreenFragment())
             }
         }
+
         return binding.root
     }
 

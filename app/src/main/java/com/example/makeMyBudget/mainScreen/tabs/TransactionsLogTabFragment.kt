@@ -7,30 +7,25 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.makeMyBudget.mainScreen.TransactionLibrary.TransactionLogEpoxyController
-import com.example.makeMyBudget.mainScreen.TransactionLibrary.TransactionLogItem
+import com.example.makeMyBudget.mainScreen.TransactionLogEpoxyController
+import com.example.makeMyBudget.mainScreen.TransactionLogItem
 import com.example.makeMyBudget.mainScreen.viewModels.MainScreenViewModel
 import com.example.makeMyBudget.mainScreen.viewModels.TransactionViewModel
-import com.example.makemybudget.R
 import com.example.makemybudget.databinding.FragmentTransactionsLogTabBinding
 import com.google.firebase.auth.FirebaseAuth
 import java.util.*
 
 class TransactionsLogTabFragment(val fragment: Fragment) : Fragment() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     private lateinit var binding: FragmentTransactionsLogTabBinding
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var viewModel: MainScreenViewModel
     private lateinit var transactionViewModel: TransactionViewModel
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentTransactionsLogTabBinding.inflate(inflater, container, false)
         firebaseAuth = FirebaseAuth.getInstance()
@@ -40,7 +35,7 @@ class TransactionsLogTabFragment(val fragment: Fragment) : Fragment() {
         viewModel.setUserID(firebaseAuth.currentUser?.uid!!)
         transactionViewModel.setUserID(firebaseAuth.currentUser?.uid!!)
 
-        val transStatus = mutableListOf<TransactionLogItem>(
+        val transStatus = mutableListOf(
             TransactionLogItem("Completed", mutableListOf()),
             TransactionLogItem("Pending", mutableListOf()),
             TransactionLogItem("Upcoming", mutableListOf()),

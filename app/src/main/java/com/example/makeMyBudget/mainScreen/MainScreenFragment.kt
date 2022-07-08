@@ -18,13 +18,8 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlin.collections.HashMap
 
-
 class MainScreenFragment : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     companion object {
         fun SharedPreferences.saveHashMap(key: String, obj: HashMap<Int, Double>) {
@@ -131,17 +126,35 @@ class MainScreenFragment : Fragment() {
                         val year = calendar.get(Calendar.YEAR)
                         val currMonthYear = year * 100 + calendar.get(Calendar.MONTH)
 
+
                         val yearIncome =
                             totalMonthlyEarnings(year * 100 + 1, currMonthYear)
-                        val yearlyGains = viewModel.getYearlyGains(year).value
-                        val yearlyExpenses = viewModel.getYearlyExpenses(year).value
-
-                        val yearlyCredit = yearIncome.plus(yearlyGains!!)
-                        val yearlySavings = yearlyCredit.minus(yearlyExpenses!!)
 
                         binding.credit.text = yearIncome.toString()
-                        binding.expenditure.text = yearlyExpenses.toString()
-                        binding.savings.text = yearlySavings.toString()
+
+                        var yearlyGains = 0.0
+                        var yearlyExpenses = 0.0
+                        var yearlyCredit = 0.0
+                        var yearlySavings = 0.0
+
+                        viewModel.getYearlyGains.observe(viewLifecycleOwner) {
+                            yearlyGains = it[year]!!
+
+                            yearlyCredit = yearIncome.plus(yearlyGains)
+                            yearlySavings = yearlyCredit.minus(yearlyExpenses)
+
+                            binding.savings.text = yearlySavings.toString()
+                        }
+
+                        viewModel.getYearlyExpenses.observe(viewLifecycleOwner) {
+                            yearlyExpenses = it[year]!!
+                            binding.expenditure.text = yearlyExpenses.toString()
+
+                            yearlyCredit = yearIncome.plus(yearlyGains)
+                            yearlySavings = yearlyCredit.minus(yearlyExpenses)
+
+                            binding.savings.text = yearlySavings.toString()
+                        }
                     }
                 }
             }
