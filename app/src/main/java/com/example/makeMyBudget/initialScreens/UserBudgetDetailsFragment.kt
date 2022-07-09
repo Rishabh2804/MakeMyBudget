@@ -2,6 +2,7 @@ package com.example.makeMyBudget.initialScreens
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.icu.util.Calendar
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -43,8 +44,12 @@ class UserBudgetDetailsFragment : Fragment() {
                 if (binding.income.text.isEmpty()) {
                     editor.putString("income", "0")
                 } else {
+                    val calendar = Calendar.getInstance()
+                    val year = calendar.get(Calendar.YEAR)
+                    val currMonthYear = year * 100 + calendar.get(Calendar.MONTH)
+
                     editor.putString("income", binding.income.text.toString())
-                    incomeRegister[0] = binding.income.text.toString().toDouble()
+                    incomeRegister[currMonthYear] = binding.income.text.toString().toDouble()
                 }
 
                 sharedPreferences.saveHashMap("income_register", incomeRegister)

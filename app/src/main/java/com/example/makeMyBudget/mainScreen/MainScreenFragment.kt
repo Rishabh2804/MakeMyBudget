@@ -20,6 +20,10 @@ import kotlin.collections.HashMap
 
 class MainScreenFragment : Fragment() {
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
 
     companion object {
         fun SharedPreferences.saveHashMap(key: String, obj: HashMap<Int, Double>) {
@@ -191,7 +195,7 @@ class MainScreenFragment : Fragment() {
         var totalEarnings = 0.0
 
         for (i in startMonth..endMonth)
-            totalEarnings += incomeRegister[i]!!
+            totalEarnings += incomeRegister.getOrDefault(i, 0.0)
 
         return totalEarnings
     }
