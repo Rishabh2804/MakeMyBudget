@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.makeMyBudget.mainScreen.viewModels.MainScreenViewModel
 import com.example.makemybudget.databinding.FragmentMainScreenBinding
 import com.google.android.material.tabs.TabLayout
@@ -114,22 +115,36 @@ class MainScreenFragment : Fragment() {
                 when (position) {
                     0 -> {
                         val totalMonthlyEarnings = allTimeMonthlyEarnings()
-                        val totalGains = viewModel.allTimeGains.value
-                        val totalExpenses = viewModel.allTimeExpense.value
+                        var totalGains = 0.0
+                        var totalExpenses = 0.0
+                        var totalCredit = 0.0
+                        var totalSavings = 0.0
 
-                        val totalCredit = totalMonthlyEarnings.plus(totalGains!!)
-                        val totalSavings = totalCredit.minus(totalExpenses!!)
+                        viewModel.allTimeGains.observe(viewLifecycleOwner) {
+                            totalGains = it ?: 0.0
+                            totalCredit = totalMonthlyEarnings.plus(totalGains)
+                            totalSavings = totalCredit.minus(totalExpenses)
 
-                        binding.credit.text = totalCredit.toString()
-                        binding.expenditure.text = totalExpenses.toString()
-                        binding.savings.text = totalSavings.toString()
+                            binding.credit.text = totalCredit.toString()
+                            binding.expenditure.text = totalExpenses.toString()
+                            binding.savings.text = totalSavings.toString()
+                        }
+
+                        viewModel.allTimeExpense.observe(viewLifecycleOwner) {
+                            totalExpenses = it ?: 0.0
+                            totalCredit = totalMonthlyEarnings.plus(totalGains)
+                            totalSavings = totalCredit.minus(totalExpenses)
+
+                            binding.credit.text = totalCredit.toString()
+                            binding.expenditure.text = totalExpenses.toString()
+                            binding.savings.text = totalSavings.toString()
+                        }
                     }
                     1 -> {
                         val calendar = Calendar.getInstance()
 
                         val year = calendar.get(Calendar.YEAR)
                         val currMonthYear = year * 100 + calendar.get(Calendar.MONTH)
-
 
                         val yearIncome =
                             totalMonthlyEarnings(year * 100 + 1, currMonthYear)
@@ -167,6 +182,15 @@ class MainScreenFragment : Fragment() {
                 // Another interface callback
             }
         }
+
+        binding.floatingActionButton2.setOnClickListener {
+            findNavController().navigate(
+                MainScreenFragmentDirections.actionMainScreenFragmentToAddOrEditTransactionFragment(
+                    0
+                )
+            )
+        }
+
 
         // Inflate the layout for this fragment
         return binding.root

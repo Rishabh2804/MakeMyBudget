@@ -11,13 +11,13 @@ import com.example.makeMyBudget.mainScreen.TransactionLogEpoxyController
 import com.example.makeMyBudget.mainScreen.TransactionLogItem
 import com.example.makeMyBudget.mainScreen.viewModels.MainScreenViewModel
 import com.example.makeMyBudget.mainScreen.viewModels.TransactionViewModel
-import com.example.makemybudget.databinding.FragmentTransactionsLogTabBinding
+import com.example.makemybudget.databinding.FragmentRecentTransactionsTabBinding
 import com.google.firebase.auth.FirebaseAuth
 import java.util.*
 
-class TransactionsLogTabFragment(val fragment: Fragment) : Fragment() {
+class RecentTransactionsTabFragment(val fragment: Fragment) : Fragment() {
 
-    private lateinit var binding: FragmentTransactionsLogTabBinding
+    private lateinit var binding: FragmentRecentTransactionsTabBinding
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var viewModel: MainScreenViewModel
     private lateinit var transactionViewModel: TransactionViewModel
@@ -27,7 +27,7 @@ class TransactionsLogTabFragment(val fragment: Fragment) : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        binding = FragmentTransactionsLogTabBinding.inflate(inflater, container, false)
+        binding = FragmentRecentTransactionsTabBinding.inflate(inflater, container, false)
         firebaseAuth = FirebaseAuth.getInstance()
         viewModel = ViewModelProvider(this).get(MainScreenViewModel::class.java)
         transactionViewModel = ViewModelProvider(this).get(TransactionViewModel::class.java)
@@ -68,7 +68,6 @@ class TransactionsLogTabFragment(val fragment: Fragment) : Fragment() {
                 epoxyController.transactionLog = transStatus
                 epoxyController.requestModelBuild()
             }
-
 
         // Inflate the layout for this fragment
         return binding.root

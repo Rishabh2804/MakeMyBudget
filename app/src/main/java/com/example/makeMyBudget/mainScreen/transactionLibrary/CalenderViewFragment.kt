@@ -5,22 +5,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.OnBackPressedDispatcher
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.example.makeMyBudget.entities.TransactionType
 import com.example.makeMyBudget.mainScreen.MainScreenFragmentDirections
 import com.example.makeMyBudget.mainScreen.SwipeHandler
 import com.example.makeMyBudget.mainScreen.tabs.CalendarViewFragmentArgs
-import com.example.makeMyBudget.mainScreen.transactionLibrary.TransactionListAdapter
+import com.example.makeMyBudget.mainScreen.tabs.CalendarViewFragmentDirections
 import com.example.makeMyBudget.mainScreen.viewModels.MainScreenViewModel
 import com.example.makeMyBudget.mainScreen.viewModels.TransactionViewModel
 import com.example.makemybudget.databinding.FragmentCalenderViewBinding
 import com.google.firebase.auth.FirebaseAuth
-import sun.bob.mcalendarview.listeners.OnDateClickListener
-import sun.bob.mcalendarview.listeners.OnMonthChangeListener
-import sun.bob.mcalendarview.vo.DateData
 import java.util.*
 
 class CalenderViewFragment : Fragment() {
@@ -37,7 +35,7 @@ class CalenderViewFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // declaring the binding and viewModel
         binding = FragmentCalenderViewBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(MainScreenViewModel::class.java)
@@ -59,20 +57,65 @@ class CalenderViewFragment : Fragment() {
 
         // getting the instance of the calendar
         val calender = Calendar.getInstance()
-        // setting the day, month and year of the calendar
         calender.set(year, month, day)
-        // marking the dates
-        //markDates(monthYear)
+        viewModel.setDate(calender.timeInMillis)
+        binding.calenderView.selectedDates = mutableListOf(calender)
 
-        //
-//        binding.calendarView.setOnDateClickListener(object : OnDateClickListener() {
-//            override fun onDateClick(view: View?, date: DateData) {
-//                val calendar= Calendar.getInstance()
-//                calendar.set(date.year,date.month,date.day)
-//                showData(calendar.timeInMillis)
+        binding.calenderView.setOnDayClickListener { eventDay ->
+            val calendar2 = eventDay.calendar
+            viewModel.setMonthYear(calendar2.get(Calendar.YEAR) * 100 + calendar2.get(Calendar.MONTH))
+            viewModel.setDate(calendar2.timeInMillis)
+            binding.calenderView.selectedDates = mutableListOf(calendar2)
+            binding.calenderView.setHighlightedDays(mutableListOf(calendar2))
+        }
+
+//        viewModel.getDates().observe(viewLifecycleOwner, {
+//            it?.let {
+//                binding.calendarView.markDates(it)
 //            }
 //        })
 //
+        viewModel.expenseByDateAndType
+            .observe(viewLifecycleOwner) {
+                binding.spentAmount.text = it.toString() ?: "0"
+            }
+
+        viewModel.incomeByDateAndType.observe(viewLifecycleOwner) {
+            binding.earnedAmount.text = it.toString() //?: "0.0"
+        }
+
+        viewModel.transactionsByDate.observe(viewLifecycleOwner) { it ->
+            val adapter =
+                TransactionListAdapter(
+                    it.toMutableList(),
+                    this,
+                    requireContext(),
+                    transactionViewModel,
+                    listener
+                )
+            val swipeHandler = object : SwipeHandler() {
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    if (direction == ItemTouchHelper.LEFT) {
+                        adapter.deleteTransaction(viewHolder.adapterPosition, it.toMutableList())
+                    } else if (direction == ItemTouchHelper.RIGHT) {
+                        adapter.completeTransaction(viewHolder.adapterPosition, it.toMutableList())
+                    }
+                }
+            }
+
+            binding.dailyTransactions.adapter = adapter
+            ItemTouchHelper(swipeHandler).attachToRecyclerView(binding.dailyTransactions)
+        }
+
+        val callBackDispatcher = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().navigateUp()
+            }
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(callBackDispatcher)
+
+
 //        binding.calendarView.setOnMonthChangeListener(object : OnMonthChangeListener() {
 //            override fun onMonthChange(year: Int, month: Int) {
 //                monthYear = year * 100 + month
@@ -96,42 +139,11 @@ class CalenderViewFragment : Fragment() {
 
     fun showData(date: Long) {
 
-        viewModel.getAmountByDateAndType(date, TransactionType.EXPENSE)
-            .observe(viewLifecycleOwner) {
-                binding.spentAmount.text = it.toString()
-            }
-
-        viewModel.getAmountByDateAndType(date, TransactionType.INCOME).observe(viewLifecycleOwner) {
-            binding.earnedAmount.text = it.toString()
-        }
-
-        viewModel.getTransactionsByDate(date).observe(viewLifecycleOwner) { it ->
-            val adapter =
-                TransactionListAdapter(
-                    it.toMutableList(),
-                    this,
-                    requireContext(),
-                    transactionViewModel,
-                    listener
-                )
-            val swipeHandler = object : SwipeHandler() {
-                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    if (direction == ItemTouchHelper.LEFT) {
-                        adapter.deleteTransaction(viewHolder.adapterPosition, it.toMutableList())
-                    } else if (direction == ItemTouchHelper.RIGHT) {
-                        adapter.completeTransaction(viewHolder.adapterPosition, it.toMutableList())
-                    }
-                }
-            }
-
-            binding.dailyTransactions.adapter = adapter
-            ItemTouchHelper(swipeHandler).attachToRecyclerView(binding.dailyTransactions)
-        }
     }
 
     private val listener: (id: Long) -> Unit = {
         findNavController().navigate(
-            MainScreenFragmentDirections.actionMainScreenFragmentToTransactionDetailFragment(it)
+            CalendarViewFragmentDirections.actionCalenderViewFragmentToTransactionDetailFragment(it)
         )
     }
 }

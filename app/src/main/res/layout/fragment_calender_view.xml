@@ -4,10 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.makeMyBudget.mainScreen.tabs.CalendarViewFragment">
+    tools:context="com.example.makeMyBudget.mainScreen.transactionLibrary.CalenderViewFragment">
 
     <com.applandeo.materialcalendarview.CalendarView
-        android:id="@+id/calendarView"
+        app:selectionColor="@color/teal_200"
+        app:selectionLabelColor="@color/teal_200"
+        android:id="@+id/calenderView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,7 +25,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calendarView">
+        app:layout_constraintTop_toBottomOf="@+id/calenderView">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

@@ -38,22 +38,13 @@ class AddOrEditTransactionFragment : Fragment() {
 
         binding = FragmentAddOrEditTransactionBinding.inflate(inflater, container, false)
 
-        val mode: String? = sharedPreferences.getString("mode", "")!!
-
-        binding.toolbar.title = if (mode.equals("Add"))
-            "Add New Transaction"
-        else
-            "Edit Transactions"
-
         binding.transDateInput.transformIntoDatePicker(requireContext(), "dd-MM-yyyy")
         binding.toDateInput.transformIntoDatePicker(requireContext(), "dd-MM-yyyy")
         binding.fromDateInput.transformIntoDatePicker(requireContext(), "dd-MM-yyyy")
 
         binding.isRecurringCheckBox.setOnCheckedChangeListener { _, it ->
-
             binding.toDateInput.isVisible = it
             binding.fromDateInput.isVisible = it
-
         }
 
         val modeArray: MutableList<String> = mutableListOf()
@@ -100,7 +91,6 @@ class AddOrEditTransactionFragment : Fragment() {
                 setData(it)
             }
         }
-
 
         binding.cancelButton.setOnClickListener {
 

@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/calendarView"
+        android:id="@+id/calenderView"
         android:icon="@drawable/ic_baseline_calendar_today_24"
         android:title="Open Calender View"
         app:showAsAction="always">

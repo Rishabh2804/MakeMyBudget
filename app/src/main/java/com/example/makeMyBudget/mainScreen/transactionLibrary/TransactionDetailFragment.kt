@@ -54,6 +54,7 @@ class TransactionDetailFragment : Fragment() {
             setData(it)
         }
 
+        
         binding.toolbar.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.edit -> {

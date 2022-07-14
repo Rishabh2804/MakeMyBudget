@@ -128,5 +128,8 @@
         <argument
             android:name="monthYear"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_calenderViewFragment_to_transactionDetailFragment"
+            app:destination="@id/transactionDetailFragment" />
     </fragment>
 </navigation>

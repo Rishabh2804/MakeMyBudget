@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.makeMyBudget.mainScreen.tabs.OverviewTabFragment
 import com.example.makeMyBudget.mainScreen.tabs.YearMonthTabFragment
-import com.example.makeMyBudget.mainScreen.tabs.TransactionsLogTabFragment
+import com.example.makeMyBudget.mainScreen.tabs.RecentTransactionsTabFragment
 
 class ViewPagerAdapter( val fragment: Fragment) : FragmentStateAdapter(fragment) {
 
@@ -18,7 +18,7 @@ class ViewPagerAdapter( val fragment: Fragment) : FragmentStateAdapter(fragment)
                 OverviewTabFragment()
             }
             1 -> {
-                TransactionsLogTabFragment(fragment)
+                RecentTransactionsTabFragment(fragment)
             }
             else -> {
                 YearMonthTabFragment(fragment)

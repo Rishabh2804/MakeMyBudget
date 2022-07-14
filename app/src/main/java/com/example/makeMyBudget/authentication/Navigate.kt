@@ -13,7 +13,7 @@ class Navigate {
 
         fun action(fragment: Fragment) {
             sharedPreferences =
-                fragment.requireActivity()!!.getSharedPreferences("user_auth", Context.MODE_PRIVATE)
+                fragment.requireActivity().getSharedPreferences("user_auth", Context.MODE_PRIVATE)
 
             val allCheck = sharedPreferences.getBoolean("allCheck", false)
             val action: NavDirections = if (fragment is LoginScreenFragment) {

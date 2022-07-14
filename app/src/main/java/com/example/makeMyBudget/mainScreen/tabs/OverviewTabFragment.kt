@@ -213,6 +213,7 @@ class OverviewTabFragment : Fragment() {
                             )
                         )
                     }
+
                     val pieDataSet = PieDataSet(pieEntries, "Types")
                     pieDataSet.colors = colors.map {
                         ContextCompat.getColor(requireContext(), it)

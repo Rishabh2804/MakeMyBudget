@@ -24,6 +24,11 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
         _userID.value = id
     }
 
+    val date: MutableLiveData<Long> = MutableLiveData<Long>(0L)
+    fun setDate(date: Long) {
+        this.date.value = date
+    }
+
     private val monthYear: MutableLiveData<Int> = MutableLiveData(0)
     fun setMonthYear(monthYear: Int) {
         this.monthYear.value = monthYear
@@ -83,14 +88,29 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
     fun getPendingTransactions(date: Long) =
         listHandlerRepo.getPendingTransactions(_userID.value!!, date)
 
-    fun getDates(monthYear: Int) =
-        listHandlerRepo.getTransactionDatesByMonthYear(_userID.value!!, monthYear)
+    var getDates : LiveData<List<Long>> = Transformations.switchMap(monthYear) {
+        listHandlerRepo.getTransactionDatesByMonthYear(_userID.value!!, it)
+    }
 
-    fun getTransactionsByDate(date: Long) =
-        listHandlerRepo.getTransactionByDate(_userID.value!!, date)
+    var transactionsByDate = Transformations.switchMap(date) {
+        listHandlerRepo.getTransactionByDate(_userID.value!!, it)
+    }
 
-    fun getAmountByDateAndType(date: Long, type: TransactionType) =
-        listHandlerRepo.getTransactionAmountByDateAndType(_userID.value!!, date, type)
+    var incomeByDateAndType = Transformations.switchMap(date) {
+        listHandlerRepo.getTransactionAmountByDateAndType(
+            _userID.value!!,
+            it,
+            TransactionType.INCOME
+        )
+    }
+
+    var expenseByDateAndType = Transformations.switchMap(date) {
+        listHandlerRepo.getTransactionAmountByDateAndType(
+            _userID.value!!,
+            it,
+            TransactionType.EXPENSE
+        )
+    }
 
     val monthlyTransactionsInfo = Transformations.switchMap(_userID) {
         listHandlerRepo.getMonthlyTransactionInfo(_userID.value!!)
@@ -120,9 +140,10 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
         listHandlerRepo.getYearlyTransactionInfo(_userID.value!!)
     }
 
-    val monthlyTransactions: LiveData<List<Transaction>> = Transformations.switchMap(monthYear) {
-        listHandlerRepo.getTransactionsByMonthYear(userID.value!!, it)
-    }
+    val monthlyTransactions: LiveData<List<Transaction>> =
+        Transformations.switchMap(monthYear) {
+            listHandlerRepo.getTransactionsByMonthYear(userID.value!!, it)
+        }
 
     val monthlyExpenses: LiveData<Double> = Transformations.switchMap(monthYear) {
         listHandlerRepo.getAmountByMonthYearAndType(userID.value!!, TransactionType.EXPENSE, it)
@@ -140,8 +161,9 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
         listHandlerRepo.getAmountByYearAndType(it, TransactionType.INCOME)
     }
 
-    val epoxyDataList: LiveData<Map<Int, List<MonthDetail>>> = Transformations.switchMap(userID) {
-        listHandlerRepo.getMonthDetailByYear(it)
-    }
+    val epoxyDataList: LiveData<Map<Int, List<MonthDetail>>> =
+        Transformations.switchMap(userID) {
+            listHandlerRepo.getMonthDetailByYear(it)
+        }
 
 }

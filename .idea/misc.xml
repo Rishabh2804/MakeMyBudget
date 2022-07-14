@@ -5,12 +5,14 @@
       <map>
         <entry key="..\:/Users/rishabh/.gradle/caches/transforms-3/99b2bf7a6024f79e661741d0d57d1be1/transformed/facebook-common-13.2.0/res/drawable/com_facebook_button_icon.xml" value="0.2595" />
         <entry key="..\:/Users/rishabh/AndroidStudioProjects/MakeMyBudget/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.219" />
+        <entry key="..\:/Users/rishabh/AndroidStudioProjects/MakeMyBudget/app/src/main/res/drawable/circle_image.xml" value="0.2015" />
         <entry key="..\:/Users/rishabh/AndroidStudioProjects/MakeMyBudget/app/src/main/res/drawable/com_facebook_logo.xml" value="0.2585" />
         <entry key="..\:/Users/rishabh/AndroidStudioProjects/MakeMyBudget/app/src/main/res/drawable/facebook_logo.xml" value="0.1955" />
         <entry key="..\:/Users/rishabh/AndroidStudioProjects/MakeMyBudget/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.1955" />
         <entry key="..\:/Users/rishabh/AndroidStudioProjects/MakeMyBudget/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.2015" />
         <entry key="..\:/Users/rishabh/AndroidStudioProjects/MakeMyBudget/app/src/main/res/drawable/ic_baseline_arrow_drop_down_24.xml" value="0.229" />
         <entry key="..\:/Users/rishabh/AndroidStudioProjects/MakeMyBudget/app/src/main/res/drawable/ic_baseline_calendar_today_24.xml" value="0.1955" />
+        <entry key="..\:/Users/rishabh/AndroidStudioProjects/MakeMyBudget/app/src/main/res/drawable/ic_baseline_circle_24.xml" value="0.2015" />
         <entry key="..\:/Users/rishabh/AndroidStudioProjects/MakeMyBudget/app/src/main/res/drawable/ic_baseline_collapse_up.xml" value="0.202" />
         <entry key="..\:/Users/rishabh/AndroidStudioProjects/MakeMyBudget/app/src/main/res/drawable/ic_baseline_currency_rupee_24.xml" value="0.1955" />
         <entry key="..\:/Users/rishabh/AndroidStudioProjects/MakeMyBudget/app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.1955" />
@@ -20,6 +22,7 @@
         <entry key="..\:/Users/rishabh/AndroidStudioProjects/MakeMyBudget/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.1955" />
         <entry key="..\:/Users/rishabh/AndroidStudioProjects/MakeMyBudget/app/src/main/res/drawable/ic_baseline_show_password_24.xml" value="0.1955" />
         <entry key="..\:/Users/rishabh/AndroidStudioProjects/MakeMyBudget/app/src/main/res/drawable/ic_baseline_vpn_key_24.xml" value="0.1955" />
+        <entry key="..\:/Users/rishabh/AndroidStudioProjects/MakeMyBudget/app/src/main/res/drawable/legend_marker.xml" value="0.241" />
         <entry key="..\:/Users/rishabh/AndroidStudioProjects/MakeMyBudget/app/src/main/res/font/galada.xml" value="0.14322916666666666" />
         <entry key="..\:/Users/rishabh/AndroidStudioProjects/MakeMyBudget/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/rishabh/AndroidStudioProjects/MakeMyBudget/app/src/main/res/layout/epoxy_item.xml" value="0.23324275362318841" />

@@ -60,6 +60,7 @@ class MonthScreenFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         sharedPreferences = activity?.getSharedPreferences("user_auth", Context.MODE_PRIVATE)!!
 
+
         val monthYear = MonthScreenFragmentArgs.fromBundle(
             requireArguments()
         ).monthYear
@@ -79,7 +80,7 @@ class MonthScreenFragment : Fragment() {
 
         binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
-                R.id.calendarView -> {
+                R.id.calenderView -> {
                     findNavController().navigate(
                         MonthScreenFragmentDirections.actionMonthScreenFragmentToCalenderViewFragment(
                             monthYear
