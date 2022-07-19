@@ -66,6 +66,8 @@ class FBLogin {
 
                 auth.addOnCompleteListener {
                     if (it.isSuccessful) {
+                        sharedPreferences.edit().putString("user_id", firebaseAuth.currentUser?.uid).apply()
+
                         Toast.makeText(fragment.requireActivity(), "Login Successful", Toast.LENGTH_SHORT)
                             .show()
                         val user = auth.result?.user
@@ -75,6 +77,7 @@ class FBLogin {
                 }
 
                 withContext(Dispatchers.Main) {
+                    sharedPreferences.edit().putBoolean("isLoggedIn", true).apply()
                     sharedPreferences.edit().putBoolean("isRegistered", true).apply()
                     Navigate.action(fragment)
                 }

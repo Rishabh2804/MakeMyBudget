@@ -7,10 +7,10 @@
     tools:context="com.example.makeMyBudget.mainScreen.tabs.RecentTransactionsTabFragment"
     tools:ignore="SpeakableTextPresentCheck">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <com.airbnb.epoxy.EpoxyRecyclerView
         android:id="@+id/transactions_log_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </androidx.recyclerview.widget.RecyclerView>
+    </com.airbnb.epoxy.EpoxyRecyclerView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.example.makeMyBudget.authentication
 
+import R2.string.default_web_client_id
 import android.content.Context
 import android.content.SharedPreferences
 import android.widget.Toast
@@ -11,6 +12,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -47,6 +49,7 @@ class GoogleLogin {
             )
         }
 
+        @OptIn(DelicateCoroutinesApi::class)
         fun firebaseAuthWithGoogle(account: GoogleSignInAccount) {
             sharedPreferences =
                 fragment.requireActivity()!!.getSharedPreferences("user_auth", Context.MODE_PRIVATE)
@@ -58,6 +61,8 @@ class GoogleLogin {
                 val auth = firebaseAuth.signInWithCredential(credentials).addOnSuccessListener {
                     Toast.makeText(fragment.requireContext(), "Google sign in success 🎉", Toast.LENGTH_SHORT)
                         .show()
+
+                    sharedPreferences.edit().putString("user_id", firebaseAuth.currentUser?.uid).apply()
 
                     val user = it.user
 

@@ -3,15 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-<!--    <data>-->
-
-<!--        <variable-->
-<!--            name="month_name"-->
-<!--            type="String" />-->
-<!--    </data>-->
+    <data>
+        <variable
+            name="month_name"
+            type="String" />
+    </data>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/id_card_view"
+        android:id="@+id/idcardView"
         android:layout_width="match_parent"
 
         android:layout_height="150dp"
@@ -45,7 +44,7 @@
                 </View>
 
                 <TextView
-                    android:id="@+id/category_name"
+                    android:id="@+id/month_transaction"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -56,39 +55,39 @@
                     app:layout_constraintTop_toTopOf="@+id/view2" />
 
                 <TextView
-                    android:id="@+id/date"
+                    android:id="@+id/GainOrLoss"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="TextView"
-                    app:layout_constraintEnd_toEndOf="@+id/category_name"
-                    app:layout_constraintStart_toStartOf="@+id/category_name"
-                    app:layout_constraintTop_toBottomOf="@+id/category_name" />
+                    app:layout_constraintEnd_toEndOf="@+id/month_transaction"
+                    app:layout_constraintStart_toStartOf="@+id/month_transaction"
+                    app:layout_constraintTop_toBottomOf="@+id/month_transaction" />
 
                 <TextView
-                    android:id="@+id/unknown"
+                    android:id="@+id/profitOrLoss"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="TextView"
-                    app:layout_constraintEnd_toEndOf="@+id/date"
+                    app:layout_constraintEnd_toEndOf="@+id/GainOrLoss"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/date"
-                    app:layout_constraintTop_toBottomOf="@+id/date" />
+                    app:layout_constraintStart_toStartOf="@+id/GainOrLoss"
+                    app:layout_constraintTop_toBottomOf="@+id/GainOrLoss" />
 
                 <TextView
-                    android:id="@+id/textView9"
+                    android:id="@+id/net_balance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:text="TextView"
-                    app:layout_constraintEnd_toEndOf="@+id/unknown"
+                    app:layout_constraintEnd_toEndOf="@+id/profitOrLoss"
                     app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/unknown"
-                    app:layout_constraintTop_toBottomOf="@+id/unknown" />
+                    app:layout_constraintStart_toStartOf="@+id/profitOrLoss"
+                    app:layout_constraintTop_toBottomOf="@+id/profitOrLoss" />
 
                 <TextView
-                    android:id="@+id/view_details_link"
+                    android:id="@+id/detailsInside"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="24dp"
@@ -100,6 +99,5 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
     </androidx.cardview.widget.CardView>
-
 
 </layout>

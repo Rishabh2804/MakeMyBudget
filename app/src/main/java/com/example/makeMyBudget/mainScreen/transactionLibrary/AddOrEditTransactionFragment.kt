@@ -1,9 +1,11 @@
 package com.example.makeMyBudget.mainScreen.transactionLibrary
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +14,6 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -26,25 +27,39 @@ import java.util.*
 
 class AddOrEditTransactionFragment : Fragment() {
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        setHasOptionsMenu(true)
+        super.onCreate(savedInstanceState)
+    }
+
     private lateinit var binding: FragmentAddOrEditTransactionBinding
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var viewModel: TransactionViewModel
-    private lateinit var firebaseAuth: FirebaseAuth
+    private val screenNo = AddOrEditTransactionFragmentArgs.fromBundle(requireArguments()).screenNo
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
+        // Inflate the layout for this fragment
         binding = FragmentAddOrEditTransactionBinding.inflate(inflater, container, false)
+
+        sharedPreferences = activity?.getSharedPreferences("user_auth", Context.MODE_PRIVATE)!!
+
 
         binding.transDateInput.transformIntoDatePicker(requireContext(), "dd-MM-yyyy")
         binding.toDateInput.transformIntoDatePicker(requireContext(), "dd-MM-yyyy")
         binding.fromDateInput.transformIntoDatePicker(requireContext(), "dd-MM-yyyy")
 
+        binding.fromDateInput.isVisible = false
+        binding.toDateInput.isVisible = false
+
         binding.isRecurringCheckBox.setOnCheckedChangeListener { _, it ->
+
             binding.toDateInput.isVisible = it
             binding.fromDateInput.isVisible = it
+
         }
 
         val modeArray: MutableList<String> = mutableListOf()
@@ -78,32 +93,36 @@ class AddOrEditTransactionFragment : Fragment() {
             override fun onNothingSelected(p0: AdapterView<*>?) {}
         }
         viewModel = ViewModelProvider(this).get(TransactionViewModel::class.java)
-        firebaseAuth = FirebaseAuth.getInstance()
 
-        val user_id = firebaseAuth.currentUser!!.uid
-        viewModel.setUserID(user_id)
+        val userID = sharedPreferences.getString("user_id", "")!!
+        val transID = AddOrEditTransactionFragmentArgs.fromBundle(requireArguments()).transId
 
-        val transaction_id = AddOrEditTransactionFragmentArgs.fromBundle(requireArguments()).transId
-        viewModel.setTransId(transaction_id)
+        //setting the user id and trans id of viewModel after getting it through firebase
+        viewModel.setUserID(userID)
+        viewModel.setTransId(transID)
 
+        if (transID == 0L) {
+            binding.toolbar.title = "Add new Transaction"
+        } else binding.toolbar.title = "Edit Transaction"
         viewModel.transaction.observe(viewLifecycleOwner) {
-            if (transaction_id != 0L) {
+            if (transID != 0L) {
                 setData(it)
             }
         }
-
         binding.cancelButton.setOnClickListener {
 
             val dialog = AlertDialog.Builder(requireContext())
             with(dialog) {
                 setTitle("Cancel Transaction")
                 setMessage("Are you sure you want to cancel this transaction?")
-                setPositiveButton("Yes") { _, it ->
-                    findNavController().navigate(AddOrEditTransactionFragmentDirections.actionAddOrEditTransactionFragmentToMainScreenFragment())
+                setPositiveButton("Yes") { _, _ ->
+                    findNavController().navigate(
+                        AddOrEditTransactionFragmentDirections.actionAddOrEditTransactionFragmentToMainScreenFragment(
+                            screenNo
+                        )
+                    )
                 }
-
             }
-
             dialog.create().show()
         }
 
@@ -151,9 +170,13 @@ class AddOrEditTransactionFragment : Fragment() {
         val month = binding.transDateInput.text.toString().substring(3, 5).toInt()
         val year = binding.transDateInput.text.toString().substring(6).toInt()
         val monthYear = year * 100 + month
-        val type: TransactionType =
-            TransactionType.values()[binding.radioGroup.checkedRadioButtonId]
-        val status: TransactionStatus = TransactionStatus.PENDING
+//        Log.d("monthyear", "$monthYear $month $year")
+        val typeIndex = if (binding.incomeButton.isChecked) 1 else 0
+        val type: TransactionType = TransactionType.values()[typeIndex]
+        var status: TransactionStatus = TransactionStatus.PENDING
+        if (binding.alreadyCompleted.isChecked) {
+            status = TransactionStatus.COMPLETED
+        }
         val transaction = Transaction(
             viewModel.userID.value!!,
             viewModel.transactionID.value!!,
@@ -172,17 +195,20 @@ class AddOrEditTransactionFragment : Fragment() {
             mode,
             status
         )
-
         viewModel.insertOrUpdate(transaction)
         Toast.makeText(requireContext(), "Transaction added/updated", Toast.LENGTH_SHORT).show()
-        findNavController().navigate(AddOrEditTransactionFragmentDirections.actionAddOrEditTransactionFragmentToMainScreenFragment())
+        findNavController().navigate(
+            AddOrEditTransactionFragmentDirections.actionAddOrEditTransactionFragmentToMainScreenFragment(
+                screenNo
+            )
+        )
     }
 
     private fun setData(transaction: Transaction) {
         binding.transTitleInput.setText(transaction.title)
         binding.transDescInput.setText(transaction.description)
-        binding.transAmountMsg.text = (transaction.transactionAmount.toString())
-        binding.transDateInput.setText(transaction.transactionDate.toString())
+        binding.transAmountInput.setText(transaction.transactionAmount.toString())
+        binding.transDateInput.setText(SimpleDateFormat("dd-MM-yyyy").format(transaction.transactionDate))
         if (transaction.isRecurring) {
             binding.isRecurringCheckBox.isChecked = true
             binding.fromDateInput.setText(transaction.fromDate.toString())
@@ -198,7 +224,9 @@ class AddOrEditTransactionFragment : Fragment() {
         binding.tagsSpinner.setSelection(TransactionCategory.values().find {
             it.name == transaction.transactionCategory.name
         }!!.ordinal)
-        binding.radioGroup.check(transaction.transactionType.ordinal)
+        binding.incomeButton.isChecked = transaction.transactionType.ordinal == 1
+        binding.expenseButton.isChecked = transaction.transactionType.ordinal == 0
+
     }
 
     private fun EditText.transformIntoDatePicker(context: Context, format: String) {
@@ -211,6 +239,7 @@ class AddOrEditTransactionFragment : Fragment() {
             DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                 myCalendar.set(Calendar.YEAR, year)
                 myCalendar.set(Calendar.MONTH, monthOfYear)
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
                 val sdf = SimpleDateFormat(format, Locale.UK)
                 setText(sdf.format(myCalendar.time))
@@ -227,5 +256,4 @@ class AddOrEditTransactionFragment : Fragment() {
             }
         }
     }
-
 }

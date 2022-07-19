@@ -73,11 +73,15 @@ class LoginScreenFragment : Fragment() {
             handleCustomLogin()
         }
 
+        binding.guestLogin.setOnClickListener{
+            GuestLogin.login(this)
+        }
         binding.customRegisterButton.setOnClickListener {
             action =
                 LoginScreenFragmentDirections.actionLoginScreenFragmentToRegisterScreenFragment()
             findNavController().navigate(action)
         }
+
 
         return binding.root
     }
@@ -96,6 +100,8 @@ class LoginScreenFragment : Fragment() {
                 firebaseAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
+                            sharedPreferences.edit().putString("user_id", firebaseAuth.currentUser?.uid).apply()
+                            sharedPreferences.edit().putBoolean("isLoggedIn", true).apply()
                             Toast.makeText(
                                 context,
                                 "Welcome to MakeMyBudget",

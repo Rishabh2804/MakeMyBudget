@@ -1,4 +1,4 @@
-package com.example.makeMyBudget.mainScreen
+package com.example.makeMyBudget.mainScreen.transactionLibrary
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,14 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.view.menu.MenuView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.example.dealwithexpenses.mainScreen.transactionLibrary.SwipeHandler
+
 import com.example.makeMyBudget.entities.Transaction
-import com.example.makeMyBudget.mainScreen.transactionLibrary.TransactionListAdapter
+import com.example.makeMyBudget.mainScreen.MainScreenFragmentDirections
 import com.example.makeMyBudget.mainScreen.viewModels.TransactionViewModel
+import com.example.makeMyBudget.mainScreen.viewModels.transactionLog
 import com.example.makemybudget.R
 
 
@@ -24,13 +28,13 @@ class TransactionLogEpoxyController(
 ) : RecyclerView.Adapter<TransactionLogEpoxyController.Holder>() {
     var transactionLog = mutableListOf<TransactionLogItem>()
 
-    inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class Holder(val view: View) : RecyclerView.ViewHolder(view) {
         var cardView: CardView = itemView.findViewById(R.id.card_view)
         var heading: TextView = itemView.findViewById(R.id.heading)
         var arrowButton: ImageView = itemView.findViewById(R.id.expand_collapse)
         var recyclerView: RecyclerView = itemView.findViewById(R.id.recycler_view)
 
-        fun onBindView(item: TransactionLogItem) {
+        fun bindView(item: TransactionLogItem) {
 
             val adapter =
                 TransactionListAdapter(item.transactionLog, fragment, context, viewModel, listener)
@@ -38,16 +42,26 @@ class TransactionLogEpoxyController(
             val swipeHandler = object : SwipeHandler() {
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                     if (direction == ItemTouchHelper.LEFT) {
-                        adapter.deleteTransaction(absoluteAdapterPosition, item.transactionLog)
+                        adapter.deleteTransaction(
+                            viewHolder.absoluteAdapterPosition,
+                            item.transactionLog
+                        )
                     } else if (direction == ItemTouchHelper.RIGHT) {
-                        adapter.completeTransaction(absoluteAdapterPosition, item.transactionLog)
+                        adapter.completeTransaction(
+                            viewHolder.absoluteAdapterPosition,
+                            item.transactionLog
+                        )
                     }
                 }
             }
 
             val itemTouchHelper = ItemTouchHelper(swipeHandler)
+
+
             heading.text = item.title
             recyclerView.adapter = adapter
+            recyclerView.layoutManager =
+                androidx.recyclerview.widget.LinearLayoutManager(recyclerView.context)
             itemTouchHelper.attachToRecyclerView(recyclerView)
 
             recyclerView.visibility = if (item.title == "Completed")
@@ -64,9 +78,13 @@ class TransactionLogEpoxyController(
                     arrowButton.setImageResource(R.drawable.ic_baseline_expand_down)
                 }
             }
-
         }
+    }
 
+    private val listener: (id: Long) -> Unit = {
+        fragment.findNavController().navigate(
+            MainScreenFragmentDirections.actionMainScreenFragmentToTransactionDetailFragment(it, 1)
+        )
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -76,49 +94,14 @@ class TransactionLogEpoxyController(
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        TODO("Not yet implemented")
+        holder.bindView(transactionLog[position])
     }
 
     override fun getItemCount(): Int {
         return transactionLog.size
     }
-//
-//    fun buildModels() {
-//        transactionLog.forEachIndexed { index, item ->
-//
-//            val adapter =
-//                TransactionListAdapter(item.transactionLog, fragment, context, viewModel, listener)
-//
-//            val swipeHandler = object : SwipeHandler() {
-//                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-//                    if (direction == ItemTouchHelper.LEFT) {
-//                        adapter.deleteTransaction(viewadapterPosition, item.transactionLog)
-//                    } else if (direction == ItemTouchHelper.RIGHT) {
-//                        adapter.completeTransaction(viewadapterPosition, item.transactionLog)
-//                    }
-//                }
-//            }
-//
-//            val itemTouchHelper = ItemTouchHelper(swipeHandler)
-//
-////            transactionLog {
-////                id(index)
-////                title(item.title)
-////                adapter(adapter)
-////                itemTouchHelper(itemTouchHelper)
-////            }
-//        }
-//    }
-
-    private val listener: (id: Long) -> Unit = {
-        fragment.findNavController().navigate(
-            MainScreenFragmentDirections.actionMainScreenFragmentToTransactionDetailFragment(it)
-        )
-    }
-
 
 }
-
 
 data class TransactionLogItem(
     val title: String = "",

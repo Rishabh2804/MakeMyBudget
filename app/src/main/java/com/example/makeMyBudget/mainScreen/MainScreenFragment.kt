@@ -46,7 +46,6 @@ class MainScreenFragment : Fragment() {
     private lateinit var binding: FragmentMainScreenBinding
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var viewModel: MainScreenViewModel
-    private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var incomeRegister: HashMap<Int, Double>
 
     override fun onCreateView(
@@ -57,10 +56,8 @@ class MainScreenFragment : Fragment() {
         binding = FragmentMainScreenBinding.inflate(inflater, container, false)
         sharedPreferences = activity?.getSharedPreferences("user_auth", 0)!!
         viewModel = ViewModelProvider(this).get(MainScreenViewModel::class.java)
-        firebaseAuth = FirebaseAuth.getInstance()
 
         binding.viewPager.adapter = ViewPagerAdapter(this)
-
         binding.tabLayout.tabGravity = TabLayout.GRAVITY_FILL
 
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -83,8 +80,8 @@ class MainScreenFragment : Fragment() {
                 2 -> tab.text = "Calendar"
             }
         }.attach()
-        val userId = firebaseAuth.currentUser?.uid!!
-        viewModel.setUserID(userId)
+        val userID = sharedPreferences.getString("user_id", "")!!
+        viewModel.setUserID(userID)
 
         val activeMonthlyIncome = sharedPreferences.getString("income", "0")?.toDouble()
         val activeYearlyPackage = activeMonthlyIncome?.times(12)
@@ -186,7 +183,7 @@ class MainScreenFragment : Fragment() {
         binding.floatingActionButton2.setOnClickListener {
             findNavController().navigate(
                 MainScreenFragmentDirections.actionMainScreenFragmentToAddOrEditTransactionFragment(
-                    0
+                    0, 0
                 )
             )
         }

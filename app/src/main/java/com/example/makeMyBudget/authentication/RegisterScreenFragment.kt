@@ -78,6 +78,10 @@ class RegisterScreenFragment : Fragment() {
                         firebaseAuth.currentUser?.uid?.let {
                             user.user_id = it
                         }
+
+                        sharedPreferences.edit().putString("user_id", user.user_id).apply()
+                        sharedPreferences.edit().putBoolean("isRegistered", true).apply()
+
                     } else {
                         Toast.makeText(context, "Registration failed", Toast.LENGTH_SHORT).show()
                     }
