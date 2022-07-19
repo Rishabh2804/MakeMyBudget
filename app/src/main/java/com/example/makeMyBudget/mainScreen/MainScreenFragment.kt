@@ -1,7 +1,6 @@
 package com.example.makeMyBudget.mainScreen
 
 import android.content.SharedPreferences
-import android.icu.util.Calendar
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,52 +13,35 @@ import com.example.makeMyBudget.mainScreen.viewModels.MainScreenViewModel
 import com.example.makemybudget.databinding.FragmentMainScreenBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import com.google.firebase.auth.FirebaseAuth
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import java.util.*
 import kotlin.collections.HashMap
 
 class MainScreenFragment : Fragment() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
-    companion object {
-        fun SharedPreferences.saveHashMap(key: String, obj: HashMap<Int, Double>) {
-            val editor = this.edit()
-            val gson = Gson()
-            val json = gson.toJson(obj)
-            editor.putString(key, json)
-            editor.apply()
-        }
-
-        fun SharedPreferences.getHashMap(key: String): HashMap<Int, Double> {
-            val gson = Gson()
-            val json = this.getString(key, "")
-            val type = object : TypeToken<HashMap<Int, Int>>() {}.type
-            return gson.fromJson(json, type)
-        }
-    }
 
     private lateinit var binding: FragmentMainScreenBinding
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var viewModel: MainScreenViewModel
     private lateinit var incomeRegister: HashMap<Int, Double>
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentMainScreenBinding.inflate(inflater, container, false)
         sharedPreferences = activity?.getSharedPreferences("user_auth", 0)!!
         viewModel = ViewModelProvider(this).get(MainScreenViewModel::class.java)
 
+        val initialPosition = MainScreenFragmentArgs.fromBundle(requireArguments()).screenNumber
+
         binding.viewPager.adapter = ViewPagerAdapter(this)
         binding.tabLayout.tabGravity = TabLayout.GRAVITY_FILL
 
+        binding.viewPager.currentItem = initialPosition
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 binding.viewPager.currentItem = tab.position
@@ -80,6 +62,7 @@ class MainScreenFragment : Fragment() {
                 2 -> tab.text = "Calendar"
             }
         }.attach()
+
         val userID = sharedPreferences.getString("user_id", "")!!
         viewModel.setUserID(userID)
 
@@ -92,14 +75,14 @@ class MainScreenFragment : Fragment() {
         )
 
         val choicesAdapter = ArrayAdapter(
-            activity!!.baseContext,
+            requireActivity().baseContext,
             android.R.layout.simple_spinner_item,
             choices
         )
 
         binding.spinner.adapter = choicesAdapter
 
-        incomeRegister = sharedPreferences.getHashMap("income_register")
+        //incomeRegister = sharedPreferences.getHashMap("income_register")
 
         binding.spinner.onItemSelectedListener = object :
             android.widget.AdapterView.OnItemSelectedListener {
@@ -111,7 +94,8 @@ class MainScreenFragment : Fragment() {
             ) {
                 when (position) {
                     0 -> {
-                        val totalMonthlyEarnings = allTimeMonthlyEarnings()
+                        val totalMonthlyEarnings = 0.0
+                        // allTimeMonthlyEarnings()
                         var totalGains = 0.0
                         var totalExpenses = 0.0
                         var totalCredit = 0.0
@@ -141,10 +125,9 @@ class MainScreenFragment : Fragment() {
                         val calendar = Calendar.getInstance()
 
                         val year = calendar.get(Calendar.YEAR)
-                        val currMonthYear = year * 100 + calendar.get(Calendar.MONTH)
 
-                        val yearIncome =
-                            totalMonthlyEarnings(year * 100 + 1, currMonthYear)
+                        val yearIncome = 0.0
+                        // totalMonthlyEarnings(year * 100 + 1, currMonthYear)
 
                         binding.credit.text = yearIncome.toString()
 
@@ -183,42 +166,42 @@ class MainScreenFragment : Fragment() {
         binding.floatingActionButton2.setOnClickListener {
             findNavController().navigate(
                 MainScreenFragmentDirections.actionMainScreenFragmentToAddOrEditTransactionFragment(
-                    0, 0
+                    0,
+                    0
                 )
             )
         }
-
 
         // Inflate the layout for this fragment
         return binding.root
     }
 
-    fun allTimeMonthlyEarnings(): Double {
-        var totalEarnings = 0.0
-        var earningTillNow = 0.0
-        var lastMonth = -1
-
-        for (KeyValuePair in incomeRegister) {
-            val currMonth = KeyValuePair.key % 100
-            if (earningTillNow != 0.0) {
-                val months = currMonth - lastMonth
-                totalEarnings += earningTillNow * months
-            }
-
-            earningTillNow = KeyValuePair.value
-            lastMonth = currMonth
-        }
-
-        return totalEarnings
-    }
-
-    fun totalMonthlyEarnings(startMonth: Int, endMonth: Int): Double {
-        var totalEarnings = 0.0
-
-        for (i in startMonth..endMonth)
-            totalEarnings += incomeRegister.getOrDefault(i, 0.0)
-
-        return totalEarnings
-    }
+//    fun allTimeMonthlyEarnings(): Double {
+//        var totalEarnings = 0.0
+//        var earningTillNow = 0.0
+//        var lastMonth = -1
+//
+//        for (KeyValuePair in incomeRegister) {
+//            val currMonth = KeyValuePair.key % 100
+//            if (earningTillNow != 0.0) {
+//                val months = currMonth - lastMonth
+//                totalEarnings += earningTillNow * months
+//            }
+//
+//            earningTillNow = KeyValuePair.value
+//            lastMonth = currMonth
+//        }
+//
+//        return totalEarnings
+//    }
+//
+//    fun totalMonthlyEarnings(startMonth: Int, endMonth: Int): Double {
+//        var totalEarnings = 0.0
+//
+//        for (i in startMonth..endMonth)
+//            totalEarnings += incomeRegister[i]!!
+//
+//        return totalEarnings
+//    }
 
 }

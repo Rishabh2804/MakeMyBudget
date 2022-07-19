@@ -51,7 +51,7 @@ class FrontScreenFragment : Fragment() {
         handler.postDelayed({
             //navigating to Login Screen from Front screen
             findNavController().navigate(action)
-        }, 5000)
+        }, 500)
         return binding.root
     }
 

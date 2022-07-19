@@ -33,7 +33,11 @@ class FBLogin {
                     callBackManager,
                     object : FacebookCallback<LoginResult> {
                         override fun onCancel() {
-                            Toast.makeText(fragment.requireActivity(), "Login Cancelled", Toast.LENGTH_SHORT)
+                            Toast.makeText(
+                                fragment.requireActivity(),
+                                "Login Cancelled",
+                                Toast.LENGTH_SHORT
+                            )
                                 .show()
                         }
 
@@ -63,23 +67,35 @@ class FBLogin {
             GlobalScope.launch(Dispatchers.IO) {
                 val auth = firebaseAuth.signInWithCredential(credentials)
 
-
                 auth.addOnCompleteListener {
                     if (it.isSuccessful) {
-                        sharedPreferences.edit().putString("user_id", firebaseAuth.currentUser?.uid).apply()
+                        sharedPreferences.edit().putString("user_id", firebaseAuth.currentUser?.uid)
+                            .apply()
 
-                        Toast.makeText(fragment.requireActivity(), "Login Successful", Toast.LENGTH_SHORT)
+                        Toast.makeText(
+                            fragment.requireActivity(),
+                            "Login Successful",
+                            Toast.LENGTH_SHORT
+                        )
                             .show()
-                        val user = auth.result?.user
+//                        val user = auth.result?.user
+
                     } else {
-                        Toast.makeText(fragment.requireActivity(), "Login Failed", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            fragment.requireActivity(),
+                            "Login Failed",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
                     }
                 }
 
                 withContext(Dispatchers.Main) {
-                    sharedPreferences.edit().putBoolean("isLoggedIn", true).apply()
-                    sharedPreferences.edit().putBoolean("isRegistered", true).apply()
-                    Navigate.action(fragment)
+                    if (auth.isSuccessful) {
+                        Navigate.action(fragment)
+                        sharedPreferences.edit().putBoolean("isLoggedIn", true).apply()
+                        sharedPreferences.edit().putBoolean("isRegistered", true).apply()
+                    }
                 }
             }
         }

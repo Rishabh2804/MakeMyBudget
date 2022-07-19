@@ -47,7 +47,6 @@ class AddOrEditTransactionFragment : Fragment() {
 
         sharedPreferences = activity?.getSharedPreferences("user_auth", Context.MODE_PRIVATE)!!
 
-
         binding.transDateInput.transformIntoDatePicker(requireContext(), "dd-MM-yyyy")
         binding.toDateInput.transformIntoDatePicker(requireContext(), "dd-MM-yyyy")
         binding.fromDateInput.transformIntoDatePicker(requireContext(), "dd-MM-yyyy")
@@ -109,6 +108,7 @@ class AddOrEditTransactionFragment : Fragment() {
                 setData(it)
             }
         }
+
         binding.cancelButton.setOnClickListener {
 
             val dialog = AlertDialog.Builder(requireContext())
