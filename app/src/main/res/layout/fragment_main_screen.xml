@@ -128,7 +128,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cardView2"
         app:tabIndicatorFullWidth="true"
-        app:tabIndicatorGravity="center"
+        app:tabIndicatorGravity="bottom"
         app:tabTextColor="#501E1E"
         tools:ignore="SpeakableTextPresentCheck">
 
@@ -167,12 +167,12 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="900dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

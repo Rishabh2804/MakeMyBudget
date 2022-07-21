@@ -3,6 +3,7 @@ package com.example.makeMyBudget.mainScreen.transactionLibrary
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,10 +13,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.applandeo.materialcalendarview.EventDay
 import com.example.dealwithexpenses.mainScreen.transactionLibrary.SwipeHandler
 
 import com.example.makeMyBudget.mainScreen.viewModels.MainScreenViewModel
 import com.example.makeMyBudget.mainScreen.viewModels.TransactionViewModel
+import com.example.makemybudget.R
 import com.example.makemybudget.databinding.FragmentCalenderViewBinding
 import com.google.firebase.auth.FirebaseAuth
 import java.util.*
@@ -39,11 +42,14 @@ class CalenderViewFragment : Fragment() {
         val userID = sharedPreferences.getString("user_id", "")!!
 
         transactionViewModel.setUserID(userID)
+        viewModel.setUserID(userID)
+
 
         // getting monthYear through arguments of CalenderViewFragment
         val monthYear = CalenderViewFragmentArgs.fromBundle(requireArguments()).monthYear
         // monthYear is of the form YYYYMM in long format
         // hence monthYear /100 will be YYYY(the year) and monthYear % 100 will be MM(the month)
+        viewModel.setMonthYear(monthYear)
         val month = monthYear % 100
         val year = monthYear / 100
         val day = 1
@@ -56,15 +62,27 @@ class CalenderViewFragment : Fragment() {
         //markDates(monthYear)
 
         viewModel.setDate(calender.timeInMillis)
-        binding.calenderView.selectedDates = mutableListOf(calender)
+        viewModel.getDates.observe(viewLifecycleOwner)
+        {
+            Log.d("Hemlo",it.toString())
+            val highlightDays= mutableListOf<EventDay>()
+            it.forEach {
+                val calendar= Calendar.getInstance()
+                calendar.timeInMillis= it
+                highlightDays.add(EventDay(calendar,R.color.category_bills,R.color.category_food))
 
+            }
+            binding.calenderView.setEvents(highlightDays)
+        }
         binding.calenderView.setOnDayClickListener { eventDay ->
             val calendar = eventDay.calendar
             viewModel.setMonthYear(calendar.get(Calendar.YEAR) * 100 + calendar.get(Calendar.MONTH))
             viewModel.setDate(calendar.timeInMillis)
-            binding.calenderView.selectedDates = mutableListOf(calendar)
-            binding.calenderView.setHighlightedDays(mutableListOf(calendar))
+//            binding.calenderView.selectedDates = mutableListOf(calendar)
+//           binding.calenderView.setHighlightedDays(mutableListOf(calendar))
         }
+
+
 
         viewModel.expenseByDateAndType
             .observe(viewLifecycleOwner) {
@@ -91,7 +109,9 @@ class CalenderViewFragment : Fragment() {
                         adapter.deleteTransaction(
                             viewHolder.absoluteAdapterPosition,
                             it.toMutableList()
+
                         )
+                        setDefaultSwipeDirs(0)
                     } else if (direction == ItemTouchHelper.RIGHT) {
                         adapter.completeTransaction(
                             viewHolder.absoluteAdapterPosition,

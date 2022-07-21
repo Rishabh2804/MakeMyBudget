@@ -21,7 +21,7 @@ fun convertIntoEpoxyData(map : Map<Int, List<MonthDetail>>, sharedPreferences: S
             profit+= monthDetail.gain
             val amount: Double = income+profit-expense
             val month: String = months[monthDetail.month-1]
-            val monthCardDetail = MonthCardDetail(month, amount, expense, income, profit, monthDetail.monthYear)
+            val monthCardDetail = MonthCardDetail(month, amount, expense, income, monthDetail.monthYear,profit)
             epoxyData.mutableList.add(monthCardDetail)
         }
         epoxyDataList.add(epoxyData)
