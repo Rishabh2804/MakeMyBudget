@@ -35,14 +35,15 @@ class AddOrEditTransactionFragment : Fragment() {
     private lateinit var binding: FragmentAddOrEditTransactionBinding
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var viewModel: TransactionViewModel
-    private val screenNo = AddOrEditTransactionFragmentArgs.fromBundle(requireArguments()).screenNo
-
+    private var screenNo = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
         // Inflate the layout for this fragment
+       screenNo= AddOrEditTransactionFragmentArgs.fromBundle(requireArguments()).screenNo
+
         binding = FragmentAddOrEditTransactionBinding.inflate(inflater, container, false)
 
         sharedPreferences = activity?.getSharedPreferences("user_auth", Context.MODE_PRIVATE)!!

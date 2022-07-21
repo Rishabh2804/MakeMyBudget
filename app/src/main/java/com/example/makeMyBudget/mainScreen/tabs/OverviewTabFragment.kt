@@ -3,6 +3,7 @@ package com.example.makeMyBudget.mainScreen.tabs
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -95,8 +96,9 @@ class OverviewTabFragment : Fragment() {
             }
 
         // years to be shown when user has done at least one transaction
-        val barChartYears: MutableList<String> = mutableListOf()
+        var barChartYears: MutableList<String> = mutableListOf()
         viewModel.years.observe(viewLifecycleOwner) {
+            barChartYears= mutableListOf()
             it.forEach { year ->
                 //adding every such year into the list
                 barChartYears.add(year.toString())
@@ -126,13 +128,17 @@ class OverviewTabFragment : Fragment() {
             // bar chart spinner will only be shown if switch is activated
             binding.barChartSpinner.isEnabled = isActivated
             //barchart mode will be yearly if switch is activated, otherwise monthly
-            barChartMode = if (isActivated) "Monthly" else "Yearly"
+            barChartMode = if (barChartMode=="Yearly") "Monthly" else "Yearly"
 
             //year= -1 if mode= yearly, otherwise get the instance of the year
-            year = if (barChartMode == "Yearly") {
-                -1
-            } else {
-                Calendar.getInstance().get(Calendar.YEAR)
+            if(barChartMode=="Yearly")
+                year =-1
+            else
+            {
+                if(barChartYears.isEmpty())
+                    year =-1
+                else
+                    year= barChartYears[0].toInt()
             }
             //bar chart is set according to the mode selected
             setBarChart(barChartMode, year)
@@ -320,6 +326,8 @@ class OverviewTabFragment : Fragment() {
         barDataSet: ArrayList<BarDataSet> = arrayListOf(),
         yearsOrMonths: ArrayList<String> = arrayListOf()
     ) {
+    Log.d("Hemlo",barDataSet.toString())
+    Log.d("Hemlo",yearsOrMonths.toString())
         binding.barChart.data = BarData(barDataSet.toList())
         //setting the x-axis of the bar chart and width of the bar
         binding.barChart.data.barWidth = 0.5f
@@ -342,6 +350,7 @@ class OverviewTabFragment : Fragment() {
 
     //function to set the bar chart according to the choice selected
     fun setBarChart(barChartMode: String, year: Int = -1) {
+        Log.d("Hemlo", "$barChartMode $year")
         when (barChartMode) {
             //if choice is month, bar chart will be set according to the month-wise data
             "Monthly" -> {
@@ -363,8 +372,11 @@ class OverviewTabFragment : Fragment() {
 
                 //
                 var barAmountEntries: MutableList<BarEntry> = mutableListOf()
+                var barTransactionsEntries: MutableList<BarEntry> = mutableListOf()
                 viewModel.barChartMonthsInfo.observe(viewLifecycleOwner) {
                     barAmountEntries = arrayListOf()
+                    barTransactionsEntries= arrayListOf()
+                    Log.d("Hemlo",it.toString())
                     val monthYear = year * 100
                     months.forEachIndexed { index, month ->
                         var amount = it[monthYear + index + 1]?.transAmount?.toDouble()
@@ -376,14 +388,6 @@ class OverviewTabFragment : Fragment() {
                                 amount.toFloat()
                             )
                         )
-                    }
-                }
-
-                var barTransactionsEntries: MutableList<BarEntry> = mutableListOf()
-                viewModel.barChartMonthsInfo.observe(viewLifecycleOwner) {
-                    barTransactionsEntries = mutableListOf()
-                    val monthYear = year * 100
-                    months.forEachIndexed { index, month ->
                         var transactions = it[monthYear + index + 1]?.transCount?.toDouble()
                         if (transactions == null)
                             transactions = 0.0
@@ -394,29 +398,39 @@ class OverviewTabFragment : Fragment() {
                             )
                         )
                     }
+                    val barDataSet: ArrayList<BarDataSet> = arrayListOf()
+                    barDataSet.add(
+                        BarDataSet(
+                            barAmountEntries,
+                            "Amount"
+                        )
+                    )
+
+                    barDataSet.add(
+                        BarDataSet(
+                            barTransactionsEntries,
+                            "Transactions"
+                        )
+                    )
+
+                    barDataSet[0].color =
+                        ContextCompat.getColor(requireContext(), R.color.bar_chart_monthly_amount)
+                    barDataSet[1].color =
+                        ContextCompat.getColor(requireContext(), R.color.bar_chart_monthly_transactions)
+
+                    addDataToBarChart(barDataSet, months)
                 }
 
-                val barDataSet: ArrayList<BarDataSet> = arrayListOf()
-                barDataSet.add(
-                    BarDataSet(
-                        barAmountEntries,
-                        "Amount"
-                    )
-                )
 
-                barDataSet.add(
-                    BarDataSet(
-                        barTransactionsEntries,
-                        "Transactions"
-                    )
-                )
+//                viewModel.barChartMonthsInfo.observe(viewLifecycleOwner) {
+//                    barTransactionsEntries = mutableListOf()
+//                    val monthYear = year * 100
+//                    months.forEachIndexed { index, month ->
+//
+//                    }
+//                }
 
-                barDataSet[0].color =
-                    ContextCompat.getColor(requireContext(), R.color.bar_chart_monthly_amount)
-                barDataSet[1].color =
-                    ContextCompat.getColor(requireContext(), R.color.bar_chart_monthly_transactions)
 
-                addDataToBarChart(barDataSet, months)
             }
 
             "Yearly" -> {

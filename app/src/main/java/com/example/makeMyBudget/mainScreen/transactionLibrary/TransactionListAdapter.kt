@@ -46,7 +46,7 @@ class TransactionListAdapter(
 
     inner class Holder(val view: View) : RecyclerView.ViewHolder(view) {
         init {
-            val viewDetails: TextView = view.findViewById(R.id.profitOrLoss)
+            val viewDetails: TextView = view.findViewById(R.id.view_details)
             viewDetails.setOnClickListener {
                 listener.invoke(transactionList[absoluteAdapterPosition].trans_id)
             }
@@ -56,7 +56,7 @@ class TransactionListAdapter(
         val title: TextView = view.findViewById(R.id.year)
         val mode: TextView = view.findViewById(R.id.trans_mode)
         val amount: TextView = view.findViewById(R.id.amount)
-        val date: TextView = view.findViewById(R.id.GainOrLoss)
+        val date: TextView = view.findViewById(R.id.trans_date)
         private val typeHere: View = view.findViewById(R.id.expenseOrIncome)
         val image: ImageView = view.findViewById(R.id.categorized_image)
 

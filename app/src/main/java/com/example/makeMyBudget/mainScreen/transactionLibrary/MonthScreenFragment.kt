@@ -2,6 +2,7 @@ package com.example.makeMyBudget.mainScreen.transactionLibrary
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -36,6 +38,7 @@ class MonthScreenFragment : Fragment() {
     private lateinit var viewModel: MainScreenViewModel
     private lateinit var transactionViewModel: TransactionViewModel
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -100,17 +103,19 @@ class MonthScreenFragment : Fragment() {
         var totalExpenses = 0.0
 
         //observing in the livedata returned by the viewModel to calculate the expenses and gains of the month
-        viewModel.monthlyExpenses.observe(viewLifecycleOwner) {
-            if (it != null) {
-                totalExpenses = it
-            }
-            binding.amountSpent.text = totalExpenses.toString()
-        }
+
         viewModel.monthlyGains.observe(viewLifecycleOwner) {
             if (it != null) {
                 totalGains = it
+              binding.progressBar.setProgress(it.toInt())
             }
             binding.netBalance.text = totalGains.toString()
+        }
+        viewModel.monthlyExpenses.observe(viewLifecycleOwner) {
+            if (it != null) {
+                totalExpenses = it
+                }
+            binding.amountSpent.text = totalExpenses.toString()
         }
 
         //obtaining the credit and balance through gains and expenses

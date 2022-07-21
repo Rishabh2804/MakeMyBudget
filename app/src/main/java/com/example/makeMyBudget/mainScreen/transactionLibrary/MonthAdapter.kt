@@ -1,5 +1,6 @@
 package com.example.makeMyBudget.mainScreen.transactionLibrary
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,17 +32,19 @@ class MonthAdapter(val MonthCardList: MutableList<MonthCardDetail>, val fragment
     inner class viewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val view: CardView = view.findViewById(R.id.card_view)
         val layout: ConstraintLayout = view.findViewById(R.id.month_card)
-        val monthName: TextView = view.findViewById(R.id.trans_mode)
-        val gainOrLoss: TextView = view.findViewById(R.id.trans_date)
-        val profit: TextView = view.findViewById(R.id.view_details)
+        val monthName: TextView = view.findViewById(R.id.month_transaction)
+        val gainOrLoss: TextView = view.findViewById(R.id.GainOrLoss)
+        val profit: TextView = view.findViewById(R.id.profitOrLoss)
         val balance: TextView = view.findViewById(R.id.net_balance)
-        private val viewDetails: TextView = view.findViewById(R.id.net_balance_text)
+        private val viewDetails: TextView = view.findViewById(R.id.detailsInside)
 
         init {
             viewDetails.setOnClickListener {
+                Log.d("Hemlo2",  MonthCardList[adapterPosition].monthYear.toString())
                 fragment.findNavController().navigate(
                     MainScreenFragmentDirections.actionMainScreenFragmentToMonthScreenFragment(
                         MonthCardList[adapterPosition].monthYear.toInt()
+
                     )
                 )
             }

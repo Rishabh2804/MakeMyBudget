@@ -3,6 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/91983/AndroidStudioProjects/MakeMyBudget/app/src/main/res/layout/epoxy_months.xml" value="0.1" />
+        <entry key="..\:/Users/91983/AndroidStudioProjects/MakeMyBudget/app/src/main/res/layout/fragment_calender_view.xml" value="0.12158054711246201" />
+        <entry key="..\:/Users/91983/AndroidStudioProjects/MakeMyBudget/app/src/main/res/layout/fragment_main_screen.xml" value="0.1" />
+        <entry key="..\:/Users/91983/AndroidStudioProjects/MakeMyBudget/app/src/main/res/layout/fragment_month_screen.xml" value="0.1" />
+        <entry key="..\:/Users/91983/AndroidStudioProjects/MakeMyBudget/app/src/main/res/layout/transaction_item.xml" value="0.1" />
         <entry key="..\:/Users/rishabh/.gradle/caches/transforms-3/99b2bf7a6024f79e661741d0d57d1be1/transformed/facebook-common-13.2.0/res/drawable/com_facebook_button_icon.xml" value="0.2595" />
         <entry key="..\:/Users/rishabh/AndroidStudioProjects/MakeMyBudget/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.219" />
         <entry key="..\:/Users/rishabh/AndroidStudioProjects/MakeMyBudget/app/src/main/res/drawable/circle_image.xml" value="0.2015" />

@@ -30,7 +30,7 @@ class RecentTransactionsTabFragment(val fragment: Fragment) : Fragment() {
         // initialize the binding, firebase auth and both the viewModels
         binding = FragmentRecentTransactionsTabBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(MainScreenViewModel::class.java)
-        sharedPreferences = fragment.activity?.getSharedPreferences("user_auth", Context.MODE_PRIVATE)!!
+        sharedPreferences = requireActivity().getSharedPreferences("user_auth", Context.MODE_PRIVATE)
         transactionViewModel = ViewModelProvider(this).get(TransactionViewModel::class.java)
 
         val userID = sharedPreferences.getString("user_id", "")!!
