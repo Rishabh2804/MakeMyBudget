@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#AEF8F6"
+    android:backgroundTint="#B6FAF4"
     tools:context="com.example.makeMyBudget.mainScreen.transactionLibrary.MonthScreenFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -24,11 +26,17 @@
             android:layout_height="wrap_content"
             android:background="#C36969"
 
-            android:backgroundTint="#2E4EF8"
+            android:backgroundTint="#2196F3"
             android:textAlignment="center"
             app:menu="@menu/month_screen_menu"
             app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
-            app:title="Month Year">
+            app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Display1"
+
+            app:title="Month Year"
+
+            app:titleCentered="true"
+            app:titleTextAppearance="@style/TextAppearance.AppCompat.Large"
+            app:titleTextColor="#CDDC39">
 
         </com.google.android.material.appbar.MaterialToolbar>
     </com.google.android.material.appbar.AppBarLayout>
@@ -50,7 +58,7 @@
         android:id="@+id/basicInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="#EFE9B3"
+        app:cardBackgroundColor="#7EFBB0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/app_bar">

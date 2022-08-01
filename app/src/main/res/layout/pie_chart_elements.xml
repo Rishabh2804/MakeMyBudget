@@ -12,7 +12,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
-        android:background="#FFFFFF"
+        android:background="@drawable/background_transparent"
         android:src="@drawable/legend_marker"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,7 +20,7 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/item"
+        android:id="@+id/trans_item"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginStart="4dp"

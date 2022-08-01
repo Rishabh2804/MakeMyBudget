@@ -116,11 +116,13 @@
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:layout_marginStart="4dp"
+            android:layout_marginTop="5dp"
             app:layout_constraintBottom_toTopOf="@id/barChartBarrier"
-            app:layout_constraintTop_toBottomOf="@id/switch1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-        </com.github.mikephil.charting.charts.BarChart>
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/switch1"
+            app:layout_constraintVertical_bias="1.0"></com.github.mikephil.charting.charts.BarChart>
 
         <androidx.constraintlayout.widget.Barrier
             android:id="@+id/barChartBarrier"

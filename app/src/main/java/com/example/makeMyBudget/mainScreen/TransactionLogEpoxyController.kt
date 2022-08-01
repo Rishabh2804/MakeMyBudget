@@ -69,7 +69,7 @@ class TransactionLogEpoxyController(
             else
                 View.GONE
 
-            arrowButton.setOnClickListener {
+            cardView.setOnClickListener {
                 if (recyclerView.visibility == View.GONE) {
                     recyclerView.visibility = View.VISIBLE
                     arrowButton.setImageResource(R.drawable.ic_baseline_collapse_up)

@@ -9,7 +9,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#A0F6F6">
 
         <EditText
             android:id="@+id/to_date_input"
@@ -19,6 +20,7 @@
             android:ems="10"
             android:hint="To"
             android:inputType="date"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.058"
             app:layout_constraintStart_toEndOf="@+id/from_date_input"
@@ -67,42 +69,43 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="20dp"
             android:text="Amount : "
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/already_completed" />
 
         <EditText
             android:id="@+id/trans_amount_input"
-            android:layout_width="127dp"
-            android:layout_height="52dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:hint="InputAmount"
-            android:inputType="text"
+            android:inputType="number|numberDecimal"
+            app:layout_constraintBottom_toBottomOf="@+id/trans_amount_msg"
             app:layout_constraintEnd_toEndOf="@+id/trans_date_input"
+            app:layout_constraintHorizontal_bias="0.019"
             app:layout_constraintStart_toEndOf="@+id/trans_amount_msg"
-            app:layout_constraintTop_toTopOf="@+id/trans_amount_msg" />
+            app:layout_constraintTop_toTopOf="@+id/trans_amount_msg"
+            app:layout_constraintVertical_bias="0.384" />
 
         <TextView
             android:id="@+id/trans_date_msg"
             android:layout_width="60dp"
             android:layout_height="21dp"
-            android:layout_marginStart="25dp"
             android:layout_marginTop="44dp"
             android:text="Date :"
-            app:layout_constraintEnd_toEndOf="@+id/trans_amount_msg"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/trans_amount_msg"
             app:layout_constraintTop_toBottomOf="@+id/trans_amount_msg" />
 
         <EditText
             android:id="@+id/trans_date_input"
-            android:layout_width="128dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
             android:ems="10"
             android:hint="click here"
             android:inputType="date"
+            app:layout_constraintBottom_toBottomOf="@+id/trans_date_msg"
             app:layout_constraintStart_toEndOf="@+id/trans_date_msg"
             app:layout_constraintTop_toTopOf="@+id/trans_date_msg"
             tools:ignore="SpeakableTextPresentCheck" />

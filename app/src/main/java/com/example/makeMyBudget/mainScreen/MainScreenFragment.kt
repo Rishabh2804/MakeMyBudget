@@ -2,14 +2,18 @@ package com.example.makeMyBudget.mainScreen
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.TextView
+import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.makeMyBudget.mainScreen.viewModels.MainScreenViewModel
+import com.example.makemybudget.R
 import com.example.makemybudget.databinding.FragmentMainScreenBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -22,9 +26,9 @@ class MainScreenFragment : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var viewModel: MainScreenViewModel
     private lateinit var incomeRegister: HashMap<Int, Double>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -36,6 +40,34 @@ class MainScreenFragment : Fragment() {
         sharedPreferences = activity?.getSharedPreferences("user_auth", 0)!!
         viewModel = ViewModelProvider(this).get(MainScreenViewModel::class.java)
 
+        binding.drawerButton.setOnClickListener {
+            binding.drawerLayout.openDrawer(GravityCompat.START)
+        }
+
+        binding.navigationView.getHeaderView(0).findViewById<TextView>(R.id.app_title).text =
+            "Hi! " + sharedPreferences.getString("username", "")
+        binding.navigationView.setNavigationItemSelectedListener {
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+
+            when (it.itemId) {
+                R.id.my_details -> {
+
+                }
+                R.id.about_us -> {
+                    //TODO: About us page
+                }
+
+                R.id.logout -> {
+                    sharedPreferences.edit().putBoolean("isLoggedIn", false).apply()
+                    // TODO: Clear all database data if user logged in as a guest
+//                    findNavController().navigate(R.id.action_mainScreenFragment_to_loginFragment)
+                }
+
+            }
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+            true
+        }
+
         val initialPosition = MainScreenFragmentArgs.fromBundle(requireArguments()).screenNumber
 
         binding.viewPager.adapter = ViewPagerAdapter(this)
@@ -45,6 +77,7 @@ class MainScreenFragment : Fragment() {
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 binding.viewPager.currentItem = tab.position
+
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab) {

@@ -21,6 +21,7 @@ import com.example.makeMyBudget.mainScreen.viewModels.TransactionViewModel
 import com.example.makemybudget.R
 import pl.droidsonroids.gif.GifImageView
 import java.text.SimpleDateFormat
+import java.util.*
 
 class TransactionListAdapter(
     var transactionList: MutableList<Transaction>,
@@ -52,7 +53,7 @@ class TransactionListAdapter(
             }
         }
 
-        val layout: ConstraintLayout = view.findViewById(R.id.item)
+        val layout: ConstraintLayout = view.findViewById(R.id.trans_item)
         val title: TextView = view.findViewById(R.id.year)
         val mode: TextView = view.findViewById(R.id.trans_mode)
         val amount: TextView = view.findViewById(R.id.amount)
@@ -61,7 +62,7 @@ class TransactionListAdapter(
         val image: ImageView = view.findViewById(R.id.categorized_image)
 
         fun bindView(transaction: Transaction) {
-            val isUpcoming = transaction.transactionDate.time > System.currentTimeMillis()
+            val isUpcoming = transaction.transactionDate > Date()
             if (transaction.transactionStatus == TransactionStatus.COMPLETED)
                 layout.setBackgroundColor(statusColor[0])
             else if (isUpcoming)

@@ -340,6 +340,7 @@ interface ListHandler {
     fun getYearlyTransactionInfo(user_id: String): LiveData<Map<Int, BarChartDetails>>
 
 
+
 }
 
 @Entity

@@ -42,7 +42,7 @@ class AddOrEditTransactionFragment : Fragment() {
     ): View {
 
         // Inflate the layout for this fragment
-       screenNo= AddOrEditTransactionFragmentArgs.fromBundle(requireArguments()).screenNo
+        screenNo = AddOrEditTransactionFragmentArgs.fromBundle(requireArguments()).screenNo
 
         binding = FragmentAddOrEditTransactionBinding.inflate(inflater, container, false)
 
@@ -58,14 +58,17 @@ class AddOrEditTransactionFragment : Fragment() {
         binding.isRecurringCheckBox.setOnCheckedChangeListener { _, it ->
 
             binding.toDateInput.isVisible = it
-            binding.fromDateInput.isVisible = it
+            binding.toDateInput.isEnabled = it
 
+            binding.fromDateInput.isVisible = it
+            binding.fromDateInput.isEnabled = it
         }
 
         val modeArray: MutableList<String> = mutableListOf()
         TransactionMode.values().forEach {
             modeArray.add(it.name)
         }
+
         val adapter = ArrayAdapter(
             requireContext(),
             androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
@@ -115,7 +118,7 @@ class AddOrEditTransactionFragment : Fragment() {
             val dialog = AlertDialog.Builder(requireContext())
             with(dialog) {
                 setTitle("Cancel Transaction")
-                setMessage("Are you sure you want to cancel this transaction?")
+                setMessage("Are you sure you want to discard the changes?")
                 setPositiveButton("Yes") { _, _ ->
                     findNavController().navigate(
                         AddOrEditTransactionFragmentDirections.actionAddOrEditTransactionFragmentToMainScreenFragment(
@@ -135,35 +138,69 @@ class AddOrEditTransactionFragment : Fragment() {
     }
 
     private fun saveData() {
+        var validTrans: Boolean = true
+
+        if (binding.transTitleInput.text.isBlank()) {
+            binding.transTitleInput.error = "Title is required"
+            validTrans = false
+        }
+
+        if (binding.transAmountInput.text.isBlank()) {
+            binding.transAmountInput.error = "Amount is required"
+            validTrans = false
+        }
+
+        if (binding.transDateInput.text.isNullOrBlank()) {
+            binding.transDateInput.error = "Transaction Date is required"
+            validTrans = false
+        }
+
+        if (binding.isRecurringCheckBox.isChecked) {
+            if (binding.fromDateInput.text.isNullOrBlank()) {
+                binding.fromDateInput.error = "From Date is required"
+                validTrans = false
+            }
+            if (binding.toDateInput.text.isNullOrBlank()) {
+                binding.toDateInput.error = "To Date is required"
+                validTrans = false
+            }
+        }
+
+        if (!(binding.incomeButton.isChecked || binding.expenseButton.isChecked)) {
+            Toast.makeText(requireContext(), "Please select transaction type", Toast.LENGTH_SHORT)
+                .show()
+            validTrans = false
+        }
+
+        if (!validTrans) return
+
         val name = binding.transTitleInput.text.toString()
-        val desc = binding.transDescInput.text.toString()
+        val desc = binding.transDescInput.text.toString() ?: ""
         val amount = binding.transAmountInput.text.toString().toDouble()
         val date: Date = SimpleDateFormat(
             "dd-MM-yyyy",
             Locale.getDefault()
         ).parse(binding.transDateInput.text.toString())!!
+
         val isRecurring = binding.isRecurringCheckBox.isChecked
-        val fromDate: Date
-        val toDate: Date
-        if (isRecurring) {
-            fromDate = SimpleDateFormat(
+        val fromDate: Date = if (isRecurring) {
+            SimpleDateFormat(
                 "dd-MM-yyyy",
                 Locale.getDefault()
             ).parse(binding.fromDateInput.text.toString())!!
-            toDate = SimpleDateFormat(
+        } else {
+            date
+        }
+
+        val toDate: Date = if (isRecurring) {
+            SimpleDateFormat(
                 "dd-MM-yyyy",
                 Locale.getDefault()
             ).parse(binding.toDateInput.text.toString())!!
         } else {
-            fromDate = SimpleDateFormat(
-                "dd-MM-yyyy",
-                Locale.getDefault()
-            ).parse(binding.transDateInput.text.toString())!!
-            toDate = SimpleDateFormat(
-                "dd-MM-yyyy",
-                Locale.getDefault()
-            ).parse(binding.transDateInput.text.toString())!!
+            date
         }
+
         val mode: TransactionMode =
             TransactionMode.values()[binding.transModeInput.selectedItemPosition]
         val category: TransactionCategory =
@@ -171,13 +208,13 @@ class AddOrEditTransactionFragment : Fragment() {
         val month = binding.transDateInput.text.toString().substring(3, 5).toInt()
         val year = binding.transDateInput.text.toString().substring(6).toInt()
         val monthYear = year * 100 + month
-//        Log.d("monthyear", "$monthYear $month $year")
         val typeIndex = if (binding.incomeButton.isChecked) 1 else 0
         val type: TransactionType = TransactionType.values()[typeIndex]
         var status: TransactionStatus = TransactionStatus.PENDING
         if (binding.alreadyCompleted.isChecked) {
             status = TransactionStatus.COMPLETED
         }
+
         val transaction = Transaction(
             viewModel.userID.value!!,
             viewModel.transactionID.value!!,
@@ -196,13 +233,19 @@ class AddOrEditTransactionFragment : Fragment() {
             mode,
             status
         )
+
         viewModel.insertOrUpdate(transaction)
-        Toast.makeText(requireContext(), "Transaction added/updated", Toast.LENGTH_SHORT).show()
+        Toast.makeText(
+            requireContext(),
+            "Transaction registered successfully!!",
+            Toast.LENGTH_SHORT
+        ).show()
         findNavController().navigate(
             AddOrEditTransactionFragmentDirections.actionAddOrEditTransactionFragmentToMainScreenFragment(
                 screenNo
             )
         )
+
     }
 
     private fun setData(transaction: Transaction) {
@@ -244,6 +287,7 @@ class AddOrEditTransactionFragment : Fragment() {
 
                 val sdf = SimpleDateFormat(format, Locale.UK)
                 setText(sdf.format(myCalendar.time))
+                error = null
             }
 
         setOnClickListener {

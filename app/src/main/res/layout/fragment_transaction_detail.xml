@@ -8,9 +8,10 @@
     tools:context="com.example.makeMyBudget.mainScreen.transactionLibrary.AddOrEditTransactionFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/contraint_layout"
+        android:id="@+id/constraint_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#AEF8F6">
 
         <TextView
             android:id="@+id/to_date_input"
@@ -45,7 +46,7 @@
 
                 android:textAlignment="center"
                 app:menu="@menu/view_transaction_menu"
-                app:title="Detailed View">
+                app:title="Transaction Details">
 
             </com.google.android.material.appbar.MaterialToolbar>
         </com.google.android.material.appbar.AppBarLayout>
@@ -79,6 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:text="InputAmount"
+            app:layout_constraintBottom_toBottomOf="@+id/trans_amount_msg"
             app:layout_constraintStart_toEndOf="@+id/trans_amount_msg"
             app:layout_constraintTop_toTopOf="@+id/trans_amount_msg" />
 
@@ -86,11 +88,9 @@
             android:id="@+id/trans_date_msg"
             android:layout_width="60dp"
             android:layout_height="21dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="20dp"
             android:text="Date :"
-            app:layout_constraintEnd_toEndOf="@+id/trans_amount_msg"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/trans_amount_msg"
             app:layout_constraintTop_toBottomOf="@+id/trans_amount_msg" />
 
         <TextView
@@ -100,6 +100,7 @@
             android:layout_marginStart="30dp"
             android:ems="10"
             android:inputType="date"
+            app:layout_constraintBottom_toBottomOf="@+id/trans_date_msg"
             app:layout_constraintStart_toEndOf="@+id/trans_date_msg"
             app:layout_constraintTop_toTopOf="@+id/trans_date_msg"
             tools:ignore="SpeakableTextPresentCheck" />

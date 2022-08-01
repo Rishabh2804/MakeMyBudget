@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,140 +10,162 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <EditText
-        android:id="@+id/income"
-        android:layout_width="209dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.183"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/incomeHeading"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <TextView
-        android:id="@+id/incomeHeading"
-        android:layout_width="122dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="20dp"
-        android:text="Income:"
-        android:textColor="@android:color/black"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.128"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/warningBudget" />
-
-    <TextView
-        android:id="@+id/warningBudget"
-        android:layout_width="219dp"
-        android:layout_height="26dp"
-        android:text="*Required field is empty*"
-        android:textColor="#FD6559"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.192"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/budget" />
-
-    <TextView
-        android:id="@+id/topNotification"
-        android:layout_width="0dp"
-        android:layout_height="84dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:fontFamily="@font/galada"
-        android:text="Welcome! Help us remember \n your credentials."
-        android:textAlignment="center"
-        android:textColor="#71287E"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/usernameHeading"
-        android:layout_width="118dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="40dp"
-        android:text="UserName: "
-        android:textColor="@android:color/black"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.126"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topNotification" />
-
-    <EditText
-        android:id="@+id/username"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginTop="12dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.184"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usernameHeading"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <TextView
-        android:id="@+id/budgetHeading"
-        android:layout_width="122dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="20dp"
-        android:text="Budget:"
-        android:textColor="@android:color/black"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.128"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/warningUsername" />
-
-    <EditText
-        android:id="@+id/budget"
-        android:layout_width="209dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.184"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/budgetHeading"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <TextView
-        android:id="@+id/warningUsername"
-        android:layout_width="219dp"
-        android:layout_height="26dp"
-        android:text="*Required field is empty*"
-        android:textColor="#FD6559"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.192"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username" />
-
-    <Button
-        android:id="@+id/saveButton"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:text="Save"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.38"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/income"
-        app:layout_constraintVertical_bias="0.0" />
+        android:background="#98F3F0"
+        android:backgroundTint="#98F3F0">
+
+        <EditText
+            android:id="@+id/income"
+            android:layout_width="209dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="52dp"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            app:layout_constraintEnd_toEndOf="@+id/budget"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/budget"
+            app:layout_constraintTop_toTopOf="@+id/warningBudget"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <TextView
+            android:id="@+id/incomeHeading"
+            android:layout_width="122dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/abril_fatface"
+            android:gravity="center_vertical|left"
+            android:text="Income:"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/budgetHeading"
+            app:layout_constraintTop_toTopOf="@+id/income" />
+
+        <TextView
+            android:id="@+id/warningBudget"
+            android:layout_width="219dp"
+            android:layout_height="26dp"
+            android:text="*Required field is empty*"
+            android:textColor="#FD6559"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/budget"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/budget"
+            app:layout_constraintTop_toBottomOf="@+id/budget" />
+
+        <TextView
+            android:id="@+id/topNotification"
+            android:layout_width="123dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:fontFamily="@font/galada"
+            android:text="Welcome!"
+
+            android:textAlignment="center"
+            android:textColor="#2386DD"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/usernameHeading"
+            android:layout_width="118dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/abril_fatface"
+            android:gravity="center_vertical|left"
+            android:text="Username: "
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.085"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/username" />
+
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginTop="15dp"
+            android:ems="10"
+
+            android:hint="Enter your Name"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/usernameHeading"
+            app:layout_constraintTop_toBottomOf="@+id/topNotification2"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <TextView
+            android:id="@+id/budgetHeading"
+            android:layout_width="122dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/abril_fatface"
+            android:gravity="center_vertical|left"
+            android:text="Budget:"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/usernameHeading"
+            app:layout_constraintTop_toTopOf="@+id/budget" />
+
+        <EditText
+            android:id="@+id/budget"
+            android:layout_width="221dp"
+            android:layout_height="47dp"
+            android:layout_marginTop="52dp"
+            android:ems="10"
+            android:hint="Enter your monthly budget"
+            android:inputType="numberDecimal"
+            app:layout_constraintEnd_toEndOf="@+id/username"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/username"
+            app:layout_constraintTop_toBottomOf="@+id/username"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <TextView
+            android:id="@+id/warningUsername"
+            android:layout_width="219dp"
+            android:layout_height="26dp"
+            android:text="*Required field is empty*"
+            android:textColor="#FD6559"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/username"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/username"
+            app:layout_constraintTop_toBottomOf="@+id/username" />
+
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="400dp"
+            android:layout_marginBottom="10dp"
+            android:text="Save"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/topNotification2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:fontFamily="@font/galada"
+            android:text="Help us remember your credentials."
+            android:textAlignment="center"
+            android:textColor="#59F436"
+            android:textSize="28sp"
+            app:layout_constraintEnd_toEndOf="@+id/topNotification"
+            app:layout_constraintHorizontal_bias="0.486"
+            app:layout_constraintStart_toStartOf="@+id/topNotification"
+            app:layout_constraintTop_toTopOf="@+id/topNotification" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

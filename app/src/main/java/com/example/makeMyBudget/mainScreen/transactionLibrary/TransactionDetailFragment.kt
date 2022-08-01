@@ -20,6 +20,7 @@ import com.example.makemybudget.R
 import com.example.makemybudget.databinding.FragmentTransactionDetailBinding
 import com.google.firebase.auth.FirebaseAuth
 import java.text.SimpleDateFormat
+import java.util.*
 
 
 class TransactionDetailFragment : Fragment() {
@@ -40,7 +41,7 @@ class TransactionDetailFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentTransactionDetailBinding.inflate(inflater, container, false)
         sharedPreferences =
-            requireActivity().getSharedPreferences("transaction_detail", Context.MODE_PRIVATE)
+            requireActivity().getSharedPreferences("user_auth", Context.MODE_PRIVATE)
 
         viewModel = ViewModelProvider(this).get(TransactionViewModel::class.java)
 
@@ -55,7 +56,8 @@ class TransactionDetailFragment : Fragment() {
         viewModel.setTransId(transactionId)
 
         viewModel.transaction.observe(viewLifecycleOwner) {
-            setData(it)
+            if (it != null)
+                setData(it)
         }
 
         binding.toolbar.setOnMenuItemClickListener { item ->
@@ -116,21 +118,23 @@ class TransactionDetailFragment : Fragment() {
 
     private fun setData(transaction: Transaction) {
         binding.transTitleInput.text = transaction.title
-        binding.transDescInput.text = transaction.description
+        binding.transDescInput.text = transaction.description ?: ""
         binding.transAmountInput.text = (transaction.transactionAmount.toString())
         binding.transDateInput.text =
             (SimpleDateFormat("dd-MM-yyyy").format(transaction.transactionDate))
         if (transaction.isRecurring) {
             binding.isRecurringCheckBox.isChecked = true
             binding.isRecurringCheckBox.isEnabled = false
-            binding.fromDateInput.text = transaction.fromDate.toString()
-            binding.toDateInput.text = transaction.toDate.toString()
+            binding.fromDateInput.text =
+                (SimpleDateFormat("dd-MM-yyyy").format(transaction.fromDate))
+            binding.toDateInput.text = (SimpleDateFormat("dd-MM-yyyy").format(transaction.toDate))
         } else {
             binding.isRecurringCheckBox.isChecked = false
             binding.isRecurringCheckBox.isEnabled = false
             binding.fromDateInput.isVisible = false
             binding.toDateInput.isVisible = false
         }
+
         binding.transModeInput.text = transaction.transactionMode.name
         binding.incomeButton.isChecked = transaction.transactionType.ordinal == 1
         binding.incomeButton.isEnabled = false

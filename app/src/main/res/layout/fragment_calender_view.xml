@@ -7,10 +7,12 @@
     tools:context="com.example.makeMyBudget.mainScreen.transactionLibrary.CalenderViewFragment">
 
     <com.applandeo.materialcalendarview.CalendarView
-        app:highlightedDaysLabelsColor="@color/bar_chart_monthly_amount"
         android:id="@+id/calenderView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#8BC34A"
+        android:backgroundTint="#8BC34A"
+        app:highlightedDaysLabelsColor="@color/bar_chart_monthly_amount"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">

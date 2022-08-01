@@ -59,18 +59,20 @@ class GoogleLogin {
             GlobalScope.launch(Dispatchers.IO) {
 
                 val auth = firebaseAuth.signInWithCredential(credentials).addOnSuccessListener {
-                    Toast.makeText(fragment.requireContext(), "Google sign in success 🎉", Toast.LENGTH_SHORT)
+                    Toast.makeText(
+                        fragment.requireContext(),
+                        "Google sign in success 🎉",
+                        Toast.LENGTH_SHORT
+                    )
                         .show()
 
-                    sharedPreferences.edit().putString("user_id", firebaseAuth.currentUser?.uid).apply()
+                    sharedPreferences.edit().putString("user_id", firebaseAuth.currentUser?.uid)
+                        .apply()
 
-                    val user = it.user
+                    sharedPreferences.edit().putBoolean("isLoggedIn", true).apply()
+                    sharedPreferences.edit().putBoolean("isRegistered", true).apply()
+                    Navigate.action(fragment)
 
-                    if (user != null) {
-                        sharedPreferences.edit().putBoolean("isLoggedIn", true).apply()
-                        sharedPreferences.edit().putBoolean("isRegistered", true).apply()
-                        Navigate.action(fragment)
-                    }
                 }
             }
         }

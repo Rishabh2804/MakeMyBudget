@@ -8,16 +8,17 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#54DDEF"
+        android:backgroundTint="#8AE3F3">
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="93dp"
-            android:layout_height="79dp"
-            android:layout_marginTop="32dp"
-            android:background="@color/com_facebook_blue"
+            android:layout_width="99dp"
+            android:layout_height="90dp"
+            android:layout_marginTop="8dp"
             android:scaleType="fitXY"
-            android:src="@drawable/com_facebook_button_icon"
+            android:src="@drawable/app_logo_round"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -52,6 +53,7 @@
             android:layout_height="60dp"
             android:layout_marginTop="8dp"
             android:hint="Password"
+            app:endIconDrawable="@drawable/ic_baseline_show_password_24"
             app:errorEnabled="true"
             app:layout_constraintEnd_toEndOf="@+id/Username"
             app:layout_constraintStart_toStartOf="@+id/Username"

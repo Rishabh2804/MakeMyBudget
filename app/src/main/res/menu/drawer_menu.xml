@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/mushroom_group">
+        <item
+            android:id="@+id/mushroom_item"
+            android:icon="@drawable/drawer_mushrooms"
+            android:title="Say Hi to Mushrooms!" />
+    </group>
+
+    <group android:id="@+id/details_group">
+        <item
+            android:id="@+id/my_details"
+            android:icon="@drawable/drawer_my_details"
+            android:title="My Details" />
+        <item
+            android:id="@+id/edit_my_details"
+            android:icon="@drawable/drawer_edit_details"
+            android:title="Edit Details" />
+    </group>
+
+    <group android:id="@+id/settings_group">
+        <item
+            android:id="@+id/about_us"
+            android:icon="@drawable/drawer_about_us"
+            android:title="About Us" />
+        <item
+            android:id="@+id/logout"
+            android:icon="@drawable/drawer_log_out"
+            android:title="Log out" />
+    </group>
+
+</menu>
