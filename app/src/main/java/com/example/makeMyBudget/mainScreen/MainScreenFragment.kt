@@ -1,8 +1,8 @@
 package com.example.makeMyBudget.mainScreen
 
 import android.content.SharedPreferences
+import android.graphics.Color.red
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,10 +27,6 @@ class MainScreenFragment : Fragment() {
     private lateinit var viewModel: MainScreenViewModel
     private lateinit var incomeRegister: HashMap<Int, Double>
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -50,7 +46,18 @@ class MainScreenFragment : Fragment() {
             binding.drawerLayout.closeDrawer(GravityCompat.START)
 
             when (it.itemId) {
+                R.id.mushroom_item -> {
+                    findNavController().navigate(
+                        MainScreenFragmentDirections.actionMainScreenFragmentToAddOrEditTransactionFragment(
+                            0,
+                            0
+                        )
+                    )
+                }
                 R.id.my_details -> {
+
+                }
+                R.id.edit_my_details -> {
 
                 }
                 R.id.about_us -> {
@@ -59,6 +66,7 @@ class MainScreenFragment : Fragment() {
 
                 R.id.logout -> {
                     sharedPreferences.edit().putBoolean("isLoggedIn", false).apply()
+
                     // TODO: Clear all database data if user logged in as a guest
 //                    findNavController().navigate(R.id.action_mainScreenFragment_to_loginFragment)
                 }
@@ -99,12 +107,9 @@ class MainScreenFragment : Fragment() {
         val userID = sharedPreferences.getString("user_id", "")!!
         viewModel.setUserID(userID)
 
-        val activeMonthlyIncome = sharedPreferences.getString("income", "0")?.toDouble()
-        val activeYearlyPackage = activeMonthlyIncome?.times(12)
-
         val choices = arrayOf(
-            "All Time",
-            "Yearly",
+            "This Month",
+            "This Year",
         )
 
         val choicesAdapter = ArrayAdapter(
@@ -125,37 +130,39 @@ class MainScreenFragment : Fragment() {
                 position: Int,
                 id: Long
             ) {
+                val calendar = Calendar.getInstance()
                 when (position) {
                     0 -> {
-                        val totalMonthlyEarnings = 0.0
-                        // allTimeMonthlyEarnings()
-                        var totalGains = 0.0
-                        var totalExpenses = 0.0
-                        var totalCredit = 0.0
-                        var totalSavings = 0.0
+                        val month = calendar.get(Calendar.MONTH)
+                        viewModel.setMonthYear(month)
 
-                        viewModel.allTimeGains.observe(viewLifecycleOwner) {
-                            totalGains = it ?: 0.0
-                            totalCredit = totalMonthlyEarnings.plus(totalGains)
-                            totalSavings = totalCredit.minus(totalExpenses)
+                        val monthlyIncome = sharedPreferences.getString("income", "0")?.toDouble()
 
-                            binding.credit.text = totalCredit.toString()
-                            binding.expenditure.text = totalExpenses.toString()
-                            binding.savings.text = totalSavings.toString()
-                        }
+                        binding.credit.text = monthlyIncome.toString()
 
-                        viewModel.allTimeExpense.observe(viewLifecycleOwner) {
-                            totalExpenses = it ?: 0.0
-                            totalCredit = totalMonthlyEarnings.plus(totalGains)
-                            totalSavings = totalCredit.minus(totalExpenses)
+                        val monthlyBudget = sharedPreferences.getString("budget", "0")?.toDouble()
+                        var monthlyExpenditure: Double
+                        var monthlySavings: Double
 
-                            binding.credit.text = totalCredit.toString()
-                            binding.expenditure.text = totalExpenses.toString()
-                            binding.savings.text = totalSavings.toString()
+                        viewModel.monthlyExpenses.observe(viewLifecycleOwner) {
+                            monthlyExpenditure = it!!
+                            binding.expenditure.text = monthlyExpenditure.toString()
+
+                            monthlySavings = monthlyBudget?.minus(monthlyExpenditure)!!
+                            binding.savings.text = 0.0.coerceAtLeast(monthlySavings).toString()
+
+                            if (monthlyExpenditure >= monthlyBudget) {
+                                binding.expenditure.error = "You have exceeded your budget"
+                                //  binding.savings.setTextColor(resources.getColor(R.color.red))
+                            }
+                            else{
+                                binding.expenditure.error = null
+                                //  binding.savings.setTextColor(resources.getColor(R.color.green))
+                            }
                         }
                     }
+
                     1 -> {
-                        val calendar = Calendar.getInstance()
 
                         val year = calendar.get(Calendar.YEAR)
 

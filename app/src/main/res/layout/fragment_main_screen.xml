@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#F6FB73"
-        android:backgroundTint="#98F3B9"
+        android:backgroundTint="#8FE8E8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -87,7 +87,7 @@
             android:layout_height="150dp"
             android:layout_margin="15dp"
             android:layout_marginTop="48dp"
-            android:backgroundTint="#89E1F8"
+            android:backgroundTint="#C7FB73"
             android:foreground="@drawable/border"
             app:cardBackgroundColor="#C7FB73"
             app:cardCornerRadius="15dp"
@@ -96,14 +96,14 @@
             app:layout_constraintTop_toBottomOf="@id/heading_Balance">
 
             <TextView
-                android:id="@+id/total_credt_text"
+                android:id="@+id/monthly_budget_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/el_messiri"
-                android:text="Total Credit"
-                android:textColor="#209C05"
+                android:text="Monthly Budget"
+                android:textColor="#C34AB7"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
@@ -116,7 +116,7 @@
                 android:layout_marginBottom="10dp"
                 android:fontFamily="@font/el_messiri"
                 android:text="Savings"
-                android:textColor="#C34AB7"
+                android:textColor="#209C05"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
@@ -139,8 +139,8 @@
                 android:layout_gravity="end"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:fontFamily="@font/abril_fatface"
-                android:text="N/A"
+                android:fontFamily="@font/original_surfer"
+                android:text="1000.00"
                 android:textSize="20sp" />
 
             <TextView
@@ -150,8 +150,8 @@
                 android:layout_gravity="bottom|end"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
-                android:fontFamily="@font/abril_fatface"
-                android:text="N/A"
+                android:fontFamily="@font/original_surfer"
+                android:text="250.00"
                 android:textSize="20sp" />
 
             <TextView
@@ -160,8 +160,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|end"
                 android:layout_marginEnd="10dp"
-                android:fontFamily="@font/abril_fatface"
-                android:text="N/A"
+                android:fontFamily="@font/original_surfer"
+                android:text="750.00"
                 android:textSize="20sp" />
         </androidx.cardview.widget.CardView>
 
@@ -172,13 +172,13 @@
             android:layout_height="45dp"
 
             android:layout_marginTop="24dp"
-            android:background="#F66256"
+            android:background="#30ACEF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardView2"
             app:tabIndicatorFullWidth="true"
             app:tabIndicatorGravity="bottom"
-            app:tabTextColor="#501E1E"
+            app:tabTextColor="#FFFFFF"
             tools:ignore="SpeakableTextPresentCheck">
 
 
@@ -204,6 +204,7 @@
             android:contentDescription="Add Transaction"
             android:focusable="true"
             android:foregroundGravity="bottom|right"
+            app:backgroundTint="#07C9DC"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/ic_baseline_add_24" />
@@ -222,8 +223,7 @@
                     android:id="@+id/viewPager"
                     android:layout_width="match_parent"
                     android:layout_height="1000dp"
-                    android:background="#A0FDFA"
-                    android:backgroundTint="#AEF8F6"
+                    android:background="#9BD5EC"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

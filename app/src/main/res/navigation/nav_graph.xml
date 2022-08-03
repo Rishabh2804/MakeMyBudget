@@ -163,4 +163,33 @@
         android:id="@+id/yearMonthTabFragment"
         android:name="com.example.makeMyBudget.mainScreen.tabs.YearMonthTabFragment"
         android:label="YearMonthTabFragment" />
+    <fragment
+        android:id="@+id/aboutUsFragment"
+        android:name="com.example.makeMyBudget.mainScreen.DrawerScreens.AboutUsFragment"
+        android:label="AboutUsFragment" >
+        <action
+            android:id="@+id/action_aboutUsFragment_to_mainScreenFragment"
+            app:destination="@id/mainScreenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editMyDetailsFragment"
+        android:name="com.example.makeMyBudget.mainScreen.DrawerScreens.EditMyDetailsFragment"
+        android:label="EditMyDetailsFragment" >
+        <action
+            android:id="@+id/action_editMyDetailsFragment_to_mainScreenFragment"
+            app:destination="@id/mainScreenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/helloMushroomsFragment"
+        android:name="com.example.makeMyBudget.mainScreen.DrawerScreens.HelloMushroomsFragment"
+        android:label="fragment_hello_mushrooms"
+        tools:layout="@layout/fragment_hello_mushrooms" />
+    <fragment
+        android:id="@+id/myDetailsFragment"
+        android:name="com.example.makeMyBudget.mainScreen.DrawerScreens.MyDetailsFragment"
+        android:label="MyDetailsFragment" >
+        <action
+            android:id="@+id/action_myDetailsFragment_to_mainScreenFragment"
+            app:destination="@id/mainScreenFragment" />
+    </fragment>
 </navigation>
