@@ -11,6 +11,10 @@ import com.example.makeMyBudget.entities.*
 class ListHandlerRepo(application: Application) {
     private val listHandlerDao = TransactionDB.getDatabase(application).listHandlerDao()
 
+    fun deleteUserData(userId: String) {
+        listHandlerDao.deleteUserData(userId)
+    }
+
     fun getAllTransactionsByDate(user_id: String, date: Long): LiveData<List<Transaction>> =
         listHandlerDao.getTransactions(user_id, date)
 

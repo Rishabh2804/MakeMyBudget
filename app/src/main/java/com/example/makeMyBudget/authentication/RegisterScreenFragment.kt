@@ -9,7 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.example.makeMyBudget.entities.User
+import com.example.makeMyBudget.mainScreen.MainScreenFragmentDirections
 import com.example.makemybudget.databinding.FragmentRegisterScreenBinding
 import com.facebook.CallbackManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -17,10 +19,6 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 
 class RegisterScreenFragment : Fragment() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     private lateinit var binding: FragmentRegisterScreenBinding
     private lateinit var firebaseAuth: FirebaseAuth
@@ -56,6 +54,11 @@ class RegisterScreenFragment : Fragment() {
             FBLogin.login(this, callBackManager)
         }
 
+        binding.backToLogin.setOnClickListener{
+            findNavController().navigate(
+                RegisterScreenFragmentDirections.actionRegisterScreenFragmentToLoginScreenFragment()
+            )
+        }
         return binding.root
     }
 

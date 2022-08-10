@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#AEF8F6"
-    android:backgroundTint="#B6FAF4"
+    android:background="#9AE2EF"
+    android:backgroundTint="#90ECEC"
     tools:context="com.example.makeMyBudget.mainScreen.transactionLibrary.MonthScreenFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -13,7 +13,7 @@
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="#078DCA"
+        android:backgroundTint="#37DFC7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:background="#C36969"
 
-            android:backgroundTint="#2196F3"
+            android:backgroundTint="#1C8CE6"
             android:textAlignment="center"
             app:menu="@menu/month_screen_menu"
             app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
@@ -35,8 +35,8 @@
             app:title="Month Year"
 
             app:titleCentered="true"
-            app:titleTextAppearance="@style/TextAppearance.AppCompat.Large"
-            app:titleTextColor="#CDDC39">
+            app:titleTextAppearance="@style/TextAppearance.AppCompat.Display1"
+            app:titleTextColor="#17116E">
 
         </com.google.android.material.appbar.MaterialToolbar>
     </com.google.android.material.appbar.AppBarLayout>
@@ -58,7 +58,7 @@
         android:id="@+id/basicInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="#7EFBB0"
+        app:cardBackgroundColor="#CEF889"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/app_bar">
@@ -132,7 +132,7 @@
             android:textSize="30sp" />
 
         <TextView
-            android:id="@+id/budget_text"
+            android:id="@+id/credit_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"

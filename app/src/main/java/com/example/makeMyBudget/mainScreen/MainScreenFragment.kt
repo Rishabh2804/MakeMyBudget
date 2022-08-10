@@ -1,7 +1,6 @@
 package com.example.makeMyBudget.mainScreen
 
 import android.content.SharedPreferences
-import android.graphics.Color.red
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.makeMyBudget.mainScreen.viewModels.MainScreenViewModel
 import com.example.makemybudget.R
 import com.example.makemybudget.databinding.FragmentMainScreenBinding
+
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import java.util.*
@@ -40,37 +40,44 @@ class MainScreenFragment : Fragment() {
             binding.drawerLayout.openDrawer(GravityCompat.START)
         }
 
-        binding.navigationView.getHeaderView(0).findViewById<TextView>(R.id.app_title).text =
-            "Hi! " + sharedPreferences.getString("username", "")
+        binding.navigationView.getHeaderView(0).findViewById<TextView>(R.id.app_title).text =  "Hi! ${sharedPreferences.getString(" username ", "")}"
+
+        binding.navigationView.itemIconTintList = null
+        binding.navigationView.setItemIconSize(50)
+
         binding.navigationView.setNavigationItemSelectedListener {
-            binding.drawerLayout.closeDrawer(GravityCompat.START)
+//            binding.drawerLayout.closeDrawer(GravityCompat.START)
 
             when (it.itemId) {
                 R.id.mushroom_item -> {
                     findNavController().navigate(
-                        MainScreenFragmentDirections.actionMainScreenFragmentToAddOrEditTransactionFragment(
-                            0,
-                            0
-                        )
+                        MainScreenFragmentDirections.actionMainScreenFragmentToHelloMushroomsFragment()
                     )
                 }
                 R.id.my_details -> {
-
+                    findNavController().navigate(
+                        MainScreenFragmentDirections.actionMainScreenFragmentToMyDetailsFragment()
+                    )
                 }
                 R.id.edit_my_details -> {
-
+                    findNavController().navigate(
+                        MainScreenFragmentDirections.actionMainScreenFragmentToEditMyDetailsFragment()
+                    )
                 }
                 R.id.about_us -> {
                     //TODO: About us page
+                    findNavController().navigate(
+                        MainScreenFragmentDirections.actionMainScreenFragmentToAboutUsFragment()
+                    )
                 }
-
                 R.id.logout -> {
                     sharedPreferences.edit().putBoolean("isLoggedIn", false).apply()
+                    if (sharedPreferences.getBoolean("isGuest", false)) {
+                        viewModel.deleteUserData()
+                    }
 
-                    // TODO: Clear all database data if user logged in as a guest
-//                    findNavController().navigate(R.id.action_mainScreenFragment_to_loginFragment)
+                    findNavController().navigate(MainScreenFragmentDirections.actionMainScreenFragmentToLoginScreenFragment())
                 }
-
             }
             binding.drawerLayout.closeDrawer(GravityCompat.START)
             true
@@ -85,7 +92,6 @@ class MainScreenFragment : Fragment() {
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 binding.viewPager.currentItem = tab.position
-
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab) {
@@ -118,11 +124,9 @@ class MainScreenFragment : Fragment() {
             choices
         )
 
-        binding.spinner.adapter = choicesAdapter
+        binding.detailsMode.adapter = choicesAdapter
 
-        //incomeRegister = sharedPreferences.getHashMap("income_register")
-
-        binding.spinner.onItemSelectedListener = object :
+        binding.detailsMode.onItemSelectedListener = object :
             android.widget.AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: android.widget.AdapterView<*>,
@@ -133,68 +137,76 @@ class MainScreenFragment : Fragment() {
                 val calendar = Calendar.getInstance()
                 when (position) {
                     0 -> {
+                        binding.creditText.text = "Monthly Budget"
+                        binding.expenditureText.text = "Expenditure"
+                        binding.savingsText.text = "Savings"
+
                         val month = calendar.get(Calendar.MONTH)
                         viewModel.setMonthYear(month)
 
-                        val monthlyIncome = sharedPreferences.getString("income", "0")?.toDouble()
-
-                        binding.credit.text = monthlyIncome.toString()
-
                         val monthlyBudget = sharedPreferences.getString("budget", "0")?.toDouble()
+                        binding.creditAmount.text = monthlyBudget.toString()
+
                         var monthlyExpenditure: Double
                         var monthlySavings: Double
 
                         viewModel.monthlyExpenses.observe(viewLifecycleOwner) {
-                            monthlyExpenditure = it!!
-                            binding.expenditure.text = monthlyExpenditure.toString()
+                            monthlyExpenditure = it ?: 0.0
+                            binding.expenditureAmount.text = monthlyExpenditure.toString()
 
                             monthlySavings = monthlyBudget?.minus(monthlyExpenditure)!!
-                            binding.savings.text = 0.0.coerceAtLeast(monthlySavings).toString()
+                            binding.savingsAmount.text =
+                                0.0.coerceAtLeast(monthlySavings).toString()
 
                             if (monthlyExpenditure >= monthlyBudget) {
-                                binding.expenditure.error = "You have exceeded your budget"
+                                binding.expenditureAmount.error = "You have exceeded your budget"
                                 //  binding.savings.setTextColor(resources.getColor(R.color.red))
-                            }
-                            else{
-                                binding.expenditure.error = null
+                            } else {
+                                binding.expenditureAmount.error = null
                                 //  binding.savings.setTextColor(resources.getColor(R.color.green))
                             }
                         }
                     }
 
-                    1 -> {
-
-                        val year = calendar.get(Calendar.YEAR)
-
-                        val yearIncome = 0.0
-                        // totalMonthlyEarnings(year * 100 + 1, currMonthYear)
-
-                        binding.credit.text = yearIncome.toString()
-
-                        var yearlyGains = 0.0
-                        var yearlyExpenses = 0.0
-                        var yearlyCredit = 0.0
-                        var yearlySavings = 0.0
-
-                        viewModel.getYearlyGains.observe(viewLifecycleOwner) {
-                            yearlyGains = it[year]!!
-
-                            yearlyCredit = yearIncome.plus(yearlyGains)
-                            yearlySavings = yearlyCredit.minus(yearlyExpenses)
-
-                            binding.savings.text = yearlySavings.toString()
-                        }
-
-                        viewModel.getYearlyExpenses.observe(viewLifecycleOwner) {
-                            yearlyExpenses = it[year]!!
-                            binding.expenditure.text = yearlyExpenses.toString()
-
-                            yearlyCredit = yearIncome.plus(yearlyGains)
-                            yearlySavings = yearlyCredit.minus(yearlyExpenses)
-
-                            binding.savings.text = yearlySavings.toString()
-                        }
-                    }
+/*                   TODO: Feature: Yearly Expenditure Synopsis
+*                    1 -> {
+*
+*                        binding.creditText.text = "Total Earnings"
+*                        binding.expenditureText.text = "Total Expenditure"
+*                        binding.savingsText.text = "Total Savings"
+*
+*                        val year = calendar.get(Calendar.YEAR)
+*
+*                        val yearIncome = 0.0
+*                        // totalMonthlyEarnings(year * 100 + 1, currMonthYear)
+*
+*                        binding.creditAmount.text = yearIncome.toString()
+*
+*                        var yearlyGains = 0.0
+*                        var yearlyExpenses = 0.0
+*                        var yearlyCredit = 0.0
+*                        var yearlySavings = 0.0
+*
+*                        viewModel.getYearlyGains.observe(viewLifecycleOwner) {
+*                            yearlyGains = it[year]!!
+*
+*                            yearlyCredit = yearIncome.plus(yearlyGains)
+*                            yearlySavings = yearlyCredit.minus(yearlyExpenses)
+*
+*                            binding.savingsAmount.text = yearlySavings.toString()
+*                        }
+*
+*                        viewModel.getYearlyExpenses.observe(viewLifecycleOwner) {
+*                            yearlyExpenses = it[year]!!
+*                            binding.expenditureAmount.text = yearlyExpenses.toString()
+*
+*                            yearlyCredit = yearIncome.plus(yearlyGains)
+*                            yearlySavings = yearlyCredit.minus(yearlyExpenses)
+*
+*                            binding.savingsAmount.text = yearlySavings.toString()
+*                        }
+*                    }
+*/
                 }
             }
 
@@ -203,7 +215,7 @@ class MainScreenFragment : Fragment() {
             }
         }
 
-        binding.floatingActionButton2.setOnClickListener {
+        binding.addTransactionButton.setOnClickListener {
             findNavController().navigate(
                 MainScreenFragmentDirections.actionMainScreenFragmentToAddOrEditTransactionFragment(
                     0,
@@ -215,33 +227,4 @@ class MainScreenFragment : Fragment() {
         // Inflate the layout for this fragment
         return binding.root
     }
-
-//    fun allTimeMonthlyEarnings(): Double {
-//        var totalEarnings = 0.0
-//        var earningTillNow = 0.0
-//        var lastMonth = -1
-//
-//        for (KeyValuePair in incomeRegister) {
-//            val currMonth = KeyValuePair.key % 100
-//            if (earningTillNow != 0.0) {
-//                val months = currMonth - lastMonth
-//                totalEarnings += earningTillNow * months
-//            }
-//
-//            earningTillNow = KeyValuePair.value
-//            lastMonth = currMonth
-//        }
-//
-//        return totalEarnings
-//    }
-//
-//    fun totalMonthlyEarnings(startMonth: Int, endMonth: Int): Double {
-//        var totalEarnings = 0.0
-//
-//        for (i in startMonth..endMonth)
-//            totalEarnings += incomeRegister[i]!!
-//
-//        return totalEarnings
-//    }
-
 }

@@ -5,33 +5,6 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/frontScreenFragment">
     <fragment
-        android:id="@+id/loginScreenFragment"
-        android:name="com.example.makeMyBudget.authentication.LoginScreenFragment"
-        android:label="fragment_login_screen"
-        tools:layout="@layout/fragment_login_screen">
-        <action
-            android:id="@+id/action_loginScreenFragment_to_registerScreenFragment"
-            app:destination="@id/registerScreenFragment" />
-        <action
-            android:id="@+id/action_loginScreenFragment_to_mainScreenFragment"
-            app:destination="@id/mainScreenFragment" />
-        <action
-            android:id="@+id/action_loginScreenFragment_to_userBudgetDetailsFragment"
-            app:destination="@id/userBudgetDetailsFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/registerScreenFragment"
-        android:name="com.example.makeMyBudget.authentication.RegisterScreenFragment"
-        android:label="fragment_register_screen"
-        tools:layout="@layout/fragment_register_screen">
-        <action
-            android:id="@+id/action_registerScreenFragment_to_userBudgetDetailsFragment"
-            app:destination="@id/userBudgetDetailsFragment" />
-        <action
-            android:id="@+id/action_registerScreenFragment_to_mainScreenFragment"
-            app:destination="@id/mainScreenFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/frontScreenFragment"
         android:name="com.example.makeMyBudget.initialScreens.FrontScreenFragment"
         android:label="front_screen"
@@ -39,7 +12,7 @@
 
         <action
             android:id="@+id/action_frontScreenFragment_to_loginScreenFragment"
-            app:destination="@id/loginScreenFragment" />
+            app:destination="@id/authentication" />
         <action
             android:id="@+id/action_frontScreenFragment_to_transactionDetailFragment"
             app:destination="@id/transactionDetailFragment" />
@@ -48,7 +21,7 @@
             app:destination="@id/userBudgetDetailsFragment" />
         <action
             android:id="@+id/action_frontScreenFragment_to_registerScreenFragment"
-            app:destination="@id/registerScreenFragment" />
+            app:destination="@id/authentication" />
         <action
             android:id="@+id/action_frontScreenFragment_to_mainScreenFragment"
             app:destination="@id/mainScreenFragment"
@@ -102,6 +75,21 @@
         <argument
             android:name="screenNumber"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_mainScreenFragment_to_loginScreenFragment"
+            app:destination="@id/authentication" />
+        <action
+            android:id="@+id/action_mainScreenFragment_to_helloMushroomsFragment"
+            app:destination="@id/drawer_screens" />
+        <action
+            android:id="@+id/action_mainScreenFragment_to_myDetailsFragment"
+            app:destination="@id/drawer_screens" />
+        <action
+            android:id="@+id/action_mainScreenFragment_to_editMyDetailsFragment"
+            app:destination="@id/drawer_screens" />
+        <action
+            android:id="@+id/action_mainScreenFragment_to_aboutUsFragment"
+            app:destination="@id/drawer_screens" />
     </fragment>
     <fragment
         android:id="@+id/addOrEditTransactionFragment"
@@ -150,46 +138,76 @@
             android:id="@+id/action_calenderViewFragment_to_transactionDetailFragment"
             app:destination="@id/transactionDetailFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/overviewTabFragment"
-        android:name="com.example.makeMyBudget.mainScreen.tabs.OverviewTabFragment"
-        android:label="OverviewTabFragment" />
-    <fragment
-        android:id="@+id/transactionLogTabFragment"
-        android:name="com.example.makeMyBudget.mainScreen.tabs.RecentTransactionsTabFragment"
-        android:label="fragment_transaction_log_tab"
-        tools:layout="@layout/fragment_recent_transactions_tab" />
-    <fragment
-        android:id="@+id/yearMonthTabFragment"
-        android:name="com.example.makeMyBudget.mainScreen.tabs.YearMonthTabFragment"
-        android:label="YearMonthTabFragment" />
-    <fragment
-        android:id="@+id/aboutUsFragment"
-        android:name="com.example.makeMyBudget.mainScreen.DrawerScreens.AboutUsFragment"
-        android:label="AboutUsFragment" >
+    <navigation android:id="@+id/drawer_screens"
+        app:startDestination="@id/aboutUsFragment">
+        <fragment
+            android:id="@+id/helloMushroomsFragment"
+            android:name="com.example.makeMyBudget.mainScreen.DrawerScreens.HelloMushroomsFragment"
+            android:label="fragment_hello_mushrooms"
+            tools:layout="@layout/fragment_hello_mushrooms" >
+            <action
+                android:id="@+id/action_helloMushroomsFragment_to_mainScreenFragment"
+                app:destination="@id/mainScreenFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/myDetailsFragment"
+            android:name="com.example.makeMyBudget.mainScreen.DrawerScreens.MyDetailsFragment"
+            android:label="MyDetailsFragment" >
+            <action
+                android:id="@+id/action_myDetailsFragment_to_mainScreenFragment"
+                app:destination="@id/mainScreenFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/editMyDetailsFragment"
+            android:name="com.example.makeMyBudget.mainScreen.DrawerScreens.EditMyDetailsFragment"
+            android:label="EditMyDetailsFragment" >
+            <action
+                android:id="@+id/action_editMyDetailsFragment_to_mainScreenFragment"
+                app:destination="@id/mainScreenFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/aboutUsFragment"
+            android:name="com.example.makeMyBudget.mainScreen.DrawerScreens.AboutUsFragment"
+            android:label="AboutUsFragment" >
+            <action
+                android:id="@+id/action_aboutUsFragment_to_mainScreenFragment"
+                app:destination="@id/mainScreenFragment" />
+        </fragment>
         <action
-            android:id="@+id/action_aboutUsFragment_to_mainScreenFragment"
+            android:id="@+id/action_global_mainScreenFragment"
             app:destination="@id/mainScreenFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/editMyDetailsFragment"
-        android:name="com.example.makeMyBudget.mainScreen.DrawerScreens.EditMyDetailsFragment"
-        android:label="EditMyDetailsFragment" >
-        <action
-            android:id="@+id/action_editMyDetailsFragment_to_mainScreenFragment"
-            app:destination="@id/mainScreenFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/helloMushroomsFragment"
-        android:name="com.example.makeMyBudget.mainScreen.DrawerScreens.HelloMushroomsFragment"
-        android:label="fragment_hello_mushrooms"
-        tools:layout="@layout/fragment_hello_mushrooms" />
-    <fragment
-        android:id="@+id/myDetailsFragment"
-        android:name="com.example.makeMyBudget.mainScreen.DrawerScreens.MyDetailsFragment"
-        android:label="MyDetailsFragment" >
-        <action
-            android:id="@+id/action_myDetailsFragment_to_mainScreenFragment"
-            app:destination="@id/mainScreenFragment" />
-    </fragment>
+    </navigation>
+    <navigation android:id="@+id/authentication"
+        app:startDestination="@id/loginScreenFragment">
+        <fragment
+            android:id="@+id/loginScreenFragment"
+            android:name="com.example.makeMyBudget.authentication.LoginScreenFragment"
+            android:label="fragment_login_screen"
+            tools:layout="@layout/fragment_login_screen">
+            <action
+                android:id="@+id/action_loginScreenFragment_to_registerScreenFragment"
+                app:destination="@id/registerScreenFragment" />
+            <action
+                android:id="@+id/action_loginScreenFragment_to_mainScreenFragment"
+                app:destination="@id/mainScreenFragment" />
+            <action
+                android:id="@+id/action_loginScreenFragment_to_userBudgetDetailsFragment"
+                app:destination="@id/userBudgetDetailsFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/registerScreenFragment"
+            android:name="com.example.makeMyBudget.authentication.RegisterScreenFragment"
+            android:label="fragment_register_screen"
+            tools:layout="@layout/fragment_register_screen">
+            <action
+                android:id="@+id/action_registerScreenFragment_to_userBudgetDetailsFragment"
+                app:destination="@id/userBudgetDetailsFragment" />
+            <action
+                android:id="@+id/action_registerScreenFragment_to_mainScreenFragment"
+                app:destination="@id/mainScreenFragment" />
+            <action
+                android:id="@+id/action_registerScreenFragment_to_loginScreenFragment"
+                app:destination="@id/loginScreenFragment" />
+        </fragment>
+    </navigation>
 </navigation>

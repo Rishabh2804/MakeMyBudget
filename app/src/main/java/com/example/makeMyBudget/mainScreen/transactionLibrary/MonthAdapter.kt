@@ -40,7 +40,6 @@ class MonthAdapter(val MonthCardList: MutableList<MonthCardDetail>, val fragment
 
         init {
             viewDetails.setOnClickListener {
-                Log.d("Hemlo2",  MonthCardList[adapterPosition].monthYear.toString())
                 fragment.findNavController().navigate(
                     MainScreenFragmentDirections.actionMainScreenFragmentToMonthScreenFragment(
                         MonthCardList[adapterPosition].monthYear.toInt()

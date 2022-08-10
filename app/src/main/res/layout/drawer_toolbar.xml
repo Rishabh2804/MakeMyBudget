@@ -12,7 +12,8 @@
         android:theme="?android:attr/actionBarTheme"
         app:layout_constraintStart_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        >
 
         <TextView
             android:id="@+id/app_title"
@@ -21,7 +22,7 @@
 
             android:fontFamily="@font/aclonica"
             android:text="MakeMyBudget"
-            android:textColor="#FFEB3B"
+            android:textColor="#FF523B"
             android:textColorHighlight="#8BC34A"
             android:textSize="25sp"
             tools:layout_editor_absoluteX="110dp"

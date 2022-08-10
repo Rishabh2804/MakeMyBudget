@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#F6FB73"
-        android:backgroundTint="#8FE8E8"
+        android:backgroundTint="#7FE6E6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -75,28 +75,28 @@
             android:textColorLink="#FFEB3B"
             android:textSize="30sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/cardView2"
+            app:layout_constraintBottom_toTopOf="@id/details"
             app:layout_constraintStart_toEndOf="@id/rupee_symbol"
             app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         </TextView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardView2"
+            android:id="@+id/details"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_margin="15dp"
             android:layout_marginTop="48dp"
-            android:backgroundTint="#C7FB73"
+            android:backgroundTint="#CEF889"
             android:foreground="@drawable/border"
-            app:cardBackgroundColor="#C7FB73"
+            app:cardBackgroundColor="#C4EF7E"
             app:cardCornerRadius="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/heading_Balance">
 
             <TextView
-                android:id="@+id/monthly_budget_text"
+                android:id="@+id/credit_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -108,7 +108,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/savings_amount_text"
+                android:id="@+id/savings_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
@@ -133,7 +133,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/credit"
+                android:id="@+id/credit_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
@@ -144,7 +144,7 @@
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/savings"
+                android:id="@+id/savings_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
@@ -155,7 +155,7 @@
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/expenditure"
+                android:id="@+id/expenditure_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|end"
@@ -175,7 +175,7 @@
             android:background="#30ACEF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cardView2"
+            app:layout_constraintTop_toBottomOf="@id/details"
             app:tabIndicatorFullWidth="true"
             app:tabIndicatorGravity="bottom"
             app:tabTextColor="#FFFFFF"
@@ -184,8 +184,9 @@
 
         </com.google.android.material.tabs.TabLayout>
 
+        <!--        TODO: Add functionality for Yearly Details-->
         <Spinner
-            android:id="@+id/spinner"
+            android:id="@+id/details_mode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
@@ -195,7 +196,7 @@
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButton2"
+            android:id="@+id/add_transaction_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="25dp"
@@ -223,7 +224,7 @@
                     android:id="@+id/viewPager"
                     android:layout_width="match_parent"
                     android:layout_height="1000dp"
-                    android:background="#9BD5EC"
+                    android:background="#9AE2EF"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

@@ -24,6 +24,10 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
         _userID.value = id
     }
 
+    fun deleteUserData() {
+        listHandlerRepo.deleteUserData(_userID.value!!)
+    }
+
     val date: MutableLiveData<Long> = MutableLiveData<Long>(0L)
     fun setDate(date: Long) {
         this.date.value = date
@@ -88,7 +92,7 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
     fun getPendingTransactions(date: Long) =
         listHandlerRepo.getPendingTransactions(_userID.value!!, date)
 
-    var getDates : LiveData<List<Long>> = Transformations.switchMap(monthYear) {
+    var getDates: LiveData<List<Long>> = Transformations.switchMap(monthYear) {
         listHandlerRepo.getTransactionDatesByMonthYear(_userID.value!!, it)
     }
 

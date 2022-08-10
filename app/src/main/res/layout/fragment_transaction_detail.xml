@@ -1,237 +1,279 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#9AE2EF"
+    android:backgroundTint="#9AE2EF"
     tools:context="com.example.makeMyBudget.mainScreen.transactionLibrary.AddOrEditTransactionFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraint_layout"
+    <ScrollView
+
+        android:id="@+id/scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#AEF8F6">
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/to_date_input"
-            android:layout_width="173dp"
-            android:layout_height="57dp"
-            android:layout_marginStart="20dp"
-            android:ems="10"
-            android:hint="To"
-            android:inputType="date"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.058"
-            app:layout_constraintStart_toEndOf="@+id/from_date_input"
-            app:layout_constraintTop_toTopOf="@+id/from_date_input" />
-
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/app_bar"
-
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#078DCA"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="wrap_content">
 
-            <com.google.android.material.appbar.MaterialToolbar
+            <TextView
+                android:id="@+id/to_date_input"
+                android:layout_width="173dp"
+                android:layout_height="57dp"
+                android:layout_marginStart="20dp"
+                android:ems="10"
+                android:hint="To"
+                android:inputType="date"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/from_date_input"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.058"
+                app:layout_constraintStart_toEndOf="@+id/from_date_input"
+                app:layout_constraintTop_toTopOf="@+id/from_date_input" />
 
-                android:id="@+id/toolbar"
-                style="@style/ThemeOverlay.MaterialComponents.Toolbar.Primary"
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/app_bar"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#3F51B5"
+                android:backgroundTint="#078DCA"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                android:textAlignment="center"
-                app:menu="@menu/view_transaction_menu"
-                app:title="Transaction Details">
+                <com.google.android.material.appbar.MaterialToolbar
 
-            </com.google.android.material.appbar.MaterialToolbar>
-        </com.google.android.material.appbar.AppBarLayout>
+                    android:id="@+id/toolbar"
+                    style="@style/ThemeOverlay.MaterialComponents.Toolbar.Primary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#3F51B5"
 
-        <TextView
-            android:id="@+id/trans_desc_input"
-            android:layout_width="372dp"
-            android:layout_height="47dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="8dp"
-            android:ems="10"
-            android:gravity="start|top"
-            android:hint="Description"
-            android:inputType="textMultiLine"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/trans_title_input" />
+                    android:textAlignment="center"
+                    app:menu="@menu/view_transaction_menu"
+                    app:title="Transaction Details">
 
-        <TextView
-            android:id="@+id/trans_amount_msg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="8dp"
-            android:text="Amount : "
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/trans_desc_input" />
+                </com.google.android.material.appbar.MaterialToolbar>
+            </com.google.android.material.appbar.AppBarLayout>
 
-        <TextView
-            android:id="@+id/trans_amount_input"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:text="InputAmount"
-            app:layout_constraintBottom_toBottomOf="@+id/trans_amount_msg"
-            app:layout_constraintStart_toEndOf="@+id/trans_amount_msg"
-            app:layout_constraintTop_toTopOf="@+id/trans_amount_msg" />
+            <TextView
+                android:id="@+id/trans_desc_input"
+                android:layout_width="372dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="Description"
+                android:inputType="textMultiLine"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="@+id/trans_title_input"
+                app:layout_constraintStart_toStartOf="@+id/trans_title_input"
+                app:layout_constraintTop_toBottomOf="@+id/trans_title_input" />
 
-        <TextView
-            android:id="@+id/trans_date_msg"
-            android:layout_width="60dp"
-            android:layout_height="21dp"
-            android:layout_marginTop="20dp"
-            android:text="Date :"
-            app:layout_constraintStart_toStartOf="@+id/trans_amount_msg"
-            app:layout_constraintTop_toBottomOf="@+id/trans_amount_msg" />
+            <TextView
+                android:id="@+id/trans_amount_msg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="Amount : "
+                android:textColor="#000000"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/already_completed"
+                app:layout_constraintTop_toBottomOf="@+id/already_completed" />
 
-        <TextView
-            android:id="@+id/trans_date_input"
-            android:layout_width="128dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="30dp"
-            android:ems="10"
-            android:inputType="date"
-            app:layout_constraintBottom_toBottomOf="@+id/trans_date_msg"
-            app:layout_constraintStart_toEndOf="@+id/trans_date_msg"
-            app:layout_constraintTop_toTopOf="@+id/trans_date_msg"
-            tools:ignore="SpeakableTextPresentCheck" />
+            <TextView
+                android:id="@+id/trans_amount_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="InputAmount"
 
-        <CheckBox
-            android:id="@+id/isRecurringCheckBox"
-            android:layout_width="177dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="36dp"
-            android:text="Recurring Transaction"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/trans_date_msg" />
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/trans_amount_msg"
+                app:layout_constraintStart_toEndOf="@+id/trans_amount_msg"
+                app:layout_constraintTop_toTopOf="@+id/trans_amount_msg"
+                app:layout_constraintVertical_bias="0.0" />
 
-        <TextView
-            android:id="@+id/trans_title_input"
-            android:layout_width="112dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="20dp"
-            android:ems="10"
-            android:hint="Title"
-            android:inputType="textPersonName"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/app_bar" />
+            <TextView
+                android:id="@+id/trans_date_msg"
+                android:layout_width="60dp"
+                android:layout_height="21dp"
+                android:layout_marginTop="28dp"
+                android:text="Date :"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/trans_amount_msg"
+                app:layout_constraintTop_toBottomOf="@+id/trans_amount_msg" />
 
-        <TextView
-            android:id="@+id/from_date_input"
-            android:layout_width="173dp"
-            android:layout_height="57dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="8dp"
-            android:ems="10"
-            android:hint="From"
-            android:inputType="date"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/isRecurringCheckBox" />
+            <TextView
+                android:id="@+id/trans_date_input"
+                android:layout_width="128dp"
+                android:layout_height="48dp"
+                android:ems="10"
+                android:inputType="date"
+                app:layout_constraintBottom_toBottomOf="@+id/trans_date_msg"
+                app:layout_constraintStart_toStartOf="@+id/trans_amount_input"
+                app:layout_constraintTop_toTopOf="@+id/trans_date_msg"
+                app:layout_constraintVertical_bias="0.666"
+                tools:ignore="SpeakableTextPresentCheck" />
 
-        <TextView
-            android:id="@+id/trans_mode_input"
-            android:layout_width="178dp"
-            android:layout_height="25dp"
-            android:layout_marginEnd="20dp"
-            android:tooltipText="Select Mode"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/tranaction_mode_label"
-            app:layout_constraintTop_toTopOf="@+id/tranaction_mode_label" />
+            <CheckBox
+                android:id="@+id/isRecurringCheckBox"
+                android:layout_width="177dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:text="Recurring Transaction"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/trans_date_msg" />
 
-        <TextView
-            android:id="@+id/tranaction_mode_label"
-            android:layout_width="157dp"
-            android:layout_height="26dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="10dp"
-            android:text="Transaction Mode: "
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/from_date_input" />
+            <TextView
+                android:id="@+id/trans_title_input"
+                android:layout_width="372dp"
+                android:layout_height="52dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="20dp"
+                android:ems="10"
+                android:hint="Title"
+                android:inputType="textPersonName"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/app_bar" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/transaction_tags"
-            android:layout_width="match_parent"
-            android:layout_height="26dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="20dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.757"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tranaction_mode_label" />
+            <TextView
+                android:id="@+id/from_date_input"
+                android:layout_width="173dp"
+                android:layout_height="57dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:ems="10"
+                android:hint="From"
+                android:inputType="date"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/isRecurringCheckBox" />
+
+            <TextView
+                android:id="@+id/trans_mode_input"
+                android:layout_width="178dp"
+                android:layout_height="25dp"
+                android:layout_marginEnd="20dp"
+                android:textColor="#000000"
+                android:tooltipText="Select Mode"
+                app:layout_constraintBottom_toBottomOf="@+id/tranaction_mode_label"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/tranaction_mode_label"
+                app:layout_constraintTop_toTopOf="@+id/tranaction_mode_label" />
+
+            <TextView
+                android:id="@+id/tranaction_mode_label"
+                android:layout_width="157dp"
+                android:layout_height="26dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="10dp"
+                android:text="Transaction Mode: "
+                android:textColor="#000000"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/from_date_input" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/transaction_tags"
+                android:layout_width="match_parent"
+                android:layout_height="26dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="20dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.757"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tranaction_mode_label" />
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="@+id/transaction_tags"
+                app:layout_constraintTop_toBottomOf="@+id/transaction_tags">
+
+                <RadioButton
+                    android:id="@+id/income_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_margin="5dp"
+                    android:text="Income"
+                    android:textColor="#000000"
+                    android:textSize="16sp">
+
+                </RadioButton>
+
+                <RadioButton
+                    android:id="@+id/expense_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_margin="5dp"
+                    android:text="Expense"
+                    android:textColor="#000000"
+                    android:textSize="16sp">
+
+                </RadioButton>
+            </RadioGroup>
+
+            <CheckBox
+                android:id="@+id/already_completed"
+                android:layout_width="188dp"
+                android:layout_height="34dp"
+                android:layout_marginTop="4dp"
+                android:text="Already Completed ?"
+                app:layout_constraintStart_toStartOf="@+id/trans_desc_input"
+                app:layout_constraintTop_toBottomOf="@+id/trans_desc_input"
+                tools:ignore="TouchTargetSizeCheck" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scroll_view"
+        app:layout_constraintVertical_bias="0.925">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/cancel_button"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="10dp"
-            android:text="CANCEL"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/save_button"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/transaction_tags">
+            android:paddingHorizontal="30dp"
+            android:text="CANCEL">
 
         </com.google.android.material.button.MaterialButton>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/save_button"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="25dp"
-            android:text="SAVE"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/cancel_button"
-            app:layout_constraintTop_toBottomOf="@+id/transaction_tags">
+            android:layout_marginStart="60dp"
+            android:paddingHorizontal="30dp"
+            android:text="SAVE">
 
         </com.google.android.material.button.MaterialButton>
 
-        <RadioGroup
-            android:id="@+id/radioGroup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="70dp"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical"
-            app:layout_constraintStart_toEndOf="@+id/trans_amount_input"
-            app:layout_constraintTop_toBottomOf="@+id/trans_desc_input">
+    </LinearLayout>
 
-            <RadioButton
-                android:id="@+id/income_button"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_margin="5dp"
-                android:text="Income">
 
-            </RadioButton>
-
-            <RadioButton
-                android:id="@+id/expense_button"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_margin="5dp"
-                android:text="Expense">
-
-            </RadioButton>
-        </RadioGroup>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

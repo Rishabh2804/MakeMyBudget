@@ -8,6 +8,11 @@ import com.example.makeMyBudget.entities.Transaction
 
 @Dao
 interface ListHandler {
+    @Query(
+        "DELETE FROM transactions " +
+                "WHERE user_id = :user_id"
+    )
+    fun deleteUserData(user_id: String): Unit
 
     @Query(
         "SELECT * " +
@@ -93,23 +98,50 @@ interface ListHandler {
     fun getAmountByMode(user_id: String, transactionMode: TransactionMode): LiveData<Double>
 
     @MapInfo(keyColumn = "mode", valueColumn = "sum")
-    @Query("SELECT transactionMode as mode, SUM(transactionAmount) as sum FROM transactions WHERE user_id = :user_id GROUP BY transactionMode ORDER BY transactionDate DESC")
+    @Query(
+        "SELECT transactionMode as mode, SUM(transactionAmount) as sum " +
+                "FROM transactions " +
+                "WHERE user_id = :user_id " +
+                "GROUP BY transactionMode " +
+                "ORDER BY transactionDate DESC"
+    )
     fun getAmountByModeAll(user_id: String): LiveData<Map<TransactionMode, Double>>
 
-    @Query("SELECT SUM(transactionAmount) FROM transactions WHERE user_id = :user_id and transactionType = :transactionType")
+    @Query(
+        "SELECT SUM(transactionAmount) " +
+                "FROM transactions " +
+                "WHERE user_id = :user_id and transactionType = :transactionType"
+    )
     fun getAmountByType(user_id: String, transactionType: TransactionType): LiveData<Double>
 
     @MapInfo(keyColumn = "type", valueColumn = "sum")
-    @Query("SELECT transactionType as type, SUM(transactionAmount) as sum FROM transactions WHERE user_id = :user_id GROUP BY transactionType")
+    @Query(
+        "SELECT transactionType as type, SUM(transactionAmount) as sum " +
+                "FROM transactions " +
+                "WHERE user_id = :user_id " +
+                "GROUP BY transactionType"
+    )
     fun getAmountByTypeAll(user_id: String): LiveData<Map<TransactionType, Double>>
 
-    @Query("SELECT SUM(transactionAmount) FROM transactions WHERE user_id = :user_id and transactionStatus = :transactionStatus")
+    @Query(
+        "SELECT SUM(transactionAmount) " +
+                "FROM transactions " +
+                "WHERE user_id = :user_id and transactionStatus = :transactionStatus"
+    )
     fun getAmountByStatus(user_id: String, transactionStatus: TransactionStatus): LiveData<Double>
 
-    @Query("SELECT SUM(transactionAmount) FROM transactions WHERE user_id = :user_id and transactionDate = :date")
+    @Query(
+        "SELECT SUM(transactionAmount) " +
+                "FROM transactions " +
+                "WHERE user_id = :user_id and transactionDate = :date"
+    )
     fun getAmountByDate(user_id: String, date: Long): LiveData<Double>
 
-    @Query("SELECT SUM(transactionAmount) FROM transactions WHERE user_id = :user_id and monthYear = :monthYear")
+    @Query(
+        "SELECT SUM(transactionAmount) " +
+                "FROM transactions " +
+                "WHERE user_id = :user_id and monthYear = :monthYear"
+    )
     fun getAmountByMonth(user_id: String, monthYear: Long): LiveData<Double>
 
     @Query(
@@ -120,7 +152,13 @@ interface ListHandler {
     )
     fun getAmountByYear(user_id: String, year: Int): LiveData<Double>
 
-    @Query("SELECT year FROM transactions WHERE user_id = :user_id GROUP BY year ORDER BY year ")
+    @Query(
+        "SELECT year " +
+                "FROM transactions " +
+                "WHERE user_id = :user_id " +
+                "GROUP BY year " +
+                "ORDER BY year "
+    )
     fun getYears(user_id: String): LiveData<List<Int>>
 
 
@@ -338,9 +376,6 @@ interface ListHandler {
                 "GROUP BY year"
     )
     fun getYearlyTransactionInfo(user_id: String): LiveData<Map<Int, BarChartDetails>>
-
-
-
 }
 
 @Entity

@@ -6,7 +6,7 @@ import com.example.makeMyBudget.entities.User
 
 class UserAgentRepo(application: Application) {
 
-    val userAgentDao = TransactionDB.getDatabase(application).userDao()
+    private val userAgentDao = TransactionDB.getDatabase(application).userDao()
 
     suspend fun insert(user: User) = userAgentDao.insert(user)
     suspend fun update(user: User) = userAgentDao.update(user)

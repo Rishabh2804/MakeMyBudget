@@ -48,10 +48,6 @@ class LoginScreenFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentLoginScreenBinding.inflate(inflater, container, false)
 
-        // Configure Google Sign In
-
-        // Build a GoogleSignInClient with the options specified by googleSignInOptions.
-
         // Set the click listeners
         binding.customRegisterButton.setBackgroundColor(resources.getColor(R.color.white))
         binding.customRegisterButton.setTextColor(resources.getColor(R.color.black))
