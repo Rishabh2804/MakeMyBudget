@@ -17,13 +17,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.makeMyBudget.entities.TransactionCategory
+import com.example.makeMyBudget.entities.TransactionMode
 import com.example.makeMyBudget.entities.TransactionType
 import com.example.makeMyBudget.mainScreen.viewModels.MainScreenViewModel
-
-
-import com.example.makeMyBudget.entities.TransactionMode
 import com.example.makemybudget.R
-import com.example.makemybudget.databinding.FragmentOverviewTabBinding
+import com.example.makemybudget.databinding.FragmentStatisticsTabBinding
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
@@ -32,7 +30,7 @@ import kotlin.collections.ArrayList
 class OverviewTabFragment : Fragment() {
 
     private lateinit var viewModel: MainScreenViewModel
-    private lateinit var binding: FragmentOverviewTabBinding
+    private lateinit var binding: FragmentStatisticsTabBinding
     private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
@@ -41,8 +39,8 @@ class OverviewTabFragment : Fragment() {
     ): View {
 
         //initialising binding, viewModel and firebase
-        binding = FragmentOverviewTabBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProvider(this).get(MainScreenViewModel::class.java)
+        binding = FragmentStatisticsTabBinding.inflate(inflater, container, false)
+        viewModel = ViewModelProvider(this)[MainScreenViewModel::class.java]
         sharedPreferences = activity?.getSharedPreferences("user_auth", Context.MODE_PRIVATE)!!
 
         val userID = sharedPreferences.getString("user_id", "")!!
@@ -211,7 +209,7 @@ class OverviewTabFragment : Fragment() {
                     entries.add(it.name)
                 }
 
-                val adapter = legendAdapter(colors, entries)
+                val adapter = LegendAdapter(colors, entries)
                 binding.referneceBox.adapter = adapter
                 binding.referneceBox.layoutManager = LinearLayoutManager(requireContext())
 
@@ -261,7 +259,7 @@ class OverviewTabFragment : Fragment() {
                     entries.add(it.name)
                 }
 
-                val adapter = legendAdapter(colors, entries)
+                val adapter = LegendAdapter(colors, entries)
                 binding.referneceBox.adapter = adapter
                 binding.referneceBox.layoutManager = LinearLayoutManager(requireContext())
                 // adding the data to the pie data set
@@ -307,7 +305,7 @@ class OverviewTabFragment : Fragment() {
                     entries.add(it.name)
                 }
 
-                val adapter = legendAdapter(colors, entries)
+                val adapter = LegendAdapter(colors, entries)
                 binding.referneceBox.adapter = adapter
                 binding.referneceBox.layoutManager = LinearLayoutManager(requireContext())
 
@@ -370,7 +368,6 @@ class OverviewTabFragment : Fragment() {
 
     //function to set the bar chart according to the choice selected
     fun setBarChart(barChartMode: String, year: Int = -1) {
-        Log.d("Hemlo", "$barChartMode $year")
         when (barChartMode) {
             //if choice is month, bar chart will be set according to the month-wise data
             "Monthly" -> {
@@ -390,15 +387,14 @@ class OverviewTabFragment : Fragment() {
                     "Dec",
                 )
 
-                var barAmountEntries: MutableList<BarEntry> = mutableListOf()
-                var barTransactionsEntries: MutableList<BarEntry> = mutableListOf()
+                var barAmountEntries: MutableList<BarEntry>
+                var barTransactionsEntries: MutableList<BarEntry>
                 viewModel.barChartMonthsInfo.observe(viewLifecycleOwner) {
                     barAmountEntries = arrayListOf()
                     barTransactionsEntries = arrayListOf()
-                    Log.d("Hemlo", it.toString())
                     val monthYear = year * 100
                     months.forEachIndexed { index, _ ->
-                        var amount = it[monthYear + index + 1]?.transAmount?.toDouble()
+                        var amount = it[monthYear + index + 1]?.transAmount
                         if (amount == null)
                             amount = 0.0
                         barAmountEntries.add(
@@ -469,7 +465,7 @@ class OverviewTabFragment : Fragment() {
                 viewModel.barChartYearsInfo.observe(viewLifecycleOwner) {
                     barAmountEntries = arrayListOf()
                     years.forEachIndexed { index, year ->
-                        var amount = it[year.toInt()]?.transAmount?.toDouble()
+                        var amount = it[year.toInt()]?.transAmount
                         if (amount == null)
                             amount = 0.0
                         barAmountEntries.add(
@@ -526,8 +522,8 @@ class OverviewTabFragment : Fragment() {
 
 }
 
-class legendAdapter(val colorList: Array<Int>, val legendList: ArrayList<String>) :
-    RecyclerView.Adapter<legendAdapter.Holder>() {
+class LegendAdapter(val colorList: Array<Int>, val legendList: ArrayList<String>) :
+    RecyclerView.Adapter<LegendAdapter.Holder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.pie_chart_elements, parent, false)
@@ -543,8 +539,8 @@ class legendAdapter(val colorList: Array<Int>, val legendList: ArrayList<String>
     }
 
     class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val circle = itemView.findViewById<ImageView>(R.id.circular_mark)
-        val item = itemView.findViewById<TextView>(R.id.trans_item)
+        val circle: ImageView = itemView.findViewById(R.id.circular_mark)!!
+        val item: TextView = itemView.findViewById(R.id.trans_item)!!
         fun bindView(color: Int, legend: String) {
             circle.setColorFilter(ContextCompat.getColor(circle.context, color))
             item.text = legend

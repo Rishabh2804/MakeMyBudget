@@ -1,6 +1,5 @@
 package com.example.makeMyBudget.authentication
 
-import R2.string.default_web_client_id
 import android.content.Context
 import android.content.SharedPreferences
 import android.widget.Toast

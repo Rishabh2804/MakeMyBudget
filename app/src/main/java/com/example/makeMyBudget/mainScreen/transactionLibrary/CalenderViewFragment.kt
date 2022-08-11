@@ -3,7 +3,6 @@ package com.example.makeMyBudget.mainScreen.transactionLibrary
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,13 +13,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.applandeo.materialcalendarview.EventDay
-import com.example.dealwithexpenses.mainScreen.transactionLibrary.SwipeHandler
-
 import com.example.makeMyBudget.mainScreen.viewModels.MainScreenViewModel
 import com.example.makeMyBudget.mainScreen.viewModels.TransactionViewModel
 import com.example.makemybudget.R
 import com.example.makemybudget.databinding.FragmentCalenderViewBinding
-import com.google.firebase.auth.FirebaseAuth
 import java.util.*
 
 class CalenderViewFragment : Fragment() {
@@ -34,8 +30,8 @@ class CalenderViewFragment : Fragment() {
     ): View {
         // declaring the binding and viewModel
         binding = FragmentCalenderViewBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProvider(this).get(MainScreenViewModel::class.java)
-        transactionViewModel = ViewModelProvider(this).get(TransactionViewModel::class.java)
+        viewModel = ViewModelProvider(this)[MainScreenViewModel::class.java]
+        transactionViewModel = ViewModelProvider(this)[TransactionViewModel::class.java]
         sharedPreferences =
             activity?.getSharedPreferences("user_auth", Context.MODE_PRIVATE)!!
         // declaring the firebaseAuth
@@ -63,13 +59,12 @@ class CalenderViewFragment : Fragment() {
 
         viewModel.setDate(calender.timeInMillis)
         viewModel.getDates.observe(viewLifecycleOwner)
-        {
-            Log.d("Hemlo",it.toString())
-            val highlightDays= mutableListOf<EventDay>()
-            it.forEach {
-                val calendar= Calendar.getInstance()
-                calendar.timeInMillis= it
-                highlightDays.add(EventDay(calendar,R.color.category_bills,R.color.category_food))
+        { dates ->
+            val highlightDays = mutableListOf<EventDay>()
+            dates.forEach { date ->
+                val calendar = Calendar.getInstance()
+                calendar.timeInMillis = date
+                highlightDays.add(EventDay(calendar, R.color.category_bills, R.color.category_food))
 
             }
             binding.calenderView.setEvents(highlightDays)

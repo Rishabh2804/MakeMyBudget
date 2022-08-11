@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.makemybudget.databinding.FragmentUserBudgetDetailsBinding
 
-
 class UserBudgetDetailsFragment : Fragment() {
     private lateinit var binding: FragmentUserBudgetDetailsBinding
     private lateinit var sharedPreferences: SharedPreferences
@@ -48,14 +47,6 @@ class UserBudgetDetailsFragment : Fragment() {
                 editor.putString("username", binding.username.text.toString())
                 editor.putString("budget", binding.budget.text.toString())
 
-                //default value of income is 0 if not filled
-                //it is assumed that the user isn't earning
-                if (binding.income.text.isEmpty()) {
-                    editor.putString("income", "0")
-                } else {
-                    //if filled, data is fed into the shared preferences
-                    editor.putString("income", binding.income.text.toString())
-                }
                 editor.putBoolean("allCheck", true)
 
                 //after all changes, editor is applied to make a permanent change in shared preferences

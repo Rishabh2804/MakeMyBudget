@@ -11,15 +11,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.makeMyBudget.mainScreen.transactionLibrary.YearEpoxyController
 import com.example.makeMyBudget.mainScreen.viewModels.MainScreenViewModel
 import com.example.makeMyBudget.mainScreen.viewModels.convertIntoEpoxyData
-import com.example.makemybudget.databinding.FragmentYearMonthTabBinding
+import com.example.makemybudget.databinding.FragmentMonthlyTimelineTabBinding
 
-class YearMonthTabFragment(val fragment: Fragment) : Fragment() {
+class MonthlyTimelineTabFragment(val fragment: Fragment) : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
-    private lateinit var binding: FragmentYearMonthTabBinding
+    private lateinit var binding: FragmentMonthlyTimelineTabBinding
     private lateinit var viewModel: MainScreenViewModel
     private lateinit var sharedPreferences: SharedPreferences
 
@@ -28,8 +24,8 @@ class YearMonthTabFragment(val fragment: Fragment) : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        binding = FragmentYearMonthTabBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProvider(this).get(MainScreenViewModel::class.java)
+        binding = FragmentMonthlyTimelineTabBinding.inflate(inflater, container, false)
+        viewModel = ViewModelProvider(this)[MainScreenViewModel::class.java]
         sharedPreferences = activity?.getSharedPreferences("user_auth", Context.MODE_PRIVATE)!!
 
         val userID = sharedPreferences.getString("user_id", "")!!
@@ -42,7 +38,7 @@ class YearMonthTabFragment(val fragment: Fragment) : Fragment() {
         binding.epoxy.setController(yearEpoxyController)
         binding.epoxy.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
         viewModel.epoxyDataList.observe(viewLifecycleOwner) {
-            val list = convertIntoEpoxyData(it, sharedPreferences)
+            val list = convertIntoEpoxyData(it)
             yearEpoxyController.transactYears = list
             yearEpoxyController.requestModelBuild()
         }

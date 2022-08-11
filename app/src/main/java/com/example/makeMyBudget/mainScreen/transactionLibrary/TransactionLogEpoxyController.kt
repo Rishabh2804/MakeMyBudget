@@ -6,20 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.view.menu.MenuView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.example.dealwithexpenses.mainScreen.transactionLibrary.SwipeHandler
-
 import com.example.makeMyBudget.entities.Transaction
 import com.example.makeMyBudget.mainScreen.MainScreenFragmentDirections
 import com.example.makeMyBudget.mainScreen.viewModels.TransactionViewModel
-import com.example.makeMyBudget.mainScreen.viewModels.transactionLog
 import com.example.makemybudget.R
-
 
 class TransactionLogEpoxyController(
     val fragment: Fragment,

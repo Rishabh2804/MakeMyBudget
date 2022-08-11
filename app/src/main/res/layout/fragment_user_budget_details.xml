@@ -15,33 +15,6 @@
         android:background="#9BD5EC"
         android:backgroundTint="#9AE2EF">
 
-        <EditText
-            android:id="@+id/income"
-            android:layout_width="209dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="52dp"
-            android:ems="10"
-            android:inputType="numberDecimal"
-            app:layout_constraintEnd_toEndOf="@+id/budget"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/budget"
-            app:layout_constraintTop_toTopOf="@+id/warningBudget"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-        <TextView
-            android:id="@+id/incomeHeading"
-            android:layout_width="122dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="5dp"
-            android:fontFamily="@font/el_messiri"
-            android:gravity="center_vertical|left"
-            android:text="Income:"
-            android:textColor="@android:color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/budgetHeading"
-            app:layout_constraintTop_toTopOf="@+id/income" />
-
         <TextView
             android:id="@+id/warningBudget"
             android:layout_width="219dp"
@@ -146,15 +119,13 @@
             android:id="@+id/saveButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="450dp"
             android:text="Save"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/income"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/topNotification2"

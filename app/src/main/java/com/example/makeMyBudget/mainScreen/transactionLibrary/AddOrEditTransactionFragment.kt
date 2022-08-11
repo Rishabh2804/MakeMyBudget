@@ -5,7 +5,6 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,10 +19,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.makeMyBudget.entities.*
 import com.example.makeMyBudget.mainScreen.viewModels.TransactionViewModel
 import com.example.makemybudget.databinding.FragmentAddOrEditTransactionBinding
-import com.google.firebase.auth.FirebaseAuth
 import java.text.SimpleDateFormat
 import java.util.*
-
 
 class AddOrEditTransactionFragment : Fragment() {
 
@@ -95,7 +92,7 @@ class AddOrEditTransactionFragment : Fragment() {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {}
             override fun onNothingSelected(p0: AdapterView<*>?) {}
         }
-        viewModel = ViewModelProvider(this).get(TransactionViewModel::class.java)
+        viewModel = ViewModelProvider(this)[TransactionViewModel::class.java]
 
         val userID = sharedPreferences.getString("user_id", "")!!
         val transID = AddOrEditTransactionFragmentArgs.fromBundle(requireArguments()).transId
@@ -138,7 +135,7 @@ class AddOrEditTransactionFragment : Fragment() {
     }
 
     private fun saveData() {
-        var validTrans: Boolean = true
+        var validTrans= true
 
         if (binding.transTitleInput.text.isBlank()) {
             binding.transTitleInput.error = "Title is required"
@@ -175,7 +172,7 @@ class AddOrEditTransactionFragment : Fragment() {
         if (!validTrans) return
 
         val name = binding.transTitleInput.text.toString()
-        val desc = binding.transDescInput.text.toString() ?: ""
+        val description = binding.transDescInput.text.toString() ?: ""
         val amount = binding.transAmountInput.text.toString().toDouble()
         val date: Date = SimpleDateFormat(
             "dd-MM-yyyy",
@@ -219,7 +216,7 @@ class AddOrEditTransactionFragment : Fragment() {
             viewModel.userID.value!!,
             viewModel.transactionID.value!!,
             name,
-            desc,
+            description,
             amount,
             date,
             isRecurring,
@@ -252,7 +249,7 @@ class AddOrEditTransactionFragment : Fragment() {
         binding.transTitleInput.setText(transaction.title)
         binding.transDescInput.setText(transaction.description)
         binding.transAmountInput.setText(transaction.transactionAmount.toString())
-        binding.transDateInput.setText(SimpleDateFormat("dd-MM-yyyy").format(transaction.transactionDate))
+        binding.transDateInput.setText(SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH).format(transaction.transactionDate))
         if (transaction.isRecurring) {
             binding.isRecurringCheckBox.isChecked = true
             binding.fromDateInput.setText(transaction.fromDate.toString())

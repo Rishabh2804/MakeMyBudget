@@ -8,8 +8,6 @@ import androidx.lifecycle.Transformations
 import com.example.makeMyBudget.daoS.MonthDetail
 import com.example.makeMyBudget.entities.*
 import com.example.makeMyBudget.repositories.ListHandlerRepo
-import java.util.*
-import kotlin.collections.HashMap
 
 class MainScreenViewModel(application: Application) : AndroidViewModel(application) {
 

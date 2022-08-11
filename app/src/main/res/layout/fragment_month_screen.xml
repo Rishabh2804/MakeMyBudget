@@ -45,9 +45,10 @@
         android:id="@+id/addTransactionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:clickable="true"
+        android:focusable="true"
         android:foregroundGravity="bottom|right"
         android:src="@drawable/ic_baseline_add_24"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -64,22 +65,22 @@
         app:layout_constraintTop_toBottomOf="@id/app_bar">
 
         <TextView
-            android:id="@+id/net_balance_text"
+            android:id="@+id/month_budget_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
-            android:text="NET BALANCE"
+            android:text="MONTHLY BUDGET"
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/net_balance"
+            android:id="@+id/month_budget"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="50dp"
-            android:text="90000.00"
-            android:textSize="30sp"
+            android:text="35000.00"
+            android:textSize="42sp"
             android:textStyle="bold" />
 
         <ProgressBar
@@ -87,9 +88,9 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="105dp"
-            android:layout_marginEnd="10dp" />
+            android:layout_marginEnd="20dp" />
 
         <TextView
             android:id="@+id/amount_saved_text"
@@ -107,8 +108,9 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="150dp"
             android:text="25000.00"
-            android:textColor="#4FCF41"
-            android:textSize="30sp" />
+            android:textColor="#3F51B5"
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/amount_spent_text"
@@ -129,26 +131,28 @@
             android:layout_marginEnd="20dp"
             android:text="10000.00"
             android:textColor="#EC5050"
-            android:textSize="30sp" />
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/credit_text"
+            android:id="@+id/earnings_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
-            android:text="BUDGET"
+            android:text="EARNINGS"
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/monthBudget"
+            android:id="@+id/earnings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_marginTop="50dp"
             android:layout_marginEnd="20dp"
-            android:text="35000.00"
+            android:text="1000.00"
+            android:textColor="#4FCF41"
             android:textSize="30sp"
             android:textStyle="bold" />
     </androidx.cardview.widget.CardView>

@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,15 +15,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.dealwithexpenses.mainScreen.transactionLibrary.SwipeHandler
-
 import com.example.makeMyBudget.mainScreen.viewModels.MainScreenViewModel
-
-
 import com.example.makeMyBudget.mainScreen.viewModels.TransactionViewModel
 import com.example.makemybudget.R
 import com.example.makemybudget.databinding.FragmentMonthScreenBinding
-import com.google.firebase.auth.FirebaseAuth
 
 class MonthScreenFragment : Fragment() {
 
@@ -47,8 +41,8 @@ class MonthScreenFragment : Fragment() {
         binding = FragmentMonthScreenBinding.inflate(inflater, container, false)
 
         //initialising both the viewModels, firebase auth and shared preferences
-        transactionViewModel = ViewModelProvider(this).get(TransactionViewModel::class.java)
-        viewModel = ViewModelProvider(this).get(MainScreenViewModel::class.java)
+        transactionViewModel = ViewModelProvider(this)[TransactionViewModel::class.java]
+        viewModel = ViewModelProvider(this)[MainScreenViewModel::class.java]
         sharedPreferences = activity?.getSharedPreferences("user_auth", Context.MODE_PRIVATE)!!
 
         //getting the monthYear from required arguments
@@ -94,40 +88,49 @@ class MonthScreenFragment : Fragment() {
             )
         }
 
-        //getting the budget and income from the shared preferences
-        val activeBudget = sharedPreferences.getString("budget", "0")!!.toDouble()
-        val activeIncome = sharedPreferences.getString("income", "0")?.toDouble()
 
-        //variables to store the expenses and gains of the month
-        var totalGains = 0.0
-        var totalExpenses = 0.0
+        //getting the budget and income from the shared preferences
+        val monthlyBudget = sharedPreferences.getString("budget", "0")!!.toDouble()
+
+        //variables to store the monthly synopsis
+        binding.monthBudget.text = monthlyBudget.toString()
+
+        var monthlyGains = 0.00
+        var monthlyExpenses = 0.00
 
         //observing in the livedata returned by the viewModel to calculate the expenses and gains of the month
-
         viewModel.monthlyGains.observe(viewLifecycleOwner) {
             if (it != null) {
-                totalGains = it
-              binding.progressBar.setProgress(it.toInt())
+                monthlyGains = it
+
             }
-            binding.netBalance.text = totalGains.toString()
-        }
-        viewModel.monthlyExpenses.observe(viewLifecycleOwner) {
-            if (it != null) {
-                totalExpenses = it
-                }
-            binding.amountSpent.text = totalExpenses.toString()
+            binding.earnings.text = monthlyGains.toString()
         }
 
-        //obtaining the credit and balance through gains and expenses
-        val totalCredit = totalGains.plus((activeIncome!!))
-        val totalBalance = totalCredit.minus(totalExpenses)
-        binding.amountSaved.text = totalBalance.toString()
-        binding.monthBudget.text = activeBudget.toString()
+        viewModel.monthlyExpenses.observe(viewLifecycleOwner) {
+            if (it != null) {
+                monthlyExpenses = it
+            }
+
+            binding.amountSpent.text = monthlyExpenses.toString()
+            binding.amountSaved.text =
+                0.00.coerceAtLeast(monthlyBudget.minus(monthlyExpenses)).toString()
+
+            binding.progressBar.progress =
+                (100 * monthlyExpenses / monthlyBudget).coerceAtMost(100.0).toInt()
+
+            if (monthlyExpenses >= monthlyBudget) {
+                binding.amountSpent.error = "You have exceeded your budget"
+                //  binding.savings.setTextColor(resources.getColor(R.color.red))
+            } else {
+                binding.amountSpent.error = null
+                //  binding.savings.setTextColor(resources.getColor(R.color.green))
+            }
+        }
 
         //creating the adapter for the recycler view
         //the adapter will show the transactions of the month
         viewModel.monthlyTransactions.observe(viewLifecycleOwner) {
-            Log.d("hemlo2", it.toString())
             val adapter = TransactionListAdapter(
                 it.toMutableList(),
                 this,
@@ -150,7 +153,6 @@ class MonthScreenFragment : Fragment() {
                     }
                     //if user swipes right, complete the transaction
                     else if (direction == ItemTouchHelper.RIGHT) {
-                        Log.d("atishay", viewHolder.absoluteAdapterPosition.toString())
                         adapter.completeTransaction(
                             viewHolder.absoluteAdapterPosition,
                             it.toMutableList()

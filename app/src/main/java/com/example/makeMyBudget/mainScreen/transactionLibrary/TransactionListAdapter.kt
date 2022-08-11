@@ -1,6 +1,5 @@
 package com.example.makeMyBudget.mainScreen.transactionLibrary
 
-
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
@@ -13,7 +12,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-
 import com.example.makeMyBudget.entities.Transaction
 import com.example.makeMyBudget.entities.TransactionStatus
 import com.example.makeMyBudget.entities.TransactionType
@@ -73,7 +71,8 @@ class TransactionListAdapter(
             title.text = transaction.title
             mode.text = transaction.transactionMode.name
             amount.text = transaction.transactionAmount.toString()
-            date.text = SimpleDateFormat("dd-MM-yyyy").format(transaction.transactionDate)
+            date.text =
+                SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH).format(transaction.transactionDate)
 
             val type = transaction.transactionType
             if (type == TransactionType.INCOME)

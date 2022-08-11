@@ -4,13 +4,17 @@
     android:id="@+id/scroll_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.makeMyBudget.mainScreen.tabs.RecentTransactionsTabFragment"
+    tools:context="com.example.makeMyBudget.mainScreen.tabs.TransactionsLogTabFragment"
     tools:ignore="SpeakableTextPresentCheck">
 
     <com.airbnb.epoxy.EpoxyRecyclerView
         android:id="@+id/transactions_log_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
     </com.airbnb.epoxy.EpoxyRecyclerView>
 </androidx.constraintlayout.widget.ConstraintLayout>

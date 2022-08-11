@@ -1,6 +1,5 @@
 package com.example.makeMyBudget.mainScreen.transactionLibrary
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,14 +13,14 @@ import com.example.makeMyBudget.mainScreen.MainScreenFragmentDirections
 import com.example.makemybudget.R
 
 class MonthAdapter(val MonthCardList: MutableList<MonthCardDetail>, val fragment: Fragment) :
-    RecyclerView.Adapter<MonthAdapter.viewHolder>() {
+    RecyclerView.Adapter<MonthAdapter.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.epoxy_months, parent, false)
-        return viewHolder(view)
+        return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: viewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindView(MonthCardList[position])
     }
 
@@ -29,20 +28,20 @@ class MonthAdapter(val MonthCardList: MutableList<MonthCardDetail>, val fragment
         return MonthCardList.size
     }
 
-    inner class viewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val view: CardView = view.findViewById(R.id.card_view)
         val layout: ConstraintLayout = view.findViewById(R.id.month_card)
         val monthName: TextView = view.findViewById(R.id.month_transaction)
-        val gainOrLoss: TextView = view.findViewById(R.id.GainOrLoss)
-        val profit: TextView = view.findViewById(R.id.profitOrLoss)
-        val balance: TextView = view.findViewById(R.id.net_balance)
+        val monthlyBudget: TextView = view.findViewById(R.id.month_budget)
+        val earnings: TextView = view.findViewById(R.id.month_expense)
+        val savings: TextView = view.findViewById(R.id.month_savings)
         private val viewDetails: TextView = view.findViewById(R.id.detailsInside)
 
         init {
             viewDetails.setOnClickListener {
                 fragment.findNavController().navigate(
                     MainScreenFragmentDirections.actionMainScreenFragmentToMonthScreenFragment(
-                        MonthCardList[adapterPosition].monthYear.toInt()
+                        MonthCardList[absoluteAdapterPosition].monthYear
 
                     )
                 )
@@ -51,13 +50,13 @@ class MonthAdapter(val MonthCardList: MutableList<MonthCardDetail>, val fragment
 
         fun bindView(monthCardDetail: MonthCardDetail) {
             monthName.text = monthCardDetail.month
-            gainOrLoss.text = if (monthCardDetail.amount < 0) {
+            monthlyBudget.text = if (monthCardDetail.amount < 0) {
                 "Loss"
             } else {
                 "Gain"
             }
-            profit.text = monthCardDetail.profit.toString()
-            balance.text = monthCardDetail.amount.toString()
+            earnings.text = monthCardDetail.earnings.toString()
+            savings.text = monthCardDetail.amount.toString()
 
         }
     }

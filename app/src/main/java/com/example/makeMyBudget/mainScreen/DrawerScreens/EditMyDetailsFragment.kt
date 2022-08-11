@@ -25,7 +25,6 @@ class EditMyDetailsFragment : Fragment() {
 
         binding.username.setText(sharedPreferences.getString("username", ""))
         binding.budget.setText(sharedPreferences.getString("budget", ""))
-        binding.income.setText(sharedPreferences.getString("income", ""))
 
         //if the user clicks the button save
         binding.saveButton.setOnClickListener {
@@ -50,15 +49,6 @@ class EditMyDetailsFragment : Fragment() {
                 val editor = sharedPreferences.edit()
                 editor.putString("username", binding.username.text.toString())
                 editor.putString("budget", binding.budget.text.toString())
-
-                //default value of income is 0 if not filled
-                //it is assumed that the user isn't earning
-                if (binding.income.text.isEmpty()) {
-                    editor.putString("income", "0")
-                } else {
-                    //if filled, data is fed into the shared preferences
-                    editor.putString("income", binding.income.text.toString())
-                }
 
                 //after all changes, editor is applied to make a permanent change in shared preferences
                 editor.apply()

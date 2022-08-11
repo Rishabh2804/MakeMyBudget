@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.makeMyBudget.entities.User
-import com.example.makeMyBudget.mainScreen.MainScreenFragmentDirections
 import com.example.makemybudget.databinding.FragmentRegisterScreenBinding
 import com.facebook.CallbackManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -22,7 +21,7 @@ class RegisterScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentRegisterScreenBinding
     private lateinit var firebaseAuth: FirebaseAuth
-    private lateinit var sharedPreferences : SharedPreferences
+    private lateinit var sharedPreferences: SharedPreferences
     private lateinit var callBackManager: CallbackManager
 
     private val SIGN_IN_CODE = 12345
@@ -54,7 +53,7 @@ class RegisterScreenFragment : Fragment() {
             FBLogin.login(this, callBackManager)
         }
 
-        binding.backToLogin.setOnClickListener{
+        binding.backToLogin.setOnClickListener {
             findNavController().navigate(
                 RegisterScreenFragmentDirections.actionRegisterScreenFragmentToLoginScreenFragment()
             )

@@ -4,7 +4,6 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,10 +17,8 @@ import com.example.makeMyBudget.entities.Transaction
 import com.example.makeMyBudget.mainScreen.viewModels.TransactionViewModel
 import com.example.makemybudget.R
 import com.example.makemybudget.databinding.FragmentTransactionDetailBinding
-import com.google.firebase.auth.FirebaseAuth
 import java.text.SimpleDateFormat
 import java.util.*
-
 
 class TransactionDetailFragment : Fragment() {
 
@@ -43,7 +40,7 @@ class TransactionDetailFragment : Fragment() {
         sharedPreferences =
             requireActivity().getSharedPreferences("user_auth", Context.MODE_PRIVATE)
 
-        viewModel = ViewModelProvider(this).get(TransactionViewModel::class.java)
+        viewModel = ViewModelProvider(this)[TransactionViewModel::class.java]
 
         val userID = sharedPreferences.getString("user_id", "")!!
 
@@ -100,6 +97,7 @@ class TransactionDetailFragment : Fragment() {
                 }
             }
         }
+
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 if (direction == 1)
@@ -121,13 +119,13 @@ class TransactionDetailFragment : Fragment() {
         binding.transDescInput.text = transaction.description ?: ""
         binding.transAmountInput.text = (transaction.transactionAmount.toString())
         binding.transDateInput.text =
-            (SimpleDateFormat("dd-MM-yyyy").format(transaction.transactionDate))
+            (SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH).format(transaction.transactionDate))
         if (transaction.isRecurring) {
             binding.isRecurringCheckBox.isChecked = true
             binding.isRecurringCheckBox.isEnabled = false
             binding.fromDateInput.text =
-                (SimpleDateFormat("dd-MM-yyyy").format(transaction.fromDate))
-            binding.toDateInput.text = (SimpleDateFormat("dd-MM-yyyy").format(transaction.toDate))
+                (SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH).format(transaction.fromDate))
+            binding.toDateInput.text = (SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH).format(transaction.toDate))
         } else {
             binding.isRecurringCheckBox.isChecked = false
             binding.isRecurringCheckBox.isEnabled = false

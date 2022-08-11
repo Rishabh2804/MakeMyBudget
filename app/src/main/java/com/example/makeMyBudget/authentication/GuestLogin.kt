@@ -3,7 +3,6 @@ package com.example.makeMyBudget.authentication
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.fragment.app.Fragment
-import com.google.firebase.auth.FirebaseAuth
 
 class GuestLogin {
 

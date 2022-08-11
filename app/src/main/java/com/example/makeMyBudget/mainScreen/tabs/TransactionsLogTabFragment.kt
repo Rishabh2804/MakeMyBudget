@@ -12,13 +12,13 @@ import com.example.makeMyBudget.mainScreen.transactionLibrary.TransactionLogEpox
 import com.example.makeMyBudget.mainScreen.transactionLibrary.TransactionLogItem
 import com.example.makeMyBudget.mainScreen.viewModels.MainScreenViewModel
 import com.example.makeMyBudget.mainScreen.viewModels.TransactionViewModel
-import com.example.makemybudget.databinding.FragmentRecentTransactionsTabBinding
+import com.example.makemybudget.databinding.FragmentTransactionsLogTabBinding
 
 import java.util.*
 
-class RecentTransactionsTabFragment(val fragment: Fragment) : Fragment() {
+class TransactionsLogTabFragment(val fragment: Fragment) : Fragment() {
 
-    private lateinit var binding: FragmentRecentTransactionsTabBinding
+    private lateinit var binding: FragmentTransactionsLogTabBinding
     private lateinit var viewModel: MainScreenViewModel
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var transactionViewModel: TransactionViewModel
@@ -28,10 +28,10 @@ class RecentTransactionsTabFragment(val fragment: Fragment) : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // initialize the binding, firebase auth and both the viewModels
-        binding = FragmentRecentTransactionsTabBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProvider(this).get(MainScreenViewModel::class.java)
+        binding = FragmentTransactionsLogTabBinding.inflate(inflater, container, false)
+        viewModel = ViewModelProvider(this)[MainScreenViewModel::class.java]
         sharedPreferences = requireActivity().getSharedPreferences("user_auth", Context.MODE_PRIVATE)
-        transactionViewModel = ViewModelProvider(this).get(TransactionViewModel::class.java)
+        transactionViewModel = ViewModelProvider(this)[TransactionViewModel::class.java]
 
         val userID = sharedPreferences.getString("user_id", "")!!
 
@@ -40,7 +40,7 @@ class RecentTransactionsTabFragment(val fragment: Fragment) : Fragment() {
 
         transactionViewModel.setUserID(userID)
 
-        val transStatus = mutableListOf<TransactionLogItem>(
+        val transStatus = mutableListOf(
             TransactionLogItem("Completed", mutableListOf()),
             TransactionLogItem("Pending", mutableListOf()),
             TransactionLogItem("Upcoming", mutableListOf()),

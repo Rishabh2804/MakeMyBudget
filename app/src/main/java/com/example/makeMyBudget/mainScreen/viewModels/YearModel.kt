@@ -9,7 +9,6 @@ import com.airbnb.epoxy.EpoxyHolder
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.example.makeMyBudget.mainScreen.transactionLibrary.MonthAdapter
-
 import com.example.makemybudget.R
 
 @EpoxyModelClass

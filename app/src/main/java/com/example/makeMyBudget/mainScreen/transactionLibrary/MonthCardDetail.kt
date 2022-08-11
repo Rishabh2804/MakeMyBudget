@@ -4,7 +4,6 @@ data class MonthCardDetail(
     val month: String,
     val amount: Double,
     val expense: Double,
-    val income: Double,
     val monthYear: Int,
-    val profit: Double
+    val earnings: Double
 )

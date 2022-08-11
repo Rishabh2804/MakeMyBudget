@@ -18,13 +18,13 @@
     <color name="type_expense">#FF0000</color>
 
     <!--    Transaction Category colors-->
-    <color name="category_food">#9400D3</color>
-    <color name="category_clothing">#4B0082</color>
-    <color name="category_entertainment">#2196FF</color>
-    <color name="category_transport">#00FF00</color>
-    <color name="category_health">#FFEB3B</color>
-    <color name="category_education">#FFC107</color>
-    <color name="category_bills">#FF9800</color>
+    <color name="category_food">#9831F1</color>
+    <color name="category_clothing">#7948EA</color>
+    <color name="category_entertainment">#53A2E8</color>
+    <color name="category_transport">#0CB80C</color>
+    <color name="category_health">#D9E656</color>
+    <color name="category_education">#FDD14A</color>
+    <color name="category_bills">#DF7E2A</color>
     <color name="category_other">#FF0000</color>
 
     <!--    Transaction Modes colors-->

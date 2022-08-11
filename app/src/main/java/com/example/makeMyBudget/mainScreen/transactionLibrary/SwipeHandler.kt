@@ -1,4 +1,4 @@
-package com.example.dealwithexpenses.mainScreen.transactionLibrary
+package com.example.makeMyBudget.mainScreen.transactionLibrary
 
 import android.annotation.SuppressLint
 import android.graphics.Canvas
