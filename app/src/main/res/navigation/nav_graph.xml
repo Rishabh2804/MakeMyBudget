@@ -80,16 +80,16 @@
             app:destination="@id/authentication" />
         <action
             android:id="@+id/action_mainScreenFragment_to_helloMushroomsFragment"
-            app:destination="@id/drawer_screens" />
+            app:destination="@id/helloMushroomsFragment" />
         <action
             android:id="@+id/action_mainScreenFragment_to_myDetailsFragment"
-            app:destination="@id/drawer_screens" />
+            app:destination="@id/myDetailsFragment" />
         <action
             android:id="@+id/action_mainScreenFragment_to_editMyDetailsFragment"
-            app:destination="@id/drawer_screens" />
+            app:destination="@id/editMyDetailsFragment" />
         <action
             android:id="@+id/action_mainScreenFragment_to_aboutUsFragment"
-            app:destination="@id/drawer_screens" />
+            app:destination="@id/aboutUsFragment" />
     </fragment>
     <fragment
         android:id="@+id/addOrEditTransactionFragment"
@@ -138,45 +138,6 @@
             android:id="@+id/action_calenderViewFragment_to_transactionDetailFragment"
             app:destination="@id/transactionDetailFragment" />
     </fragment>
-    <navigation android:id="@+id/drawer_screens"
-        app:startDestination="@id/aboutUsFragment">
-        <fragment
-            android:id="@+id/helloMushroomsFragment"
-            android:name="com.example.makeMyBudget.mainScreen.DrawerScreens.HelloMushroomsFragment"
-            android:label="fragment_hello_mushrooms"
-            tools:layout="@layout/fragment_hello_mushrooms" >
-            <action
-                android:id="@+id/action_helloMushroomsFragment_to_mainScreenFragment"
-                app:destination="@id/mainScreenFragment" />
-        </fragment>
-        <fragment
-            android:id="@+id/myDetailsFragment"
-            android:name="com.example.makeMyBudget.mainScreen.DrawerScreens.MyDetailsFragment"
-            android:label="MyDetailsFragment" >
-            <action
-                android:id="@+id/action_myDetailsFragment_to_mainScreenFragment"
-                app:destination="@id/mainScreenFragment" />
-        </fragment>
-        <fragment
-            android:id="@+id/editMyDetailsFragment"
-            android:name="com.example.makeMyBudget.mainScreen.DrawerScreens.EditMyDetailsFragment"
-            android:label="EditMyDetailsFragment" >
-            <action
-                android:id="@+id/action_editMyDetailsFragment_to_mainScreenFragment"
-                app:destination="@id/mainScreenFragment" />
-        </fragment>
-        <fragment
-            android:id="@+id/aboutUsFragment"
-            android:name="com.example.makeMyBudget.mainScreen.DrawerScreens.AboutUsFragment"
-            android:label="AboutUsFragment" >
-            <action
-                android:id="@+id/action_aboutUsFragment_to_mainScreenFragment"
-                app:destination="@id/mainScreenFragment" />
-        </fragment>
-        <action
-            android:id="@+id/action_global_mainScreenFragment"
-            app:destination="@id/mainScreenFragment" />
-    </navigation>
     <navigation android:id="@+id/authentication"
         app:startDestination="@id/loginScreenFragment">
         <fragment
@@ -210,4 +171,40 @@
                 app:destination="@id/loginScreenFragment" />
         </fragment>
     </navigation>
+    <fragment
+        android:id="@+id/helloMushroomsFragment"
+        android:name="com.example.makeMyBudget.mainScreen.drawerScreens.HelloMushroomsFragment"
+        android:label="fragment_hello_mushrooms"
+        tools:layout="@layout/fragment_hello_mushrooms" >
+        <action
+            android:id="@+id/action_helloMushroomsFragment_to_mainScreenFragment"
+            app:destination="@id/mainScreenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editMyDetailsFragment"
+        android:name="com.example.makeMyBudget.mainScreen.drawerScreens.EditMyDetailsFragment"
+        android:label="fragment_edit_my_details"
+        tools:layout="@layout/fragment_edit_my_details" >
+        <action
+            android:id="@+id/action_editMyDetailsFragment_to_mainScreenFragment"
+            app:destination="@id/mainScreenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutUsFragment"
+        android:name="com.example.makeMyBudget.mainScreen.drawerScreens.AboutUsFragment"
+        android:label="fragment_about_us"
+        tools:layout="@layout/fragment_about_us" >
+        <action
+            android:id="@+id/action_aboutUsFragment_to_mainScreenFragment"
+            app:destination="@id/mainScreenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myDetailsFragment"
+        android:name="com.example.makeMyBudget.mainScreen.drawerScreens.MyDetailsFragment"
+        android:label="fragment_my_details"
+        tools:layout="@layout/fragment_my_details" >
+        <action
+            android:id="@+id/action_myDetailsFragment_to_mainScreenFragment"
+            app:destination="@id/mainScreenFragment" />
+    </fragment>
 </navigation>

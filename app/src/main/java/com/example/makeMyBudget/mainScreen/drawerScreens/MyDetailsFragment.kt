@@ -1,4 +1,4 @@
-package com.example.makeMyBudget.mainScreen.DrawerScreens
+package com.example.makeMyBudget.mainScreen.drawerScreens
 
 import android.content.Context
 import android.content.SharedPreferences

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E0EDF8"
-    tools:context="com.example.makeMyBudget.mainScreen.DrawerScreens.MyDetailsFragment">
+    tools:context="com.example.makeMyBudget.mainScreen.drawerScreens.MyDetailsFragment">
 
     <TextView
         android:id="@+id/incomeD"

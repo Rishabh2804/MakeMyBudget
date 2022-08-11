@@ -1,4 +1,4 @@
-package com.example.makeMyBudget.mainScreen.DrawerScreens
+package com.example.makeMyBudget.mainScreen.drawerScreens
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.example.makemybudget.R
 import com.example.makemybudget.databinding.FragmentHelloMushroomsBinding
 
 class HelloMushroomsFragment : Fragment() {
@@ -25,7 +24,7 @@ class HelloMushroomsFragment : Fragment() {
             )
         }
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_hello_mushrooms, container, false)
+        return binding.root
     }
 
 

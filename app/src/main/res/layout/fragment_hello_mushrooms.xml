@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.makeMyBudget.mainScreen.DrawerScreens.HelloMushroomsFragment">
+    tools:context="com.example.makeMyBudget.mainScreen.drawerScreens.HelloMushroomsFragment">
 
     <pl.droidsonroids.gif.GifTextView
         android:id="@+id/gifTextView"

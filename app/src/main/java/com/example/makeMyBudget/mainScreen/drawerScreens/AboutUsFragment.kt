@@ -1,4 +1,4 @@
-package com.example.makeMyBudget.mainScreen.DrawerScreens
+package com.example.makeMyBudget.mainScreen.drawerScreens
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -31,6 +31,7 @@ class AboutUsFragment : Fragment() {
                 findNavController().navigate(AboutUsFragmentDirections.actionAboutUsFragmentToMainScreenFragment(0))
             }
         }
+
         requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
         return binding.root
     }
