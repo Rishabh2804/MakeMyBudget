@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#9AE2EF"
-    android:backgroundTint="#90ECEC"
+    android:background="#CE9FD8F1"
     tools:context="com.example.makeMyBudget.mainScreen.transactionLibrary.MonthScreenFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -26,16 +25,14 @@
             android:layout_height="wrap_content"
             android:background="#C36969"
 
-            android:backgroundTint="#1C8CE6"
-            android:textAlignment="center"
+            android:backgroundTint="#1D9CE1"
             app:menu="@menu/month_screen_menu"
             app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
-            app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Display1"
 
             app:title="Month Year"
 
             app:titleCentered="true"
-            app:titleTextAppearance="@style/TextAppearance.AppCompat.Display1"
+            app:titleTextAppearance="@style/TextAppearance.AppCompat.Large"
             app:titleTextColor="#17116E">
 
         </com.google.android.material.appbar.MaterialToolbar>
@@ -45,8 +42,9 @@
         android:id="@+id/addTransactionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="25dp"
+        android:backgroundTint="#07C9DC"
         android:clickable="true"
         android:focusable="true"
         android:foregroundGravity="bottom|right"
@@ -59,7 +57,6 @@
         android:id="@+id/basicInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="#CEF889"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/app_bar">
@@ -69,18 +66,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:text="MONTHLY BUDGET"
-            android:textSize="18sp" />
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/month_budget"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/original_surfer"
             android:text="35000.00"
-            android:textSize="42sp"
+            android:textColor="#246EE9"
+            android:textSize="33sp"
             android:textStyle="bold" />
 
         <ProgressBar
@@ -89,7 +89,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="105dp"
+            android:layout_marginTop="95dp"
             android:layout_marginEnd="20dp" />
 
         <TextView
@@ -97,18 +97,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="125dp"
+            android:layout_marginTop="120dp"
             android:text="AMOUNT SAVED"
-            android:textSize="18sp" />
+            android:textSize="19sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/amount_saved"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="147dp"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/original_surfer"
             android:text="25000.00"
-            android:textColor="#3F51B5"
+            android:textColor="#4FCF41"
             android:textSize="25sp"
             android:textStyle="bold" />
 
@@ -117,51 +120,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginTop="125dp"
+            android:layout_marginTop="120dp"
             android:layout_marginEnd="20dp"
             android:text="AMOUNT SPENT"
-            android:textSize="18dp" />
+            android:textSize="19dp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/amount_spent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="147dp"
             android:layout_marginEnd="20dp"
+            android:fontFamily="@font/original_surfer"
             android:text="10000.00"
-            android:textColor="#EC5050"
+            android:textColor="#FF2400"
             android:textSize="25sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/earnings_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:text="EARNINGS"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/earnings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="20dp"
-            android:text="1000.00"
-            android:textColor="#4FCF41"
-            android:textSize="30sp"
-            android:textStyle="bold" />
     </androidx.cardview.widget.CardView>
 
     <ScrollView
         android:id="@+id/transaction_history"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

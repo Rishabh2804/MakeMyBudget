@@ -4,16 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#9AE2EF"
-    android:backgroundTint="#9AE2EF"
     android:fillViewport="true"
     tools:context="com.example.makeMyBudget.authentication.LoginScreenFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#54DDEF"
-        android:backgroundTint="#9AE2EF">
+        android:background="#CE9FD8F1"
+        android:backgroundTint="#CE9FD8F1">
 
         <ImageView
             android:id="@+id/imageView"
@@ -102,12 +100,10 @@
             android:layout_height="wrap_content"
             android:text="  OR  "
             android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/fb_login_button"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.51"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/guest_login"
-            app:layout_constraintVertical_bias="0.152" />
+            app:layout_constraintTop_toBottomOf="@+id/guest_login" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/google_login_button"
@@ -126,22 +122,22 @@
             android:id="@+id/fb_login_button"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginTop="16dp"
 
+            android:layout_marginTop="70dp"
+            android:layout_marginBottom="35dp"
             android:src="@drawable/com_facebook_favicon_blue"
-
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/textView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.021"
             app:layout_constraintStart_toEndOf="@+id/or"
-            app:layout_constraintTop_toBottomOf="@+id/or"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/guest_login" />
 
         <Button
             android:id="@+id/custom_login_button"
             android:layout_width="216dp"
             android:layout_height="55dp"
             android:layout_marginTop="68dp"
+            android:backgroundTint="#245CE9"
             android:text="LOGIN"
             app:layout_constraintEnd_toEndOf="@+id/Username"
             app:layout_constraintStart_toStartOf="@+id/Username"
@@ -165,29 +161,26 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginBottom="8dp"
             android:text="Don't have an account?"
             android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/custom_register_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fb_login_button"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/custom_register_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="20dp"
 
-            android:backgroundTint="#031DAE"
+            android:backgroundTint="#2445E9"
             android:text="CREATE ONE!"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

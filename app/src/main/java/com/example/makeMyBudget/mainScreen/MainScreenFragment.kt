@@ -42,7 +42,7 @@ class MainScreenFragment : Fragment() {
 
         "Hi! ${
             sharedPreferences.getString(
-                " username ",
+                "username",
                 ""
             )
         }".also {
@@ -74,12 +74,12 @@ class MainScreenFragment : Fragment() {
                     )
                     true
                 }
-//                R.id.about_us -> {
-//                    findNavController().navigate(
-//                        MainScreenFragmentDirections.actionMainScreenFragmentToAboutUsFragment()
-//                    )
-//                    true
-//                }
+                R.id.about_us -> {
+                    findNavController().navigate(
+                        MainScreenFragmentDirections.actionMainScreenFragmentToAboutUsFragment()
+                    )
+                    true
+                }
                 R.id.logout -> {
                     sharedPreferences.edit().putBoolean("isLoggedIn", false).apply()
                     if (sharedPreferences.getBoolean("isGuest", false)) {
@@ -110,6 +110,7 @@ class MainScreenFragment : Fragment() {
             choices
         )
 
+        binding.detailsMode.textAlignment = View.TEXT_ALIGNMENT_CENTER
         binding.detailsMode.adapter = choicesAdapter
 
         binding.detailsMode.onItemSelectedListener = object :
@@ -148,7 +149,7 @@ class MainScreenFragment : Fragment() {
                             binding.expenditureAmount.text = monthlyExpenditure.toString()
 
                             monthlySavings = monthlyBudget?.minus(monthlyExpenditure)!!
-                            binding.savingsAmount.text =
+                            binding.balanceAmount.text =
                                 0.00.coerceAtLeast(monthlySavings).toString()
 
                             if (monthlyExpenditure >= monthlyBudget) {

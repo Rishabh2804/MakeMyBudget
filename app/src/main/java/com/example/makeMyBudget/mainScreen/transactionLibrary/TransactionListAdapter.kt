@@ -62,11 +62,11 @@ class TransactionListAdapter(
         fun bindView(transaction: Transaction) {
             val isUpcoming = transaction.transactionDate > Date()
             if (transaction.transactionStatus == TransactionStatus.COMPLETED)
-                layout.setBackgroundColor(statusColor[0])
+                layout.setBackgroundResource(statusColor[0])
             else if (isUpcoming)
-                layout.setBackgroundColor(statusColor[1])
+                layout.setBackgroundResource(statusColor[1])
             else if (transaction.transactionStatus == TransactionStatus.PENDING)
-                layout.setBackgroundColor(statusColor[2])
+                layout.setBackgroundResource(statusColor[2])
 
             title.text = transaction.title
             mode.text = transaction.transactionMode.name
@@ -76,9 +76,9 @@ class TransactionListAdapter(
 
             val type = transaction.transactionType
             if (type == TransactionType.INCOME)
-                typeHere.setBackgroundColor(typeColor[0])
+                typeHere.setBackgroundResource(typeColor[0])
             else
-                typeHere.setBackgroundColor(typeColor[1])
+                typeHere.setBackgroundResource(typeColor[1])
 
             image.setImageDrawable(
                 ContextCompat.getDrawable(
@@ -125,6 +125,8 @@ class TransactionListAdapter(
         "Transaction Completed :)".also {
             layout.findViewById<TextView>(R.id.text_transaction).text = it
         }
+        layout.findViewById<GifImageView>(R.id.gif_complete)
+            .setBackgroundResource(R.drawable.transaction_completed)
         val builder = AlertDialog.Builder(context)
             .setTitle("Complete Transaction")
             .setMessage("Mark this transaction as completed?")
@@ -146,8 +148,8 @@ class TransactionListAdapter(
     }
 
     val typeColor = arrayListOf(
+        R.color.type_expense,
         R.color.type_income,
-        R.color.type_expense
     )
 
     val modeColor = arrayListOf(

@@ -250,8 +250,8 @@ class OverviewTabFragment : Fragment() {
             "Type" -> {
                 //setting the colors of the pie chart
                 colors = arrayOf(
+                    R.color.type_expense,
                     R.color.type_income,
-                    R.color.type_expense
                 )
 
                 val entries = arrayListOf<String>()

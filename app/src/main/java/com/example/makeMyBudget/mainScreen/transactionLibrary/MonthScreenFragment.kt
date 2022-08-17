@@ -99,14 +99,6 @@ class MonthScreenFragment : Fragment() {
         var monthlyExpenses = 0.00
 
         //observing in the livedata returned by the viewModel to calculate the expenses and gains of the month
-        viewModel.monthlyGains.observe(viewLifecycleOwner) {
-            if (it != null) {
-                monthlyGains = it
-
-            }
-            binding.earnings.text = monthlyGains.toString()
-        }
-
         viewModel.monthlyExpenses.observe(viewLifecycleOwner) {
             if (it != null) {
                 monthlyExpenses = it

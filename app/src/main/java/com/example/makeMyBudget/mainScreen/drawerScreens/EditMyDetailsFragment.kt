@@ -61,6 +61,7 @@ class EditMyDetailsFragment : Fragment() {
                 )
             }
         }
+
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 findNavController().navigate(

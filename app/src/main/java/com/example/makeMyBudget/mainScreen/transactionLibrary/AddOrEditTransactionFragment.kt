@@ -13,6 +13,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -46,20 +47,20 @@ class AddOrEditTransactionFragment : Fragment() {
         sharedPreferences = activity?.getSharedPreferences("user_auth", Context.MODE_PRIVATE)!!
 
         binding.transDateInput.transformIntoDatePicker(requireContext(), "dd-MM-yyyy")
-        binding.toDateInput.transformIntoDatePicker(requireContext(), "dd-MM-yyyy")
-        binding.fromDateInput.transformIntoDatePicker(requireContext(), "dd-MM-yyyy")
-
-        binding.fromDateInput.isVisible = false
-        binding.toDateInput.isVisible = false
-
-        binding.isRecurringCheckBox.setOnCheckedChangeListener { _, it ->
-
-            binding.toDateInput.isVisible = it
-            binding.toDateInput.isEnabled = it
-
-            binding.fromDateInput.isVisible = it
-            binding.fromDateInput.isEnabled = it
-        }
+//        binding.toDateInput.transformIntoDatePicker(requireContext(), "dd-MM-yyyy")
+//        binding.fromDateInput.transformIntoDatePicker(requireContext(), "dd-MM-yyyy")
+//
+//        binding.fromDateInput.isVisible = false
+//        binding.toDateInput.isVisible = false
+//
+//        binding.isRecurringCheckBox.setOnCheckedChangeListener { _, it ->
+//
+//            binding.toDateInput.isVisible = it
+//            binding.toDateInput.isEnabled = it
+//
+//            binding.fromDateInput.isVisible = it
+//            binding.fromDateInput.isEnabled = it
+//        }
 
         val modeArray: MutableList<String> = mutableListOf()
         TransactionMode.values().forEach {
@@ -131,11 +132,19 @@ class AddOrEditTransactionFragment : Fragment() {
             saveData()
         }
 
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().navigateUp()
+            }
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
+
         return binding.root
     }
 
     private fun saveData() {
-        var validTrans= true
+        var validTrans = true
 
         if (binding.transTitleInput.text.isBlank()) {
             binding.transTitleInput.error = "Title is required"
@@ -152,16 +161,16 @@ class AddOrEditTransactionFragment : Fragment() {
             validTrans = false
         }
 
-        if (binding.isRecurringCheckBox.isChecked) {
-            if (binding.fromDateInput.text.isNullOrBlank()) {
-                binding.fromDateInput.error = "From Date is required"
-                validTrans = false
-            }
-            if (binding.toDateInput.text.isNullOrBlank()) {
-                binding.toDateInput.error = "To Date is required"
-                validTrans = false
-            }
-        }
+//        if (binding.isRecurringCheckBox.isChecked) {
+//            if (binding.fromDateInput.text.isNullOrBlank()) {
+//                binding.fromDateInput.error = "From Date is required"
+//                validTrans = false
+//            }
+//            if (binding.toDateInput.text.isNullOrBlank()) {
+//                binding.toDateInput.error = "To Date is required"
+//                validTrans = false
+//            }
+//        }
 
         if (!(binding.incomeButton.isChecked || binding.expenseButton.isChecked)) {
             Toast.makeText(requireContext(), "Please select transaction type", Toast.LENGTH_SHORT)
@@ -179,24 +188,24 @@ class AddOrEditTransactionFragment : Fragment() {
             Locale.getDefault()
         ).parse(binding.transDateInput.text.toString())!!
 
-        val isRecurring = binding.isRecurringCheckBox.isChecked
-        val fromDate: Date = if (isRecurring) {
-            SimpleDateFormat(
-                "dd-MM-yyyy",
-                Locale.getDefault()
-            ).parse(binding.fromDateInput.text.toString())!!
-        } else {
-            date
-        }
-
-        val toDate: Date = if (isRecurring) {
-            SimpleDateFormat(
-                "dd-MM-yyyy",
-                Locale.getDefault()
-            ).parse(binding.toDateInput.text.toString())!!
-        } else {
-            date
-        }
+//        val isRecurring = binding.isRecurringCheckBox.isChecked
+//        val fromDate: Date = if (isRecurring) {
+//            SimpleDateFormat(
+//                "dd-MM-yyyy",
+//                Locale.getDefault()
+//            ).parse(binding.fromDateInput.text.toString())!!
+//        } else {
+//            date
+//        }
+//
+//        val toDate: Date = if (isRecurring) {
+//            SimpleDateFormat(
+//                "dd-MM-yyyy",
+//                Locale.getDefault()
+//            ).parse(binding.toDateInput.text.toString())!!
+//        } else {
+//            date
+//        }
 
         val mode: TransactionMode =
             TransactionMode.values()[binding.transModeInput.selectedItemPosition]
@@ -219,9 +228,9 @@ class AddOrEditTransactionFragment : Fragment() {
             description,
             amount,
             date,
-            isRecurring,
-            fromDate,
-            toDate,
+            false, // for now
+            date, // for now
+            date, // for now
             month,
             year,
             monthYear,
@@ -249,16 +258,20 @@ class AddOrEditTransactionFragment : Fragment() {
         binding.transTitleInput.setText(transaction.title)
         binding.transDescInput.setText(transaction.description)
         binding.transAmountInput.setText(transaction.transactionAmount.toString())
-        binding.transDateInput.setText(SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH).format(transaction.transactionDate))
-        if (transaction.isRecurring) {
-            binding.isRecurringCheckBox.isChecked = true
-            binding.fromDateInput.setText(transaction.fromDate.toString())
-            binding.toDateInput.setText(transaction.toDate.toString())
-        } else {
-            binding.isRecurringCheckBox.isChecked = false
-            binding.fromDateInput.isEnabled = false
-            binding.toDateInput.isEnabled = false
-        }
+        binding.transDateInput.setText(
+            SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH).format(
+                transaction.transactionDate
+            )
+        )
+//        if (transaction.isRecurring) {
+//            binding.isRecurringCheckBox.isChecked = true
+//            binding.fromDateInput.setText(transaction.fromDate.toString())
+//            binding.toDateInput.setText(transaction.toDate.toString())
+//        } else {
+//            binding.isRecurringCheckBox.isChecked = false
+//            binding.fromDateInput.isEnabled = false
+//            binding.toDateInput.isEnabled = false
+//        }
         binding.transModeInput.setSelection(TransactionMode.values().find {
             it.name == transaction.transactionMode.name
         }!!.ordinal)

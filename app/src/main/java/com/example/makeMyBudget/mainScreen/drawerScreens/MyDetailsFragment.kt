@@ -24,12 +24,13 @@ class MyDetailsFragment : Fragment() {
         binding = FragmentMyDetailsBinding.inflate(inflater, container, false)
         sharedPreferences = activity?.getSharedPreferences("user_auth", Context.MODE_PRIVATE)!!
 
-        binding.usernameD.text = sharedPreferences.getString("username", "")
-        binding.budgetD.text = sharedPreferences.getString("budget", "")
-        binding.incomeD.text = sharedPreferences.getString("income", "")
-        if (sharedPreferences.getString("income", "") == "0") {
-            "Not Updated Yet".also { binding.incomeD.text = it }
+        binding.username.text = sharedPreferences.getString("username", "")
+        binding.budget.text = sharedPreferences.getString("budget", "")
+
+        binding.editButton.setOnClickListener {
+            findNavController().navigate(MyDetailsFragmentDirections.actionMyDetailsFragmentToEditMyDetailsFragment())
         }
+
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 findNavController().navigate(
@@ -39,6 +40,7 @@ class MyDetailsFragment : Fragment() {
                 )
             }
         }
+
         requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
         return binding.root
     }

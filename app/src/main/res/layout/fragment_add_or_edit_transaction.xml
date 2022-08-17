@@ -5,14 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#9AE2EF"
     android:backgroundTint="#9AE2EF">
 
     <ScrollView
         android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#9AE2EF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -22,18 +20,18 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/to_date_input"
-                android:layout_width="173dp"
-                android:layout_height="57dp"
-                android:layout_marginStart="20dp"
+                android:id="@+id/trans_title_input"
+                android:layout_width="372dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="20dp"
                 android:ems="10"
-                android:hint="To"
-                android:inputType="date"
+                android:hint="Title"
+                android:inputType="textPersonName"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/app_bar"
+                tools:ignore="TouchTargetSizeCheck" />
 
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.058"
-                app:layout_constraintStart_toEndOf="@+id/from_date_input"
-                app:layout_constraintTop_toTopOf="@+id/from_date_input" />
 
             <com.google.android.material.appbar.AppBarLayout
                 android:id="@+id/app_bar"
@@ -51,7 +49,7 @@
                     style="@style/ThemeOverlay.MaterialComponents.Toolbar.Primary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="#3F51B5"
+                    android:backgroundTint="#246EE9"
 
                     android:textAlignment="center"
                     app:title="Add New Transaction">
@@ -121,40 +119,42 @@
                 app:layout_constraintTop_toTopOf="@+id/trans_date_msg"
                 tools:ignore="SpeakableTextPresentCheck" />
 
-            <CheckBox
-                android:id="@+id/isRecurringCheckBox"
-                android:layout_width="177dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="36dp"
-                android:text="Recurring Transaction"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/trans_date_msg" />
+            <!--            <CheckBox-->
+            <!--                android:id="@+id/isRecurringCheckBox"-->
+            <!--                android:layout_width="177dp"-->
+            <!--                android:layout_height="48dp"-->
+            <!--                android:layout_marginStart="25dp"-->
+            <!--                android:layout_marginTop="36dp"-->
+            <!--                android:text="Recurring Transaction"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintTop_toBottomOf="@+id/trans_date_msg" />-->
 
-            <EditText
-                android:id="@+id/trans_title_input"
-                android:layout_width="112dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="20dp"
-                android:ems="10"
-                android:hint="Title"
-                android:inputType="textPersonName"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/app_bar"
-                tools:ignore="TouchTargetSizeCheck" />
 
-            <EditText
-                android:id="@+id/from_date_input"
-                android:layout_width="173dp"
-                android:layout_height="57dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="8dp"
-                android:ems="10"
-                android:hint="From"
-                android:inputType="date"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/isRecurringCheckBox" />
+            <!--            <EditText-->
+            <!--                android:id="@+id/from_date_input"-->
+            <!--                android:layout_width="173dp"-->
+            <!--                android:layout_height="57dp"-->
+            <!--                android:layout_marginStart="25dp"-->
+            <!--                android:layout_marginTop="8dp"-->
+            <!--                android:ems="10"-->
+            <!--                android:hint="From"-->
+            <!--                android:inputType="date"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintTop_toBottomOf="@+id/isRecurringCheckBox" />-->
+
+            <!--            <EditText-->
+            <!--                android:id="@+id/to_date_input"-->
+            <!--                android:layout_width="173dp"-->
+            <!--                android:layout_height="57dp"-->
+            <!--                android:layout_marginStart="20dp"-->
+            <!--                android:ems="10"-->
+            <!--                android:hint="To"-->
+            <!--                android:inputType="date"-->
+
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintHorizontal_bias="0.058"-->
+            <!--                app:layout_constraintStart_toEndOf="@+id/trans_date_input"-->
+            <!--                app:layout_constraintTop_toTopOf="@+id/trans_date_input" />-->
 
             <Spinner
                 android:id="@+id/trans_mode_input"
@@ -164,12 +164,12 @@
                 android:tooltipText="Select Mode"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/tranaction_mode_label"
-                app:layout_constraintTop_toTopOf="@+id/tranaction_mode_label"
+                app:layout_constraintStart_toEndOf="@+id/transaction_mode_label"
+                app:layout_constraintTop_toTopOf="@+id/transaction_mode_label"
                 tools:ignore="TouchTargetSizeCheck" />
 
             <TextView
-                android:id="@+id/tranaction_mode_label"
+                android:id="@+id/transaction_mode_label"
                 android:layout_width="157dp"
                 android:layout_height="26dp"
                 android:layout_marginStart="25dp"
@@ -177,7 +177,7 @@
                 android:text="Transaction Mode: "
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/from_date_input" />
+                app:layout_constraintTop_toBottomOf="@+id/trans_date_input" />
 
             <TextView
                 android:id="@+id/transaction_tags"
@@ -192,7 +192,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.757"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tranaction_mode_label" />
+                app:layout_constraintTop_toBottomOf="@+id/transaction_mode_label" />
 
             <Spinner
                 android:id="@+id/tags_spinner"
@@ -206,6 +206,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/transaction_tags"
                 tools:ignore="TouchTargetSizeCheck" />
+
             <RadioGroup
                 android:id="@+id/radio_group"
                 android:layout_width="wrap_content"
@@ -247,40 +248,39 @@
                 app:layout_constraintTop_toBottomOf="@+id/trans_desc_input"
                 tools:ignore="TouchTargetSizeCheck" />
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/radio_group">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/cancel_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="30dp"
+                    android:text="CANCEL">
+
+                </com.google.android.material.button.MaterialButton>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/save_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="60dp"
+                    android:paddingHorizontal="30dp"
+                    android:text="SAVE">
+
+                </com.google.android.material.button.MaterialButton>
+
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </ScrollView>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="10dp"
-        android:orientation="horizontal"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scroll_view">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/cancel_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="30dp"
-            android:text="CANCEL">
-
-        </com.google.android.material.button.MaterialButton>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/save_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:paddingHorizontal="30dp"
-            android:text="SAVE">
-
-        </com.google.android.material.button.MaterialButton>
-
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,8 +12,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#F6FB73"
-        android:backgroundTint="#7FE6E6"
+        android:background="#FF2400"
+        android:backgroundTint="#CDA3DCEA"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -21,7 +21,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#1C8CE6"
+            android:background="#1D9CE1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -70,10 +70,10 @@
             android:layout_marginTop="20dp"
             android:fontFamily="@font/amita"
             android:text="Balances"
-            android:textColor="#17B845"
+            android:textColor="#038C2A"
             android:textColorHighlight="#E3AE11"
             android:textColorLink="#FFEB3B"
-            android:textSize="30sp"
+            android:textSize="26sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/details"
             app:layout_constraintStart_toEndOf="@id/rupee_symbol"
@@ -84,13 +84,14 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/details"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_margin="15dp"
-            android:layout_marginTop="48dp"
-            android:backgroundTint="#CEF889"
+            android:layout_height="120dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="15dp"
+            android:background="#ffffff"
+            android:backgroundTint="#ffffff"
             android:foreground="@drawable/border"
-            app:cardBackgroundColor="#C4EF7E"
-            app:cardCornerRadius="15dp"
+            app:cardCornerRadius="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/heading_Balance">
@@ -103,8 +104,8 @@
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/el_messiri"
                 android:text="Monthly Budget"
-                android:textColor="#C34AB7"
-                android:textSize="22sp"
+                android:textColor="#C36969"
+                android:textSize="19sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -115,9 +116,9 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginBottom="10dp"
                 android:fontFamily="@font/el_messiri"
-                android:text="Savings"
-                android:textColor="#209C05"
-                android:textSize="22sp"
+                android:text="Balance"
+                android:textColor="#C36969"
+                android:textSize="19sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -128,8 +129,8 @@
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/el_messiri"
                 android:text="Expenditure"
-                android:textColor="#F32C2C"
-                android:textSize="22sp"
+                android:textColor="#C36969"
+                android:textSize="19sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -141,10 +142,10 @@
                 android:layout_marginEnd="10dp"
                 android:fontFamily="@font/original_surfer"
                 android:text="1000.00"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/savings_amount"
+                android:id="@+id/balance_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
@@ -152,7 +153,7 @@
                 android:layout_marginBottom="10dp"
                 android:fontFamily="@font/original_surfer"
                 android:text="250.00"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/expenditure_amount"
@@ -162,17 +163,17 @@
                 android:layout_marginEnd="10dp"
                 android:fontFamily="@font/original_surfer"
                 android:text="750.00"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
         </androidx.cardview.widget.CardView>
 
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="40dp"
 
             android:layout_marginTop="24dp"
-            android:background="#30ACEF"
+            android:background="#246EE9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/details"
@@ -185,14 +186,14 @@
         </com.google.android.material.tabs.TabLayout>
 
         <!--        TODO: Add functionality for Yearly Details-->
-        <Spinner
-            android:id="@+id/details_mode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            app:layout_constraintBottom_toBottomOf="@+id/heading_Balance"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/heading_Balance" />
+                <Spinner
+                    android:id="@+id/details_mode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/heading_Balance"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/heading_Balance" />
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -224,7 +225,7 @@
                     android:id="@+id/viewPager"
                     android:layout_width="match_parent"
                     android:layout_height="1000dp"
-                    android:background="#9AE2EF"
+                    android:background="#FFFFFF"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

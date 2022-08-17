@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#2196F3"
-            android:backgroundTint="#D066E3"
+            android:backgroundTint="#FF2400"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -31,7 +31,7 @@
                 android:layout_gravity="center"
                 android:text="Category Based Analysis"
                 android:textColor="@color/white"
-                android:textSize="20sp">
+                android:textSize="18sp">
 
             </TextView>
         </androidx.cardview.widget.CardView>
@@ -101,7 +101,7 @@
                 android:layout_gravity="center"
                 android:text="Time Based Analysis"
                 android:textColor="@color/white"
-                android:textSize="20sp">
+                android:textSize="18sp">
 
             </TextView>
         </androidx.cardview.widget.CardView>

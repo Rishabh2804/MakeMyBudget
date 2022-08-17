@@ -82,11 +82,11 @@
             android:id="@+id/action_mainScreenFragment_to_helloMushroomsFragment"
             app:destination="@id/helloMushroomsFragment" />
         <action
-            android:id="@+id/action_mainScreenFragment_to_myDetailsFragment"
-            app:destination="@id/myDetailsFragment" />
-        <action
             android:id="@+id/action_mainScreenFragment_to_editMyDetailsFragment"
             app:destination="@id/editMyDetailsFragment" />
+        <action
+            android:id="@+id/action_mainScreenFragment_to_myDetailsFragment"
+            app:destination="@id/myDetailsFragment" />
         <action
             android:id="@+id/action_mainScreenFragment_to_aboutUsFragment"
             app:destination="@id/aboutUsFragment" />
@@ -172,12 +172,12 @@
         </fragment>
     </navigation>
     <fragment
-        android:id="@+id/helloMushroomsFragment"
-        android:name="com.example.makeMyBudget.mainScreen.drawerScreens.HelloMushroomsFragment"
-        android:label="fragment_hello_mushrooms"
-        tools:layout="@layout/fragment_hello_mushrooms" >
+        android:id="@+id/aboutUsFragment"
+        android:name="com.example.makeMyBudget.mainScreen.drawerScreens.AboutUsFragment"
+        android:label="fragment_about_us"
+        tools:layout="@layout/fragment_about_us" >
         <action
-            android:id="@+id/action_helloMushroomsFragment_to_mainScreenFragment"
+            android:id="@+id/action_aboutUsFragment_to_mainScreenFragment"
             app:destination="@id/mainScreenFragment" />
     </fragment>
     <fragment
@@ -190,12 +190,12 @@
             app:destination="@id/mainScreenFragment" />
     </fragment>
     <fragment
-        android:id="@+id/aboutUsFragment"
-        android:name="com.example.makeMyBudget.mainScreen.drawerScreens.AboutUsFragment"
-        android:label="fragment_about_us"
-        tools:layout="@layout/fragment_about_us" >
+        android:id="@+id/helloMushroomsFragment"
+        android:name="com.example.makeMyBudget.mainScreen.drawerScreens.HelloMushroomsFragment"
+        android:label="fragment_hello_mushrooms"
+        tools:layout="@layout/fragment_hello_mushrooms" >
         <action
-            android:id="@+id/action_aboutUsFragment_to_mainScreenFragment"
+            android:id="@+id/action_helloMushroomsFragment_to_mainScreenFragment"
             app:destination="@id/mainScreenFragment" />
     </fragment>
     <fragment
@@ -206,5 +206,8 @@
         <action
             android:id="@+id/action_myDetailsFragment_to_mainScreenFragment"
             app:destination="@id/mainScreenFragment" />
+        <action
+            android:id="@+id/action_myDetailsFragment_to_editMyDetailsFragment"
+            app:destination="@id/editMyDetailsFragment" />
     </fragment>
 </navigation>

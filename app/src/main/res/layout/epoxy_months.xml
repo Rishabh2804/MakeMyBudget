@@ -14,9 +14,8 @@
 
         android:layout_height="150dp"
         android:layout_margin="4dp"
-        android:background="#CEF889"
-        android:backgroundTint="#CEF889"
-        app:cardCornerRadius="15dp"
+        android:background="#CE9FD8F1"
+        app:cardCornerRadius="10dp"
         app:cardElevation="50dp"
         app:cardMaxElevation="50dp">
 
@@ -29,9 +28,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/month_card"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#CEF889"
-                android:backgroundTint="#CEF889">
+                android:layout_height="match_parent">
 
                 <View
                     android:id="@+id/view2"

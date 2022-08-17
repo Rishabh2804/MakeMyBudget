@@ -13,7 +13,7 @@
         android:id="@+id/expenseOrIncome"
         android:layout_width="5dp"
         android:layout_height="0dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="7dp"
         android:background="#BC6565"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -24,37 +24,37 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/categorized_image"
-        android:layout_width="46dp"
-        android:layout_height="38dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
 
         android:layout_marginStart="5dp"
         android:layout_marginTop="4dp"
         android:src="@drawable/common_google_signin_btn_icon_dark"
-        app:layout_constraintStart_toEndOf="@id/expenseOrIncome"
+        app:layout_constraintEnd_toEndOf="@+id/trans_mode"
+        app:layout_constraintStart_toStartOf="@+id/trans_mode"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/trans_mode"
-        android:layout_width="57dp"
+        android:layout_width="wrap_content"
         android:layout_height="18dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="8dp"
-        android:text="TextView"
-        android:textSize="12sp"
+        android:text="CREDIT_CARD"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/categorized_image"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/categorized_image"
+        app:layout_constraintStart_toEndOf="@+id/expenseOrIncome"
         app:layout_constraintTop_toBottomOf="@+id/categorized_image"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/year"
-        android:layout_width="87dp"
-        android:layout_height="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="TextView"
-        android:textSize="12sp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/amount"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/amount"
@@ -62,24 +62,22 @@
 
     <TextView
         android:id="@+id/amount"
-        android:layout_width="87dp"
-        android:layout_height="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
-        android:layout_marginTop="16dp"
         android:text="TextView"
-        android:textSize="12sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/trans_mode"
-        app:layout_constraintTop_toBottomOf="@+id/year"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toEndOf="@+id/trans_mode" />
 
     <TextView
         android:id="@+id/trans_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginEnd="15dp"
         android:text="TextView"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -87,7 +85,6 @@
         android:id="@+id/view_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
         android:text="View Details ➡"
         app:layout_constraintBottom_toBottomOf="@+id/trans_item"
         app:layout_constraintEnd_toEndOf="@+id/trans_date" />

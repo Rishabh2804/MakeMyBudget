@@ -127,6 +127,7 @@ class CalenderViewFragment : Fragment() {
                 findNavController().navigateUp()
             }
         }
+
         requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
 
         // Inflate the layout for this fragment

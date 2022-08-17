@@ -120,18 +120,18 @@ class TransactionDetailFragment : Fragment() {
         binding.transAmountInput.text = (transaction.transactionAmount.toString())
         binding.transDateInput.text =
             (SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH).format(transaction.transactionDate))
-        if (transaction.isRecurring) {
-            binding.isRecurringCheckBox.isChecked = true
-            binding.isRecurringCheckBox.isEnabled = false
-            binding.fromDateInput.text =
-                (SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH).format(transaction.fromDate))
-            binding.toDateInput.text = (SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH).format(transaction.toDate))
-        } else {
-            binding.isRecurringCheckBox.isChecked = false
-            binding.isRecurringCheckBox.isEnabled = false
-            binding.fromDateInput.isVisible = false
-            binding.toDateInput.isVisible = false
-        }
+//        if (transaction.isRecurring) {
+//            binding.isRecurringCheckBox.isChecked = true
+//            binding.isRecurringCheckBox.isEnabled = false
+//            binding.fromDateInput.text =
+//                (SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH).format(transaction.fromDate))
+//            binding.toDateInput.text = (SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH).format(transaction.toDate))
+//        } else {
+//            binding.isRecurringCheckBox.isChecked = false
+//            binding.isRecurringCheckBox.isEnabled = false
+//            binding.fromDateInput.isVisible = false
+//            binding.toDateInput.isVisible = false
+//        }
 
         binding.transModeInput.text = transaction.transactionMode.name
         binding.incomeButton.isChecked = transaction.transactionType.ordinal == 1
