@@ -55,7 +55,7 @@ class UserBudgetDetailsFragment : Fragment() {
                 val name = binding.username.text.toString()
                 val budget = binding.budget.text.toString()
 
-                val user = User( userID ?: "", name, budget.toDouble())
+                val user = User( userID ?: "", name, budget)
                 viewModel.insertUser(user)
 
                 editor.putString("username", binding.username.text.toString())

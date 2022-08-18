@@ -29,9 +29,11 @@ class Navigate {
 
                 userModel.user.observe(fragment.viewLifecycleOwner) {
                     val action: NavDirections? = if (it != null) {
-                        sharedPreferences.edit().putString("user_id", it.user_id).apply()
-                        sharedPreferences.edit().putString("username", it.name).apply()
-                        sharedPreferences.edit().putString("budget", it.budget.toString()).apply()
+                        with(sharedPreferences) {
+                            edit().putString("user_id", it.user_id).apply()
+                            edit().putString("username", it.username).apply()
+                            edit().putString("budget", it.budget.toString()).apply()
+                        }
 
                         when (fragment) {
                             is FrontScreenFragment -> {
