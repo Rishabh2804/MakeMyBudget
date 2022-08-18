@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
+import com.example.makeMyBudget.authentication.Navigate
 import com.example.makemybudget.databinding.FragmentFrontScreenBinding
 
 
@@ -28,30 +29,17 @@ class FrontScreenFragment : Fragment() {
         sharedPreferences = activity?.getSharedPreferences("user_auth", Context.MODE_PRIVATE)!!
         binding = FragmentFrontScreenBinding.inflate(inflater, container, false)
 
-        //getting the variables isRegistered and isLoggedIn from shared preferences
-//        val isRegistered: Boolean = sharedPreferences.getBoolean("isRegistered", false)
-
         val isLoggedIn: Boolean = sharedPreferences.getBoolean("isLoggedIn", false)
-        val allCheck: Boolean = sharedPreferences.getBoolean("allCheck", false)
-        var action: NavDirections =
-            FrontScreenFragmentDirections.actionFrontScreenFragmentToLoginScreenFragment()
-
-        //if the user is registered and logged in, then navigate to the home screen
-        if (isLoggedIn && allCheck) {
-            action = FrontScreenFragmentDirections.actionFrontScreenFragmentToMainScreenFragment()
-        }
-
-        //if not all check, direct to the user budget detail fragment
-        if (isLoggedIn && !allCheck) {
-            action =
-                FrontScreenFragmentDirections.actionFrontScreenFragmentToUserBudgetDetailsFragment()
-        }
 
         //to hold the front screen for 5 seconds
         val handler = Handler()
         handler.postDelayed({
-            //navigating to Login Screen from Front screen
-            findNavController().navigate(action)
+            if(isLoggedIn){
+                Navigate.registerUser(this)
+            }
+            else{
+                findNavController().navigate(FrontScreenFragmentDirections.actionFrontScreenFragmentToLoginScreenFragment())
+            }
         }, 500)
         return binding.root
     }

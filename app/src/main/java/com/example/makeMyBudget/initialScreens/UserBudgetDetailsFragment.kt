@@ -7,10 +7,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.makeMyBudget.authentication.Navigate
+import com.example.makeMyBudget.entities.User
+import com.example.makeMyBudget.mainScreen.viewModels.UserModel
 import com.example.makemybudget.databinding.FragmentUserBudgetDetailsBinding
 
 class UserBudgetDetailsFragment : Fragment() {
+    private lateinit var viewModel: UserModel
     private lateinit var binding: FragmentUserBudgetDetailsBinding
     private lateinit var sharedPreferences: SharedPreferences
 
@@ -21,6 +26,7 @@ class UserBudgetDetailsFragment : Fragment() {
         //initialising binding and shared preferences
         binding = FragmentUserBudgetDetailsBinding.inflate(inflater, container, false)
         sharedPreferences = activity?.getSharedPreferences("user_auth", Context.MODE_PRIVATE)!!
+        viewModel = ViewModelProvider(requireActivity())[UserModel::class.java]
 
         //if the user clicks the button save
         binding.saveButton.setOnClickListener {
@@ -44,6 +50,14 @@ class UserBudgetDetailsFragment : Fragment() {
 
                 //feeding the data of username and budget in the shared preferences
                 val editor = sharedPreferences.edit()
+
+                val userID = sharedPreferences.getString("user_id", "")
+                val name = binding.username.text.toString()
+                val budget = binding.budget.text.toString()
+
+                val user = User( userID ?: "", name, budget.toDouble())
+                viewModel.insertUser(user)
+
                 editor.putString("username", binding.username.text.toString())
                 editor.putString("budget", binding.budget.text.toString())
 

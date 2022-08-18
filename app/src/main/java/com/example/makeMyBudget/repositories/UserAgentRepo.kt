@@ -12,5 +12,5 @@ class UserAgentRepo(application: Application) {
     suspend fun update(user: User) = userAgentDao.update(user)
     suspend fun delete(user: User) = userAgentDao.delete(user)
 
-    suspend fun getUser(userId: String) = userAgentDao.getUser(userId)
+     fun getUser(userId: String) = userAgentDao.getUser(userId)
 }

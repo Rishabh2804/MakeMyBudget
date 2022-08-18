@@ -73,20 +73,7 @@ class GoogleLogin {
                     sharedPreferences.edit().putBoolean("isLoggedIn", true).apply()
                     sharedPreferences.edit().putBoolean("isRegistered", true).apply()
 
-                    val allCheck = sharedPreferences.getBoolean("allCheck", false)
-                    val action: NavDirections = if (fragment is LoginScreenFragment) {
-                        if (!allCheck)
-                            LoginScreenFragmentDirections.actionLoginScreenFragmentToUserBudgetDetailsFragment()
-                        else
-                            LoginScreenFragmentDirections.actionLoginScreenFragmentToMainScreenFragment()
-                    } else {
-                        if (!allCheck)
-                            RegisterScreenFragmentDirections.actionRegisterScreenFragmentToUserBudgetDetailsFragment()
-                        else
-                            RegisterScreenFragmentDirections.actionRegisterScreenFragmentToMainScreenFragment()
-                    }
-
-                    NavHostFragment.findNavController(fragment).navigate(action)
+                    Navigate.specialAction(fragment)
 
                 }
             }

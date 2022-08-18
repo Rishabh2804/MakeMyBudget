@@ -9,8 +9,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.makeMyBudget.entities.User
+import com.example.makeMyBudget.mainScreen.viewModels.UserModel
 import com.example.makemybudget.databinding.FragmentRegisterScreenBinding
 import com.facebook.CallbackManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -18,7 +20,6 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 
 class RegisterScreenFragment : Fragment() {
-    private val screenID = "REGISTER"
     private val SIGN_IN_CODE = 12345
 
     private lateinit var binding: FragmentRegisterScreenBinding
@@ -30,6 +31,7 @@ class RegisterScreenFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
 
         // Initialize Firebase Auth
         firebaseAuth = FirebaseAuth.getInstance()
@@ -76,13 +78,10 @@ class RegisterScreenFragment : Fragment() {
                     if (auth.isSuccessful) {
                         Toast.makeText(context, "Successfully registered", Toast.LENGTH_SHORT)
                             .show()
-                        val user = User(email, password, "0")
-                        firebaseAuth.currentUser?.uid?.let {
-                            user.user_id = it
-                        }
 
-                        sharedPreferences.edit().putString("user_id", user.user_id).apply()
-//                        sharedPreferences.edit().putBoolean("isRegistered", true).apply()
+                        firebaseAuth.currentUser?.uid?.let {
+                            sharedPreferences.edit().putString("user_id", it).apply()
+                        }
 
                         Navigate.action(this)
                     } else {
