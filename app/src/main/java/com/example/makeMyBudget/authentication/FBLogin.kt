@@ -88,8 +88,8 @@ class FBLogin {
                             .show()
 
                         sharedPreferences.edit().putBoolean("isLoggedIn", true).apply()
-//                        sharedPreferences.edit().putBoolean("isRegistered", true).apply()
-                        Navigate.specialAction(fragment)
+
+                        Navigate.action(fragment)
                     } else {
                         // if the user is not logged in, then the error is shown.
                         Toast.makeText(

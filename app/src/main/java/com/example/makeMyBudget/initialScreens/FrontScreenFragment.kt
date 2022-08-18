@@ -35,7 +35,7 @@ class FrontScreenFragment : Fragment() {
         val handler = Handler()
         handler.postDelayed({
             if(isLoggedIn){
-                Navigate.registerUser(this)
+                Navigate.action(this)
             }
             else{
                 findNavController().navigate(FrontScreenFragmentDirections.actionFrontScreenFragmentToLoginScreenFragment())

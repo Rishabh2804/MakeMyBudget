@@ -61,6 +61,7 @@ class LoginScreenFragment : Fragment() {
         binding.guestLogin.setOnClickListener {
             GuestLogin.login(this)
         }
+
         binding.createAccount.setOnClickListener {
             action =
                 LoginScreenFragmentDirections.actionLoginScreenFragmentToRegisterScreenFragment()

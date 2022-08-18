@@ -83,7 +83,7 @@ class RegisterScreenFragment : Fragment() {
                             sharedPreferences.edit().putString("user_id", it).apply()
                         }
 
-                        Navigate.action(this)
+                        findNavController().navigate(RegisterScreenFragmentDirections.actionRegisterScreenFragmentToLoginScreenFragment())
                     } else {
                         Toast.makeText(context, "Registration failed", Toast.LENGTH_SHORT).show()
                     }

@@ -73,8 +73,7 @@ class GoogleLogin {
                     sharedPreferences.edit().putBoolean("isLoggedIn", true).apply()
                     sharedPreferences.edit().putBoolean("isRegistered", true).apply()
 
-                    Navigate.specialAction(fragment)
-
+                    Navigate.action(fragment)
                 }
             }
         }

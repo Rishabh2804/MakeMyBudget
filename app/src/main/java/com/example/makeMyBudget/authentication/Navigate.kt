@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import com.example.makeMyBudget.initialScreens.FrontScreenFragment
 import com.example.makeMyBudget.initialScreens.FrontScreenFragmentDirections
 import com.example.makeMyBudget.mainScreen.viewModels.UserModel
@@ -15,29 +14,20 @@ import com.example.makeMyBudget.mainScreen.viewModels.UserModel
 class Navigate {
     companion object {
         private lateinit var sharedPreferences: SharedPreferences
-        private lateinit var viewModel: UserModel
+        private lateinit var userModel: UserModel
 
         fun action(fragment: Fragment) {
             sharedPreferences =
                 fragment.requireActivity().getSharedPreferences("user_auth", Context.MODE_PRIVATE)
 
-            registerUser(fragment)
-        }
-
-        fun specialAction(fragment: Fragment) {
-            registerUser(fragment)
-        }
-
-        fun registerUser(fragment: Fragment) {
-            viewModel = ViewModelProvider(fragment.requireActivity())[UserModel::class.java]
-            viewModel.setUserID(sharedPreferences.getString("user_id", "")!!)
-
+            userModel = ViewModelProvider(fragment.requireActivity())[UserModel::class.java]
+            userModel.setUserID(sharedPreferences.getString("user_id", "not_found")!!)
 
             val handler = Handler()
             handler.postDelayed({
                 //navigating to Login Screen from Front screen
 
-                viewModel.user.observe(fragment.viewLifecycleOwner) {
+                userModel.user.observe(fragment.viewLifecycleOwner) {
                     val action: NavDirections? = if (it != null) {
                         sharedPreferences.edit().putString("user_id", it.user_id).apply()
                         sharedPreferences.edit().putString("username", it.name).apply()
@@ -56,10 +46,17 @@ class Navigate {
                             else -> null
                         }
                     } else {
-                        if (fragment is LoginScreenFragment) {
-                            LoginScreenFragmentDirections.actionLoginScreenFragmentToUserBudgetDetailsFragment()
-                        } else {
-                            RegisterScreenFragmentDirections.actionRegisterScreenFragmentToUserBudgetDetailsFragment()
+                        when (fragment) {
+                            is FrontScreenFragment -> {
+                                FrontScreenFragmentDirections.actionFrontScreenFragmentToUserBudgetDetailsFragment()
+                            }
+                            is LoginScreenFragment -> {
+                                LoginScreenFragmentDirections.actionLoginScreenFragmentToUserBudgetDetailsFragment()
+                            }
+                            is RegisterScreenFragment -> {
+                                RegisterScreenFragmentDirections.actionRegisterScreenFragmentToUserBudgetDetailsFragment()
+                            }
+                            else -> null
                         }
                     }
 
