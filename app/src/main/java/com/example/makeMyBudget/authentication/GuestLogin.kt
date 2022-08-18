@@ -3,6 +3,8 @@ package com.example.makeMyBudget.authentication
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.NavHostFragment
 
 class GuestLogin {
 
@@ -19,8 +21,10 @@ class GuestLogin {
 
             sharedPreferences.edit().putBoolean("isGuest", true).apply()
             sharedPreferences.edit().putBoolean("isLoggedIn", true).apply()
-            sharedPreferences.edit().putBoolean("isRegistered", true).apply()
+
+//            sharedPreferences.edit().putBoolean("isRegistered", true).apply()
             Navigate.action(fragment)
+
         }
     }
 

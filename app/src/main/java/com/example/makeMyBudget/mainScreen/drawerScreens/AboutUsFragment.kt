@@ -12,6 +12,7 @@ import com.example.makemybudget.databinding.FragmentAboutUsBinding
 
 
 class AboutUsFragment : Fragment() {
+
     private lateinit var binding: FragmentAboutUsBinding
 
     override fun onCreateView(
@@ -26,9 +27,10 @@ class AboutUsFragment : Fragment() {
                 "In recent transactions tab, you can view your transactions in detail, where as in history we can see the transactions according to different months and years. \n" +
                 "In addition, a plus button is included every where in the app, which when clicked will direct you to a screen where you can add different transactions you have completed or you have to complete. "
                 ).also { binding.aboutApp.text = it }
+
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                findNavController().navigate(AboutUsFragmentDirections.actionAboutUsFragmentToMainScreenFragment(0))
+                findNavController().navigateUp()
             }
         }
 

@@ -45,6 +45,6 @@ abstract class SwipeHandler() :
             textSizeFromEndToStart = 10f,
         )
 
-        super.onChildDraw(c, recyclerView, viewHolder, dX / 3, dY, actionState, isCurrentlyActive)
+        super.onChildDraw(c, recyclerView, viewHolder, dX / 5, dY, actionState, isCurrentlyActive)
     }
 }

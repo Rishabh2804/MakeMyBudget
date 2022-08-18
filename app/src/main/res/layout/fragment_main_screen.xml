@@ -12,7 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FF2400"
+        android:background="#FFFFFF"
         android:backgroundTint="#CDA3DCEA"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -54,7 +54,7 @@
 
         <ImageView
             android:id="@+id/rupee_symbol"
-            android:layout_width="wrap_content"
+            android:layout_width="35dp"
             android:layout_height="40dp"
             android:layout_marginStart="20dp"
             android:src="@drawable/rupee_symbol"
@@ -66,8 +66,8 @@
             android:id="@+id/heading_Balance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
+            android:layout_marginEnd="75dp"
             android:fontFamily="@font/amita"
             android:text="Balances"
             android:textColor="#038C2A"
@@ -76,7 +76,9 @@
             android:textSize="26sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/details"
-            app:layout_constraintStart_toEndOf="@id/rupee_symbol"
+            app:layout_constraintEnd_toStartOf="@+id/details_mode"
+            app:layout_constraintHorizontal_bias="0.084"
+            app:layout_constraintStart_toEndOf="@+id/rupee_symbol"
             app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         </TextView>
@@ -186,15 +188,17 @@
         </com.google.android.material.tabs.TabLayout>
 
         <!--        TODO: Add functionality for Yearly Details-->
-                <Spinner
-                    android:id="@+id/details_mode"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="20dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/heading_Balance"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/heading_Balance" />
 
+
+        <Spinner
+            android:id="@+id/details_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="@+id/heading_Balance"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/heading_Balance" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add_transaction_button"
@@ -226,6 +230,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1000dp"
                     android:background="#FFFFFF"
+                    android:backgroundTint="#FFFFFF"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

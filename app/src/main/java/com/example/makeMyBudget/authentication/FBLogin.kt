@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.NavHostFragment
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
@@ -63,7 +65,7 @@ class FBLogin {
             // initializing the firebase auth and the shared preferences.
             firebaseAuth = FirebaseAuth.getInstance()
             sharedPreferences =
-                fragment.requireActivity()!!.getSharedPreferences("user_auth", Context.MODE_PRIVATE)
+                fragment.requireActivity().getSharedPreferences("user_auth", Context.MODE_PRIVATE)
 
             // getting credentials from the facebook provider
             val credentials = FacebookAuthProvider.getCredential(result.accessToken.token)
@@ -78,7 +80,6 @@ class FBLogin {
                         sharedPreferences.edit().putString("user_id", firebaseAuth.currentUser?.uid)
                             .apply()
 
-
                         Toast.makeText(
                             fragment.requireActivity(),
                             "Login Successful",
@@ -86,6 +87,22 @@ class FBLogin {
                         )
                             .show()
 
+                        sharedPreferences.edit().putBoolean("isLoggedIn", true).apply()
+//                        sharedPreferences.edit().putBoolean("isRegistered", true).apply()
+                        val allCheck = sharedPreferences.getBoolean("allCheck", false)
+                        val action: NavDirections = if (fragment is LoginScreenFragment) {
+                            if (!allCheck)
+                                LoginScreenFragmentDirections.actionLoginScreenFragmentToUserBudgetDetailsFragment()
+                            else
+                                LoginScreenFragmentDirections.actionLoginScreenFragmentToMainScreenFragment()
+                        } else {
+                            if (!allCheck)
+                                RegisterScreenFragmentDirections.actionRegisterScreenFragmentToUserBudgetDetailsFragment()
+                            else
+                                RegisterScreenFragmentDirections.actionRegisterScreenFragmentToMainScreenFragment()
+                        }
+
+                        NavHostFragment.findNavController(fragment).navigate(action)
                     } else {
                         // if the user is not logged in, then the error is shown.
                         Toast.makeText(
@@ -94,14 +111,6 @@ class FBLogin {
                             Toast.LENGTH_SHORT
                         ).show()
 
-                    }
-                }
-
-                withContext(Dispatchers.Main) {
-                    if (auth.isSuccessful) {
-                        Navigate.action(fragment)
-                        sharedPreferences.edit().putBoolean("isLoggedIn", true).apply()
-                        sharedPreferences.edit().putBoolean("isRegistered", true).apply()
                     }
                 }
             }

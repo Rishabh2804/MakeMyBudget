@@ -8,7 +8,6 @@ import androidx.navigation.fragment.NavHostFragment
 
 class Navigate {
     companion object {
-
         private lateinit var sharedPreferences: SharedPreferences
 
         fun action(fragment: Fragment) {
@@ -20,12 +19,9 @@ class Navigate {
                 if (!allCheck)
                     LoginScreenFragmentDirections.actionLoginScreenFragmentToUserBudgetDetailsFragment()
                 else
-                    LoginScreenFragmentDirections.actionLoginScreenFragmentToMainScreenFragment(0)
+                    LoginScreenFragmentDirections.actionLoginScreenFragmentToMainScreenFragment()
             } else {
-                if (!allCheck)
-                    RegisterScreenFragmentDirections.actionRegisterScreenFragmentToUserBudgetDetailsFragment()
-                else
-                    RegisterScreenFragmentDirections.actionRegisterScreenFragmentToMainScreenFragment(0)
+                RegisterScreenFragmentDirections.actionRegisterScreenFragmentToLoginScreenFragment()
             }
 
             NavHostFragment.findNavController(fragment).navigate(action)

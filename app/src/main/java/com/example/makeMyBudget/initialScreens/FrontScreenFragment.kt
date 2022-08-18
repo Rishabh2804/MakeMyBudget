@@ -29,19 +29,20 @@ class FrontScreenFragment : Fragment() {
         binding = FragmentFrontScreenBinding.inflate(inflater, container, false)
 
         //getting the variables isRegistered and isLoggedIn from shared preferences
-        val isRegistered: Boolean = sharedPreferences.getBoolean("isRegistered", false)
+//        val isRegistered: Boolean = sharedPreferences.getBoolean("isRegistered", false)
+
         val isLoggedIn: Boolean = sharedPreferences.getBoolean("isLoggedIn", false)
         val allCheck: Boolean = sharedPreferences.getBoolean("allCheck", false)
         var action: NavDirections =
             FrontScreenFragmentDirections.actionFrontScreenFragmentToLoginScreenFragment()
 
         //if the user is registered and logged in, then navigate to the home screen
-        if (isRegistered && isLoggedIn && allCheck) {
-            action = FrontScreenFragmentDirections.actionFrontScreenFragmentToMainScreenFragment(0)
+        if (isLoggedIn && allCheck) {
+            action = FrontScreenFragmentDirections.actionFrontScreenFragmentToMainScreenFragment()
         }
 
         //if not all check, direct to the user budget detail fragment
-        if (isRegistered && isLoggedIn && !allCheck) {
+        if (isLoggedIn && !allCheck) {
             action =
                 FrontScreenFragmentDirections.actionFrontScreenFragmentToUserBudgetDetailsFragment()
         }

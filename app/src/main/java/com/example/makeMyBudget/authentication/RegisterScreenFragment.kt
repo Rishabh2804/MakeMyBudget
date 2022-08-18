@@ -18,13 +18,13 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 
 class RegisterScreenFragment : Fragment() {
+    private val screenID = "REGISTER"
+    private val SIGN_IN_CODE = 12345
 
     private lateinit var binding: FragmentRegisterScreenBinding
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var callBackManager: CallbackManager
-
-    private val SIGN_IN_CODE = 12345
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +37,6 @@ class RegisterScreenFragment : Fragment() {
         // Initialize SharedPreferences
         sharedPreferences = activity?.getSharedPreferences("user_auth", Context.MODE_PRIVATE)!!
 
-
         // Inflate the layout for this fragment
         binding = FragmentRegisterScreenBinding.inflate(inflater, container, false)
 
@@ -48,6 +47,7 @@ class RegisterScreenFragment : Fragment() {
         binding.googleLoginButton.setOnClickListener {
             GoogleLogin.login(this)
         }
+
         binding.fbLoginButton.setOnClickListener {
             callBackManager = CallbackManager.Factory.create()
             FBLogin.login(this, callBackManager)
@@ -82,8 +82,9 @@ class RegisterScreenFragment : Fragment() {
                         }
 
                         sharedPreferences.edit().putString("user_id", user.user_id).apply()
-                        sharedPreferences.edit().putBoolean("isRegistered", true).apply()
+//                        sharedPreferences.edit().putBoolean("isRegistered", true).apply()
 
+                        Navigate.action(this)
                     } else {
                         Toast.makeText(context, "Registration failed", Toast.LENGTH_SHORT).show()
                     }

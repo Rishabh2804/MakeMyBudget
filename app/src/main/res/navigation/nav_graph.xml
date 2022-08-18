@@ -27,6 +27,7 @@
             app:destination="@id/mainScreenFragment"
             app:popUpTo="@id/frontScreenFragment"
             app:popUpToInclusive="true" />
+
     </fragment>
     <fragment
         android:id="@+id/transactionDetailFragment"
@@ -57,6 +58,7 @@
         <action
             android:id="@+id/action_userBudgetDetailsFragment_to_mainScreenFragment"
             app:destination="@id/mainScreenFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/mainScreenFragment"
@@ -72,9 +74,6 @@
         <action
             android:id="@+id/action_mainScreenFragment_to_transactionDetailFragment"
             app:destination="@id/transactionDetailFragment" />
-        <argument
-            android:name="screenNumber"
-            app:argType="integer" />
         <action
             android:id="@+id/action_mainScreenFragment_to_loginScreenFragment"
             app:destination="@id/authentication" />
@@ -90,6 +89,7 @@
         <action
             android:id="@+id/action_mainScreenFragment_to_aboutUsFragment"
             app:destination="@id/aboutUsFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/addOrEditTransactionFragment"
@@ -102,9 +102,12 @@
         <action
             android:id="@+id/action_addOrEditTransactionFragment_to_mainScreenFragment"
             app:destination="@id/mainScreenFragment" />
-        <argument
-            android:name="screenNo"
-            app:argType="integer" />
+        <action
+            android:id="@+id/action_addOrEditTransactionFragment_to_monthScreenFragment"
+            app:destination="@id/monthScreenFragment" />
+        <action
+            android:id="@+id/action_addOrEditTransactionFragment_to_calenderViewFragment"
+            app:destination="@id/calenderViewFragment" />
     </fragment>
     <fragment
         android:id="@+id/monthScreenFragment"
@@ -126,6 +129,7 @@
         <action
             android:id="@+id/action_monthScreenFragment_to_calenderViewFragment"
             app:destination="@id/calenderViewFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/calenderViewFragment"
@@ -138,7 +142,8 @@
             android:id="@+id/action_calenderViewFragment_to_transactionDetailFragment"
             app:destination="@id/transactionDetailFragment" />
     </fragment>
-    <navigation android:id="@+id/authentication"
+    <navigation
+        android:id="@+id/authentication"
         app:startDestination="@id/loginScreenFragment">
         <fragment
             android:id="@+id/loginScreenFragment"
@@ -175,7 +180,7 @@
         android:id="@+id/aboutUsFragment"
         android:name="com.example.makeMyBudget.mainScreen.drawerScreens.AboutUsFragment"
         android:label="fragment_about_us"
-        tools:layout="@layout/fragment_about_us" >
+        tools:layout="@layout/fragment_about_us">
         <action
             android:id="@+id/action_aboutUsFragment_to_mainScreenFragment"
             app:destination="@id/mainScreenFragment" />
@@ -184,7 +189,7 @@
         android:id="@+id/editMyDetailsFragment"
         android:name="com.example.makeMyBudget.mainScreen.drawerScreens.EditMyDetailsFragment"
         android:label="fragment_edit_my_details"
-        tools:layout="@layout/fragment_edit_my_details" >
+        tools:layout="@layout/fragment_edit_my_details">
         <action
             android:id="@+id/action_editMyDetailsFragment_to_mainScreenFragment"
             app:destination="@id/mainScreenFragment" />
@@ -193,7 +198,7 @@
         android:id="@+id/helloMushroomsFragment"
         android:name="com.example.makeMyBudget.mainScreen.drawerScreens.HelloMushroomsFragment"
         android:label="fragment_hello_mushrooms"
-        tools:layout="@layout/fragment_hello_mushrooms" >
+        tools:layout="@layout/fragment_hello_mushrooms">
         <action
             android:id="@+id/action_helloMushroomsFragment_to_mainScreenFragment"
             app:destination="@id/mainScreenFragment" />
@@ -202,12 +207,15 @@
         android:id="@+id/myDetailsFragment"
         android:name="com.example.makeMyBudget.mainScreen.drawerScreens.MyDetailsFragment"
         android:label="fragment_my_details"
-        tools:layout="@layout/fragment_my_details" >
+        tools:layout="@layout/fragment_my_details">
         <action
             android:id="@+id/action_myDetailsFragment_to_mainScreenFragment"
             app:destination="@id/mainScreenFragment" />
         <action
             android:id="@+id/action_myDetailsFragment_to_editMyDetailsFragment"
             app:destination="@id/editMyDetailsFragment" />
+        <action
+            android:id="@+id/action_myDetailsFragment_self"
+            app:destination="@id/myDetailsFragment" />
     </fragment>
 </navigation>

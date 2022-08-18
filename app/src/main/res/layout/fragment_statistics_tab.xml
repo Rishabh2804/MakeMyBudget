@@ -17,7 +17,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/heading_box"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:background="#2196F3"
             android:backgroundTint="#FF2400"
             app:layout_constraintEnd_toEndOf="parent"
@@ -56,11 +56,8 @@
             android:id="@+id/pie_chart_spinner"
             android:layout_width="240dp"
             android:layout_height="50dp"
-            android:layout_marginStart="10dp"
             android:layout_marginTop="8dp"
             android:textAlignment="center"
-            app:layout_constraintEnd_toEndOf="@+id/pieChart"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/pieChart"
             app:layout_constraintTop_toBottomOf="@+id/heading_box"
             tools:ignore="SpeakableTextPresentCheck" />
@@ -86,7 +83,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/heading_box2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_marginTop="30dp"
             android:background="#2196F3"
             android:backgroundTint="#1957D5"
@@ -108,11 +105,14 @@
 
         <Spinner
             android:id="@+id/bar_chart_spinner"
-            android:layout_width="200dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="60dp"
             android:textAlignment="center"
+            app:layout_constraintEnd_toStartOf="@+id/textView15"
+            app:layout_constraintHorizontal_bias="0.222"
             app:layout_constraintStart_toStartOf="@+id/barChart"
             app:layout_constraintTop_toBottomOf="@+id/heading_box2"
             tools:ignore="SpeakableTextPresentCheck" />

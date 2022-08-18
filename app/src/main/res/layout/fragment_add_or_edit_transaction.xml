@@ -180,7 +180,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/trans_date_input" />
 
             <TextView
-                android:id="@+id/transaction_tags"
+                android:id="@+id/transaction_category"
                 android:layout_width="match_parent"
                 android:layout_height="26dp"
                 android:layout_marginStart="25dp"
@@ -204,7 +204,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.557"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/transaction_tags"
+                app:layout_constraintTop_toBottomOf="@+id/transaction_category"
                 tools:ignore="TouchTargetSizeCheck" />
 
             <RadioGroup

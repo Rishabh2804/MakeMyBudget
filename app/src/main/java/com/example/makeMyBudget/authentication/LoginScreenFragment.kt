@@ -20,10 +20,8 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginScreenFragment : Fragment() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-    }
+    private val SIGN_IN_CODE = 12345
 
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var binding: FragmentLoginScreenBinding
@@ -31,16 +29,12 @@ class LoginScreenFragment : Fragment() {
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var callBackManager: CallbackManager
 
-    private val SIGN_IN_CODE = 12345
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
         sharedPreferences = activity?.getSharedPreferences("user_auth", Context.MODE_PRIVATE)!!
-        val isRegistered: Boolean = sharedPreferences.getBoolean("isRegistered", false)
-        val isLoggedIn: Boolean = sharedPreferences.getBoolean("isLoggedIn", false)
 
         // Initialize Firebase Auth
         firebaseAuth = FirebaseAuth.getInstance()
@@ -49,8 +43,8 @@ class LoginScreenFragment : Fragment() {
         binding = FragmentLoginScreenBinding.inflate(inflater, container, false)
 
         // Set the click listeners
-        binding.customRegisterButton.setBackgroundColor(resources.getColor(R.color.white))
-        binding.customRegisterButton.setTextColor(resources.getColor(R.color.black))
+        binding.createAccount.setBackgroundColor(resources.getColor(R.color.white))
+        binding.createAccount.setTextColor(resources.getColor(R.color.black))
         binding.googleLoginButton.setOnClickListener {
             GoogleLogin.login(this)
         }
@@ -60,24 +54,18 @@ class LoginScreenFragment : Fragment() {
             FBLogin.login(this, callBackManager)
         }
 
-        var stayLoggedIn = false
-        binding.stayLoggedIn.setOnClickListener {
-            stayLoggedIn = binding.stayLoggedIn.isChecked
-        }
-
         binding.customLoginButton.setOnClickListener {
             handleCustomLogin()
         }
 
-        binding.guestLogin.setOnClickListener{
+        binding.guestLogin.setOnClickListener {
             GuestLogin.login(this)
         }
-        binding.customRegisterButton.setOnClickListener {
+        binding.createAccount.setOnClickListener {
             action =
                 LoginScreenFragmentDirections.actionLoginScreenFragmentToRegisterScreenFragment()
             findNavController().navigate(action)
         }
-
 
         return binding.root
     }
@@ -96,7 +84,8 @@ class LoginScreenFragment : Fragment() {
                 firebaseAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            sharedPreferences.edit().putString("user_id", firebaseAuth.currentUser?.uid).apply()
+                            sharedPreferences.edit()
+                                .putString("user_id", firebaseAuth.currentUser?.uid).apply()
                             sharedPreferences.edit().putBoolean("isLoggedIn", true).apply()
                             Toast.makeText(
                                 context,

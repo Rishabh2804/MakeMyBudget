@@ -50,27 +50,32 @@
                 android:id="@+id/trans_title_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
                 android:layout_marginTop="20dp"
                 android:ems="10"
                 android:text="Title"
+                android:textAlignment="center"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
                 android:textColor="#000000"
-                android:textSize="20sp"
+                android:textSize="27sp"
                 android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/app_bar" />
 
             <TextView
                 android:id="@+id/trans_desc_input"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
                 android:layout_marginTop="20dp"
                 android:ems="10"
                 android:gravity="start|top"
                 android:text="Description"
                 android:textColor="#000000"
                 android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/trans_title_input"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/trans_title_input" />
 
             <CheckBox
@@ -87,7 +92,7 @@
                 android:id="@+id/trans_amount_msg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="25dp"
                 android:text="Amount : "
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@+id/already_completed"
@@ -109,7 +114,7 @@
                 android:id="@+id/trans_date_msg"
                 android:layout_width="60dp"
                 android:layout_height="21dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="30dp"
                 android:text="Date :"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@+id/trans_amount_msg"
@@ -117,12 +122,13 @@
 
             <TextView
                 android:id="@+id/trans_date_input"
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:text="Transaction Date"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/trans_date_msg"
+                app:layout_constraintEnd_toEndOf="@+id/trans_amount_input"
                 app:layout_constraintStart_toStartOf="@+id/trans_amount_input"
                 app:layout_constraintTop_toTopOf="@+id/trans_date_msg"
                 app:layout_constraintVertical_bias="0.666"
@@ -168,9 +174,10 @@
 
             <TextView
                 android:id="@+id/trans_mode_input"
-                android:layout_width="178dp"
+                android:layout_width="170dp"
                 android:layout_height="25dp"
                 android:layout_marginEnd="20dp"
+                android:textAlignment="center"
                 app:layout_constraintBottom_toBottomOf="@+id/transaction_mode_label"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -181,36 +188,46 @@
                 android:id="@+id/transaction_mode_label"
                 android:layout_width="157dp"
                 android:layout_height="26dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:text="Transaction Mode: "
                 android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/trans_date_msg"
                 app:layout_constraintTop_toBottomOf="@+id/trans_date_input" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/transaction_tags"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/transaction_category_label"
+                android:layout_width="157dp"
                 android:layout_height="26dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="20dp"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.757"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="30dp"
+                android:text="Transaction Mode: "
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/transaction_mode_label"
                 app:layout_constraintTop_toBottomOf="@+id/transaction_mode_label" />
+
+            <TextView
+                android:id="@+id/transaction_category"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:text="Category"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/transaction_category_label"
+                app:layout_constraintEnd_toEndOf="@+id/trans_mode_input"
+                app:layout_constraintHorizontal_bias="0.757"
+                app:layout_constraintStart_toStartOf="@+id/trans_mode_input"
+                app:layout_constraintTop_toTopOf="@+id/transaction_category_label" />
 
             <RadioGroup
                 android:id="@+id/radioGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginBottom="15dp"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/transaction_tags"
-                app:layout_constraintTop_toBottomOf="@+id/transaction_tags">
+                app:layout_constraintStart_toStartOf="@+id/transaction_category_label"
+                app:layout_constraintTop_toBottomOf="@+id/transaction_category"
+                app:layout_constraintVertical_bias="0.0">
 
                 <RadioButton
                     android:id="@+id/income_button"

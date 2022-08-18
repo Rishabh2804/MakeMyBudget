@@ -1,13 +1,11 @@
 package com.example.makeMyBudget.mainScreen.viewModels
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.*
 import com.example.makeMyBudget.daoS.MonthDetail
 import com.example.makeMyBudget.entities.*
 import com.example.makeMyBudget.repositories.ListHandlerRepo
+import kotlinx.coroutines.launch
 
 class MainScreenViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -23,7 +21,9 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
     }
 
     fun deleteUserData() {
-        listHandlerRepo.deleteUserData(_userID.value!!)
+        viewModelScope.launch {
+            listHandlerRepo.deleteUserData(_userID.value!!)
+        }
     }
 
     val date: MutableLiveData<Long> = MutableLiveData<Long>(0L)

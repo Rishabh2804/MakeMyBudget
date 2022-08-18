@@ -13,6 +13,8 @@ import com.example.makemybudget.databinding.FragmentMyDetailsBinding
 
 
 class MyDetailsFragment : Fragment() {
+    private val screenID = "DRAWER_USER_DETAILS"
+
     private lateinit var binding: FragmentMyDetailsBinding
     private lateinit var sharedPreferences: SharedPreferences
 
@@ -28,16 +30,16 @@ class MyDetailsFragment : Fragment() {
         binding.budget.text = sharedPreferences.getString("budget", "")
 
         binding.editButton.setOnClickListener {
-            findNavController().navigate(MyDetailsFragmentDirections.actionMyDetailsFragmentToEditMyDetailsFragment())
+            findNavController().navigate(
+                MyDetailsFragmentDirections.actionMyDetailsFragmentToEditMyDetailsFragment(
+
+                )
+            )
         }
 
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                findNavController().navigate(
-                    MyDetailsFragmentDirections.actionMyDetailsFragmentToMainScreenFragment(
-                        0
-                    )
-                )
+                findNavController().navigateUp()
             }
         }
 

@@ -81,11 +81,7 @@ class MonthScreenFragment : Fragment() {
 
         //if the user clicks on the arrow back button, he will be redirected to the previous screen
         binding.toolbar.setNavigationOnClickListener {
-            findNavController().navigate(
-                MonthScreenFragmentDirections.actionMonthScreenFragmentToMainScreenFragment(
-                    2
-                )
-            )
+            findNavController().navigateUp()
         }
 
 
@@ -95,7 +91,7 @@ class MonthScreenFragment : Fragment() {
         //variables to store the monthly synopsis
         binding.monthBudget.text = monthlyBudget.toString()
 
-        var monthlyGains = 0.00
+//        var monthlyGains = 0.00
         var monthlyExpenses = 0.00
 
         //observing in the livedata returned by the viewModel to calculate the expenses and gains of the month
@@ -161,8 +157,7 @@ class MonthScreenFragment : Fragment() {
         binding.addTransactionButton.setOnClickListener {
             findNavController().navigate(
                 MonthScreenFragmentDirections.actionMonthScreenFragmentToAddOrEditTransactionFragment(
-                    0,
-                    2
+                    0
                 )
             )
         }
@@ -170,11 +165,7 @@ class MonthScreenFragment : Fragment() {
         //if user presses back button, he will be redirected to the previous screen
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                findNavController().navigate(
-                    MonthScreenFragmentDirections.actionMonthScreenFragmentToMainScreenFragment(
-                        2
-                    )
-                )
+                findNavController().navigateUp()
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)

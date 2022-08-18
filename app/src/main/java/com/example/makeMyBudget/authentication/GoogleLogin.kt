@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.NavHostFragment
 import com.example.makemybudget.R
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -70,7 +72,21 @@ class GoogleLogin {
 
                     sharedPreferences.edit().putBoolean("isLoggedIn", true).apply()
                     sharedPreferences.edit().putBoolean("isRegistered", true).apply()
-                    Navigate.action(fragment)
+
+                    val allCheck = sharedPreferences.getBoolean("allCheck", false)
+                    val action: NavDirections = if (fragment is LoginScreenFragment) {
+                        if (!allCheck)
+                            LoginScreenFragmentDirections.actionLoginScreenFragmentToUserBudgetDetailsFragment()
+                        else
+                            LoginScreenFragmentDirections.actionLoginScreenFragmentToMainScreenFragment()
+                    } else {
+                        if (!allCheck)
+                            RegisterScreenFragmentDirections.actionRegisterScreenFragmentToUserBudgetDetailsFragment()
+                        else
+                            RegisterScreenFragmentDirections.actionRegisterScreenFragmentToMainScreenFragment()
+                    }
+
+                    NavHostFragment.findNavController(fragment).navigate(action)
 
                 }
             }

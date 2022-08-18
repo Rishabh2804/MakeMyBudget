@@ -47,8 +47,6 @@ class TransactionDetailFragment : Fragment() {
         viewModel.setUserID(userID)
 
         val transactionId = TransactionDetailFragmentArgs.fromBundle(requireArguments()).transId
-        val direction =
-            TransactionDetailFragmentArgs.fromBundle(requireArguments()).calenderOrRecents
 
         viewModel.setTransId(transactionId)
 
@@ -63,7 +61,6 @@ class TransactionDetailFragment : Fragment() {
                     findNavController().navigate(
                         TransactionDetailFragmentDirections.actionTransactionDetailFragmentToAddOrEditTransactionFragment(
                             viewModel.transactionID.value!!,
-                            1
                         )
                     )
                     true
@@ -80,14 +77,8 @@ class TransactionDetailFragment : Fragment() {
                                 "Transaction deleted successfully",
                                 Toast.LENGTH_SHORT
                             ).show()
-                            if (direction == 1)
-                                findNavController().navigate(
-                                    TransactionDetailFragmentDirections.actionTransactionDetailFragmentToMainScreenFragment(
-                                        1
-                                    )
-                                )
-                            else
-                                findNavController().navigateUp()
+
+                            findNavController().navigateUp()
                         }
                         setNegativeButton("No") { _, _ ->
                         }
@@ -100,14 +91,8 @@ class TransactionDetailFragment : Fragment() {
 
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                if (direction == 1)
-                    findNavController().navigate(
-                        TransactionDetailFragmentDirections.actionTransactionDetailFragmentToMainScreenFragment(
-                            1
-                        )
-                    )
-                else
-                    findNavController().navigateUp()
+
+                findNavController().navigateUp()
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
@@ -133,6 +118,7 @@ class TransactionDetailFragment : Fragment() {
 //            binding.toDateInput.isVisible = false
 //        }
 
+        binding.transactionCategory.text = transaction.transactionCategory.name
         binding.transModeInput.text = transaction.transactionMode.name
         binding.incomeButton.isChecked = transaction.transactionType.ordinal == 1
         binding.incomeButton.isEnabled = false

@@ -14,7 +14,6 @@ import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.makeMyBudget.entities.*
@@ -33,15 +32,13 @@ class AddOrEditTransactionFragment : Fragment() {
     private lateinit var binding: FragmentAddOrEditTransactionBinding
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var viewModel: TransactionViewModel
-    private var screenNo = 0
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
         // Inflate the layout for this fragment
-        screenNo = AddOrEditTransactionFragmentArgs.fromBundle(requireArguments()).screenNo
-
         binding = FragmentAddOrEditTransactionBinding.inflate(inflater, container, false)
 
         sharedPreferences = activity?.getSharedPreferences("user_auth", Context.MODE_PRIVATE)!!
@@ -118,11 +115,7 @@ class AddOrEditTransactionFragment : Fragment() {
                 setTitle("Cancel Transaction")
                 setMessage("Are you sure you want to discard the changes?")
                 setPositiveButton("Yes") { _, _ ->
-                    findNavController().navigate(
-                        AddOrEditTransactionFragmentDirections.actionAddOrEditTransactionFragmentToMainScreenFragment(
-                            screenNo
-                        )
-                    )
+                    findNavController().navigateUp()
                 }
             }
             dialog.create().show()
@@ -246,12 +239,7 @@ class AddOrEditTransactionFragment : Fragment() {
             "Transaction registered successfully!!",
             Toast.LENGTH_SHORT
         ).show()
-        findNavController().navigate(
-            AddOrEditTransactionFragmentDirections.actionAddOrEditTransactionFragmentToMainScreenFragment(
-                screenNo
-            )
-        )
-
+        findNavController().navigateUp()
     }
 
     private fun setData(transaction: Transaction) {

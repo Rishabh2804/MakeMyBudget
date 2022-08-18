@@ -35,7 +35,7 @@ abstract class YearModel : EpoxyModelWithHolder<YearModel.holder>() {
                 holder.button.setImageResource(R.drawable.ic_baseline_collapse_up)
             } else {
                 holder.list.visibility = View.GONE
-                holder.button.setImageResource(R.drawable.ic_baseline_arrow_drop_down_24)
+                holder.button.setImageResource(R.drawable.ic_baseline_expand_down)
             }
         }
     }

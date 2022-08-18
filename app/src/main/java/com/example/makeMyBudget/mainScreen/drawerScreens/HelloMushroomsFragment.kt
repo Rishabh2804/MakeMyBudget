@@ -13,8 +13,9 @@ import com.example.makemybudget.databinding.FragmentHelloMushroomsBinding
 
 class HelloMushroomsFragment : Fragment() {
 
+
     lateinit var binding: FragmentHelloMushroomsBinding
-    lateinit var sharedPreferences : SharedPreferences
+    lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,18 +28,12 @@ class HelloMushroomsFragment : Fragment() {
         binding.userName.text = sharedPreferences.getString("username", "")
 
         binding.backToMainscreen.setOnClickListener {
-            findNavController().navigate(
-                HelloMushroomsFragmentDirections.actionHelloMushroomsFragmentToMainScreenFragment(0)
-            )
+            findNavController().navigateUp()
         }
 
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                findNavController().navigate(
-                    MyDetailsFragmentDirections.actionMyDetailsFragmentToMainScreenFragment(
-                        0
-                    )
-                )
+                findNavController().navigateUp()
             }
         }
 

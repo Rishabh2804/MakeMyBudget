@@ -34,6 +34,7 @@ class MainScreenFragment : Fragment() {
 
         binding = FragmentMainScreenBinding.inflate(inflater, container, false)
         sharedPreferences = activity?.getSharedPreferences("user_auth", 0)!!
+//        val editor = sharedPreferences.edit()
         viewModel = ViewModelProvider(this)[MainScreenViewModel::class.java]
 
         binding.drawerButton.setOnClickListener {
@@ -50,9 +51,7 @@ class MainScreenFragment : Fragment() {
         }
 
         binding.navigationView.itemIconTintList = null
-
         binding.navigationView.setItemIconSize(90)
-
         binding.navigationView.setNavigationItemSelectedListener {
 
             when (it.itemId) {
@@ -81,17 +80,22 @@ class MainScreenFragment : Fragment() {
                     true
                 }
                 R.id.logout -> {
+
                     sharedPreferences.edit().putBoolean("isLoggedIn", false).apply()
-                    if (sharedPreferences.getBoolean("isGuest", false)) {
-                        viewModel.deleteUserData()
-                    }
+                    sharedPreferences.edit().putBoolean("isRegistered", false).apply()
+                    sharedPreferences.edit().putBoolean("allCheck", false).apply()
+
+//                    if (sharedPreferences.getBoolean("isGuest", true)) {
+//                        viewModel.deleteUserData()
+//                    }
+
+//                    sharedPreferences.edit().clear().apply()
 
                     findNavController().navigate(MainScreenFragmentDirections.actionMainScreenFragmentToLoginScreenFragment())
                     true
                 }
                 else -> false
             }
-
         }
 
         val userID = sharedPreferences.getString("user_id", "")!!
@@ -99,7 +103,6 @@ class MainScreenFragment : Fragment() {
 
         val choices = arrayOf(
             "This Month",
-
             //TODO: Yearly Synopsis Coming Soon!!
             // "This Year",
         )
@@ -209,7 +212,8 @@ class MainScreenFragment : Fragment() {
             }
         }
 
-        val initialPosition = MainScreenFragmentArgs.fromBundle(requireArguments()).screenNumber
+        val initialPosition = 0
+//            sharedPreferences.getString("tab_position", "0")?.toInt() ?: 0
 
         binding.viewPager.adapter = ViewPagerAdapter(this)
         binding.tabLayout.tabGravity = TabLayout.GRAVITY_FILL
@@ -237,9 +241,10 @@ class MainScreenFragment : Fragment() {
         }.attach()
 
         binding.addTransactionButton.setOnClickListener {
+//            sharedPreferences.edit()
+//                .putString("tab_position", "${binding.viewPager.currentItem}").apply()
             findNavController().navigate(
                 MainScreenFragmentDirections.actionMainScreenFragmentToAddOrEditTransactionFragment(
-                    0,
                     0
                 )
             )

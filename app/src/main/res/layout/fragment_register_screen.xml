@@ -12,18 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="Already have an account?"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/back_to_login"
-            app:layout_constraintEnd_toEndOf="@+id/fb_login_button"
-            app:layout_constraintHorizontal_bias="0.543"
-            app:layout_constraintStart_toStartOf="@+id/google_login_button" />
-
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="99dp"
@@ -34,6 +22,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/app_title"
+            android:layout_width="215dp"
+            android:layout_height="31dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/aclonica"
+            android:text="Make My Budget"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toStartOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/Username"
@@ -102,18 +103,16 @@
                 tools:ignore="TouchTargetSizeCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/app_title"
-            android:layout_width="215dp"
-            android:layout_height="31dp"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/aclonica"
-            android:text="Make My Budget"
-            android:textAlignment="center"
-            android:textSize="20sp"
+        <Button
+            android:id="@+id/register_button"
+            android:layout_width="216dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="#245CE9"
+            android:text="REGISTER"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+            app:layout_constraintTop_toBottomOf="@+id/ConfirmPassword" />
 
         <TextView
             android:id="@+id/or"
@@ -153,16 +152,17 @@
             app:layout_constraintStart_toEndOf="@+id/or"
             app:layout_constraintTop_toBottomOf="@+id/register_button" />
 
-        <Button
-            android:id="@+id/register_button"
-            android:layout_width="216dp"
-            android:layout_height="55dp"
-            android:layout_marginTop="24dp"
-            android:backgroundTint="#245CE9"
-            android:text="REGISTER"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ConfirmPassword" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Already have an account?"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/back_to_login"
+            app:layout_constraintEnd_toEndOf="@+id/fb_login_button"
+            app:layout_constraintHorizontal_bias="0.543"
+            app:layout_constraintStart_toStartOf="@+id/google_login_button" />
 
         <Button
             android:id="@+id/back_to_login"

@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.makemybudget.databinding.FragmentEditMyDetailsBinding
 
 class EditMyDetailsFragment : Fragment() {
+
     private lateinit var binding: FragmentEditMyDetailsBinding
     private lateinit var sharedPreferences: SharedPreferences
 
@@ -54,21 +55,18 @@ class EditMyDetailsFragment : Fragment() {
                 editor.apply()
 
                 //Then the user is directed to the main screen fragment
-                findNavController().navigate(
-                    EditMyDetailsFragmentDirections.actionEditMyDetailsFragmentToMainScreenFragment(
-                        0
-                    )
-                )
+                findNavController().navigateUp()
+            }
+
+            binding.cancelButton.setOnClickListener{
+                findNavController().navigateUp()
             }
         }
 
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
+
             override fun handleOnBackPressed() {
-                findNavController().navigate(
-                    EditMyDetailsFragmentDirections.actionEditMyDetailsFragmentToMainScreenFragment(
-                        0
-                    )
-                )
+                findNavController().navigateUp()
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
