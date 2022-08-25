@@ -30,6 +30,9 @@ class MyDetailsFragment : Fragment() {
         binding.budget.text = sharedPreferences.getString("budget", "")
 
         binding.editButton.setOnClickListener {
+            sharedPreferences.edit()
+                .putString("pre_screen", "0").apply()
+
             findNavController().navigate(
                 MyDetailsFragmentDirections.actionMyDetailsFragmentToEditMyDetailsFragment(
 
@@ -39,12 +42,11 @@ class MyDetailsFragment : Fragment() {
 
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                findNavController().navigateUp()
+                findNavController().navigate(MyDetailsFragmentDirections.actionMyDetailsFragmentToMainScreenFragment())
             }
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
         return binding.root
     }
-
 }

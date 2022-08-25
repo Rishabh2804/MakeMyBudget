@@ -81,9 +81,8 @@ class MonthScreenFragment : Fragment() {
 
         //if the user clicks on the arrow back button, he will be redirected to the previous screen
         binding.toolbar.setNavigationOnClickListener {
-            findNavController().navigateUp()
+            findNavController().navigate(MonthScreenFragmentDirections.actionMonthScreenFragmentToMainScreenFragment())
         }
-
 
         //getting the budget and income from the shared preferences
         val monthlyBudget = sharedPreferences.getString("budget", "0")!!.toDouble()
@@ -155,6 +154,9 @@ class MonthScreenFragment : Fragment() {
 
         //if the user clicks on the add transaction button, he will be redirected to the add transaction screen
         binding.addTransactionButton.setOnClickListener {
+            sharedPreferences.edit()
+                .putString("pre_screen", "0").apply()
+
             findNavController().navigate(
                 MonthScreenFragmentDirections.actionMonthScreenFragmentToAddOrEditTransactionFragment(
                     0
@@ -165,15 +167,18 @@ class MonthScreenFragment : Fragment() {
         //if user presses back button, he will be redirected to the previous screen
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                findNavController().navigateUp()
+                findNavController().navigate(MonthScreenFragmentDirections.actionMonthScreenFragmentToMainScreenFragment())
             }
         }
+
         requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
 
         return binding.root
     }
 
     private val listener: (id: Long) -> Unit = {
+        sharedPreferences.edit()
+            .putString("pre_screen", "0").apply()
         //to direct to the transaction detail fragment
         findNavController().navigate(
             MonthScreenFragmentDirections.actionMonthScreenFragmentToTransactionDetailFragment(

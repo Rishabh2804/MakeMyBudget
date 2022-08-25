@@ -54,7 +54,7 @@ dependencies {
     implementation 'com.github.xabaras:RecyclerViewSwipeDecorator:1.4'
     implementation 'com.github.kevingermainbusiness:ItemDecorator:1.0.15'
 
-    implementation 'com.google.android.material:material:1.7.0-alpha03'
+    implementation 'com.google.android.material:material:1.7.0-beta01'
 
     //MPAndroidChart Library (for bar chart)
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
@@ -75,11 +75,11 @@ dependencies {
     kapt "com.airbnb.android:epoxy-processor:5.0.0-beta05"
 
     // Kotlin
-    implementation("androidx.fragment:fragment-ktx:1.5.1")
+    implementation("androidx.fragment:fragment-ktx:1.5.2")
     implementation 'com.google.android.gms:play-services-auth:20.2.0'
 
     // Testing Fragments in Isolation
-    debugImplementation("androidx.fragment:fragment-testing:1.5.1")
+    debugImplementation("androidx.fragment:fragment-testing:1.5.2")
 
     // Kotlin
     implementation("androidx.navigation:navigation-fragment-ktx:2.5.1")

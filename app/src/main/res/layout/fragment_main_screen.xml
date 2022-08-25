@@ -66,6 +66,7 @@
             android:id="@+id/heading_Balance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="75dp"
             android:fontFamily="@font/amita"

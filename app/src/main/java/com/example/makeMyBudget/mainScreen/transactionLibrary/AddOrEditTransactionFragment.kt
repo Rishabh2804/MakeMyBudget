@@ -19,6 +19,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.makeMyBudget.entities.*
 import com.example.makeMyBudget.mainScreen.viewModels.TransactionViewModel
 import com.example.makemybudget.databinding.FragmentAddOrEditTransactionBinding
+
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -44,20 +45,6 @@ class AddOrEditTransactionFragment : Fragment() {
         sharedPreferences = activity?.getSharedPreferences("user_auth", Context.MODE_PRIVATE)!!
 
         binding.transDateInput.transformIntoDatePicker(requireContext(), "dd-MM-yyyy")
-//        binding.toDateInput.transformIntoDatePicker(requireContext(), "dd-MM-yyyy")
-//        binding.fromDateInput.transformIntoDatePicker(requireContext(), "dd-MM-yyyy")
-//
-//        binding.fromDateInput.isVisible = false
-//        binding.toDateInput.isVisible = false
-//
-//        binding.isRecurringCheckBox.setOnCheckedChangeListener { _, it ->
-//
-//            binding.toDateInput.isVisible = it
-//            binding.toDateInput.isEnabled = it
-//
-//            binding.fromDateInput.isVisible = it
-//            binding.fromDateInput.isEnabled = it
-//        }
 
         val modeArray: MutableList<String> = mutableListOf()
         TransactionMode.values().forEach {
@@ -80,16 +67,19 @@ class AddOrEditTransactionFragment : Fragment() {
         TransactionCategory.values().forEach {
             categoryArray.add(it.name)
         }
+
         val adapter2 = ArrayAdapter(
             requireContext(),
             androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
             categoryArray
         )
+
         binding.tagsSpinner.adapter = adapter2
         binding.tagsSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {}
             override fun onNothingSelected(p0: AdapterView<*>?) {}
         }
+
         viewModel = ViewModelProvider(this)[TransactionViewModel::class.java]
 
         val userID = sharedPreferences.getString("user_id", "")!!
@@ -102,6 +92,7 @@ class AddOrEditTransactionFragment : Fragment() {
         if (transID == 0L) {
             binding.toolbar.title = "Add new Transaction"
         } else binding.toolbar.title = "Edit Transaction"
+
         viewModel.transaction.observe(viewLifecycleOwner) {
             if (transID != 0L) {
                 setData(it)
@@ -109,16 +100,7 @@ class AddOrEditTransactionFragment : Fragment() {
         }
 
         binding.cancelButton.setOnClickListener {
-
-            val dialog = AlertDialog.Builder(requireContext())
-            with(dialog) {
-                setTitle("Cancel Transaction")
-                setMessage("Are you sure you want to discard the changes?")
-                setPositiveButton("Yes") { _, _ ->
-                    findNavController().navigateUp()
-                }
-            }
-            dialog.create().show()
+            cancel()
         }
 
         binding.saveButton.setOnClickListener {
@@ -127,7 +109,7 @@ class AddOrEditTransactionFragment : Fragment() {
 
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                findNavController().navigateUp()
+                navigate()
             }
         }
 
@@ -181,25 +163,6 @@ class AddOrEditTransactionFragment : Fragment() {
             Locale.getDefault()
         ).parse(binding.transDateInput.text.toString())!!
 
-//        val isRecurring = binding.isRecurringCheckBox.isChecked
-//        val fromDate: Date = if (isRecurring) {
-//            SimpleDateFormat(
-//                "dd-MM-yyyy",
-//                Locale.getDefault()
-//            ).parse(binding.fromDateInput.text.toString())!!
-//        } else {
-//            date
-//        }
-//
-//        val toDate: Date = if (isRecurring) {
-//            SimpleDateFormat(
-//                "dd-MM-yyyy",
-//                Locale.getDefault()
-//            ).parse(binding.toDateInput.text.toString())!!
-//        } else {
-//            date
-//        }
-
         val mode: TransactionMode =
             TransactionMode.values()[binding.transModeInput.selectedItemPosition]
         val category: TransactionCategory =
@@ -239,7 +202,20 @@ class AddOrEditTransactionFragment : Fragment() {
             "Transaction registered successfully!!",
             Toast.LENGTH_SHORT
         ).show()
-        findNavController().navigateUp()
+
+        navigate()
+    }
+
+    private fun cancel() {
+        val dialog = AlertDialog.Builder(requireContext())
+        with(dialog) {
+            setTitle("Cancel Transaction")
+            setMessage("Are you sure you want to discard the changes?")
+            setPositiveButton("Yes") { _, _ ->
+                navigate()
+            }
+        }
+        dialog.create().show()
     }
 
     private fun setData(transaction: Transaction) {
@@ -251,15 +227,7 @@ class AddOrEditTransactionFragment : Fragment() {
                 transaction.transactionDate
             )
         )
-//        if (transaction.isRecurring) {
-//            binding.isRecurringCheckBox.isChecked = true
-//            binding.fromDateInput.setText(transaction.fromDate.toString())
-//            binding.toDateInput.setText(transaction.toDate.toString())
-//        } else {
-//            binding.isRecurringCheckBox.isChecked = false
-//            binding.fromDateInput.isEnabled = false
-//            binding.toDateInput.isEnabled = false
-//        }
+
         binding.transModeInput.setSelection(TransactionMode.values().find {
             it.name == transaction.transactionMode.name
         }!!.ordinal)
@@ -268,7 +236,18 @@ class AddOrEditTransactionFragment : Fragment() {
         }!!.ordinal)
         binding.incomeButton.isChecked = transaction.transactionType.ordinal == 1
         binding.expenseButton.isChecked = transaction.transactionType.ordinal == 0
+    }
 
+    private fun navigate() {
+        val preScreen = sharedPreferences.getString("pre_screen", "0")?.toInt() ?: 0
+
+        sharedPreferences.edit()
+            .putString("pre_screen", "0").apply()
+
+        when (preScreen) {
+            0 -> findNavController().navigateUp()
+            1 -> findNavController().navigate(AddOrEditTransactionFragmentDirections.actionAddOrEditTransactionFragmentToMainScreenFragment())
+        }
     }
 
     private fun EditText.transformIntoDatePicker(context: Context, format: String) {

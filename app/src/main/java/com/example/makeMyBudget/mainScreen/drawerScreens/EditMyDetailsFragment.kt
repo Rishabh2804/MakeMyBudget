@@ -55,21 +55,34 @@ class EditMyDetailsFragment : Fragment() {
                 editor.apply()
 
                 //Then the user is directed to the main screen fragment
-                findNavController().navigateUp()
+                navigate()
             }
 
             binding.cancelButton.setOnClickListener{
-                findNavController().navigateUp()
+                navigate()
             }
         }
 
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
 
             override fun handleOnBackPressed() {
-                findNavController().navigateUp()
+                navigate()
             }
         }
+
         requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
         return binding.root
+    }
+
+    private fun navigate() {
+        val preScreen = sharedPreferences.getString("pre_screen", "0")?.toInt() ?: 0
+
+        sharedPreferences.edit()
+            .putString("pre_screen", "0").apply()
+
+        when (preScreen) {
+            0 -> findNavController().navigateUp()
+            1 -> findNavController().navigate(EditMyDetailsFragmentDirections.actionEditMyDetailsFragmentToMainScreenFragment())
+        }
     }
 }

@@ -41,6 +41,7 @@ class FrontScreenFragment : Fragment() {
                 findNavController().navigate(FrontScreenFragmentDirections.actionFrontScreenFragmentToLoginScreenFragment())
             }
         }, 500)
+
         return binding.root
     }
 

@@ -24,6 +24,7 @@ class CalenderViewFragment : Fragment() {
     private lateinit var viewModel: MainScreenViewModel
     private lateinit var transactionViewModel: TransactionViewModel
     private lateinit var sharedPreferences: SharedPreferences
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -142,4 +143,5 @@ class CalenderViewFragment : Fragment() {
             )
         )
     }
+
 }

@@ -55,6 +55,8 @@ class TransactionDetailFragment : Fragment() {
                 setData(it)
         }
 
+        binding.alreadyCompleted.isEnabled = false
+
         binding.toolbar.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.edit -> {
@@ -78,7 +80,7 @@ class TransactionDetailFragment : Fragment() {
                                 Toast.LENGTH_SHORT
                             ).show()
 
-                            findNavController().navigateUp()
+                            navigate()
                         }
                         setNegativeButton("No") { _, _ ->
                         }
@@ -91,12 +93,23 @@ class TransactionDetailFragment : Fragment() {
 
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-
-                findNavController().navigateUp()
+                navigate()
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
         return binding.root
+    }
+
+    private fun navigate() {
+        val preScreen = sharedPreferences.getString("pre_screen", "0")?.toInt() ?: 0
+
+        sharedPreferences.edit()
+            .putString("pre_screen", "0").apply()
+
+        when (preScreen) {
+            0 -> findNavController().navigateUp()
+            1 -> findNavController().navigate(TransactionDetailFragmentDirections.actionTransactionDetailFragmentToMainScreenFragment())
+        }
     }
 
     private fun setData(transaction: Transaction) {
@@ -105,18 +118,6 @@ class TransactionDetailFragment : Fragment() {
         binding.transAmountInput.text = (transaction.transactionAmount.toString())
         binding.transDateInput.text =
             (SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH).format(transaction.transactionDate))
-//        if (transaction.isRecurring) {
-//            binding.isRecurringCheckBox.isChecked = true
-//            binding.isRecurringCheckBox.isEnabled = false
-//            binding.fromDateInput.text =
-//                (SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH).format(transaction.fromDate))
-//            binding.toDateInput.text = (SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH).format(transaction.toDate))
-//        } else {
-//            binding.isRecurringCheckBox.isChecked = false
-//            binding.isRecurringCheckBox.isEnabled = false
-//            binding.fromDateInput.isVisible = false
-//            binding.toDateInput.isVisible = false
-//        }
 
         binding.transactionCategory.text = transaction.transactionCategory.name
         binding.transModeInput.text = transaction.transactionMode.name

@@ -93,6 +93,7 @@ class LoginScreenFragment : Fragment() {
                                 "Welcome to MakeMyBudget",
                                 Toast.LENGTH_SHORT
                             ).show()
+
                             Navigate.action(this)
                         } else {
                             Toast.makeText(

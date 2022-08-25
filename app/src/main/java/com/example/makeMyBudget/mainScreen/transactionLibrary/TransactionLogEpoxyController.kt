@@ -77,6 +77,7 @@ class TransactionLogEpoxyController(
     }
 
     private val listener: (id: Long) -> Unit = {
+
         fragment.findNavController().navigate(
             MainScreenFragmentDirections.actionMainScreenFragmentToTransactionDetailFragment(it, 1)
         )

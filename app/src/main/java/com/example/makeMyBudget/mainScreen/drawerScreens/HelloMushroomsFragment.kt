@@ -28,12 +28,12 @@ class HelloMushroomsFragment : Fragment() {
         binding.userName.text = sharedPreferences.getString("username", "")
 
         binding.backToMainscreen.setOnClickListener {
-            findNavController().navigateUp()
+            navigate()
         }
 
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                findNavController().navigateUp()
+                navigate()
             }
         }
 
@@ -42,5 +42,11 @@ class HelloMushroomsFragment : Fragment() {
         return binding.root
     }
 
+    private fun navigate() {
+        sharedPreferences.edit()
+            .putString("pre_screen", "0").apply()
+
+        findNavController().navigate(HelloMushroomsFragmentDirections.actionHelloMushroomsFragmentToMainScreenFragment())
+    }
 
 }

@@ -27,6 +27,11 @@ class MainScreenFragment : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var viewModel: MainScreenViewModel
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,8 +39,10 @@ class MainScreenFragment : Fragment() {
 
         binding = FragmentMainScreenBinding.inflate(inflater, container, false)
         sharedPreferences = activity?.getSharedPreferences("user_auth", 0)!!
-//        val editor = sharedPreferences.edit()
         viewModel = ViewModelProvider(this)[MainScreenViewModel::class.java]
+
+        sharedPreferences.edit()
+            .putString("pre_screen", "1").apply()
 
         binding.drawerButton.setOnClickListener {
             binding.drawerLayout.openDrawer(GravityCompat.START)
@@ -85,11 +92,15 @@ class MainScreenFragment : Fragment() {
                     sharedPreferences.edit().putBoolean("isRegistered", false).apply()
                     sharedPreferences.edit().putBoolean("allCheck", false).apply()
 
+                    sharedPreferences.edit().putString("tab_position", "0").apply()
+
+                    sharedPreferences.edit().putString("pre_screen", "0").apply()
+
 //                    if (sharedPreferences.getBoolean("isGuest", true)) {
 //                        viewModel.deleteUserData()
 //                    }
 
-//                    sharedPreferences.edit().clear().apply()
+                    sharedPreferences.edit().clear().apply()
 
                     findNavController().navigate(MainScreenFragmentDirections.actionMainScreenFragmentToLoginScreenFragment())
                     true
@@ -155,7 +166,7 @@ class MainScreenFragment : Fragment() {
                             binding.balanceAmount.text =
                                 0.00.coerceAtLeast(monthlySavings).toString()
 
-                            if (monthlyExpenditure >= monthlyBudget) {
+                            if (monthlyExpenditure > monthlyBudget) {
                                 binding.expenditureAmount.error = "You have exceeded your budget"
                                 //  binding.savings.setTextColor(resources.getColor(R.color.red))
                             } else {
@@ -212,16 +223,18 @@ class MainScreenFragment : Fragment() {
             }
         }
 
-        val initialPosition = 0
-//            sharedPreferences.getString("tab_position", "0")?.toInt() ?: 0
 
         binding.viewPager.adapter = ViewPagerAdapter(this)
         binding.tabLayout.tabGravity = TabLayout.GRAVITY_FILL
+
+        val initialPosition = sharedPreferences.getString("tab_position", "0")?.toInt() ?: 0
 
         binding.viewPager.currentItem = initialPosition
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 binding.viewPager.currentItem = tab.position
+                sharedPreferences.edit()
+                    .putString("tab_position", "${tab.position}").apply()
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab) {
@@ -232,6 +245,7 @@ class MainScreenFragment : Fragment() {
 
             }
         })
+
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             when (position) {
                 0 -> tab.text = "Statistics"
@@ -241,8 +255,7 @@ class MainScreenFragment : Fragment() {
         }.attach()
 
         binding.addTransactionButton.setOnClickListener {
-//            sharedPreferences.edit()
-//                .putString("tab_position", "${binding.viewPager.currentItem}").apply()
+
             findNavController().navigate(
                 MainScreenFragmentDirections.actionMainScreenFragmentToAddOrEditTransactionFragment(
                     0
@@ -250,18 +263,17 @@ class MainScreenFragment : Fragment() {
             )
         }
 
-        requireActivity().onBackPressedDispatcher.addCallback(
-            viewLifecycleOwner,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    if (binding.drawerLayout.isDrawerOpen(GravityCompat.START))
-                        binding.drawerLayout.closeDrawer(GravityCompat.START)
-                    else if (binding.viewPager.currentItem != 0)
-                        binding.viewPager.currentItem = 0
-                    else
-                        requireActivity().finish()
-                }
-            })
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (binding.drawerLayout.isDrawerOpen(GravityCompat.START))
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
+                else if (binding.viewPager.currentItem != 0)
+                    binding.viewPager.currentItem = 0
+                else
+                    requireActivity().finish()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
 
         // Inflate the layout for this fragment
         return binding.root

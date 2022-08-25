@@ -21,18 +21,21 @@ class Navigate {
                 fragment.requireActivity().getSharedPreferences("user_auth", Context.MODE_PRIVATE)
 
             userModel = ViewModelProvider(fragment.requireActivity())[UserModel::class.java]
-            userModel.setUserID(sharedPreferences.getString("user_id", "not_found")!!)
+
+            val userID = sharedPreferences.getString("user_id", "")!!
+            userModel.setUserID(userID)
 
             val handler = Handler()
             handler.postDelayed({
                 //navigating to Login Screen from Front screen
 
                 userModel.user.observe(fragment.viewLifecycleOwner) {
+
                     val action: NavDirections? = if (it != null) {
                         with(sharedPreferences) {
                             edit().putString("user_id", it.user_id).apply()
                             edit().putString("username", it.username).apply()
-                            edit().putString("budget", it.budget.toString()).apply()
+                            edit().putString("budget", it.budget).apply()
                         }
 
                         when (fragment) {

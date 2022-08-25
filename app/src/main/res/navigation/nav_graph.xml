@@ -67,7 +67,8 @@
         tools:layout="@layout/fragment_main_screen">
         <action
             android:id="@+id/action_mainScreenFragment_to_addOrEditTransactionFragment"
-            app:destination="@id/addOrEditTransactionFragment" />
+            app:destination="@id/addOrEditTransactionFragment"
+            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_mainScreenFragment_to_monthScreenFragment"
             app:destination="@id/monthScreenFragment" />
@@ -101,7 +102,9 @@
             app:argType="long" />
         <action
             android:id="@+id/action_addOrEditTransactionFragment_to_mainScreenFragment"
-            app:destination="@id/mainScreenFragment" />
+            app:destination="@id/mainScreenFragment"
+            app:popUpTo="@id/addOrEditTransactionFragment"
+            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_addOrEditTransactionFragment_to_monthScreenFragment"
             app:destination="@id/monthScreenFragment" />
@@ -183,7 +186,9 @@
         tools:layout="@layout/fragment_about_us">
         <action
             android:id="@+id/action_aboutUsFragment_to_mainScreenFragment"
-            app:destination="@id/mainScreenFragment" />
+            app:destination="@id/mainScreenFragment"
+            app:popUpTo="@id/aboutUsFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/editMyDetailsFragment"
@@ -192,7 +197,9 @@
         tools:layout="@layout/fragment_edit_my_details">
         <action
             android:id="@+id/action_editMyDetailsFragment_to_mainScreenFragment"
-            app:destination="@id/mainScreenFragment" />
+            app:destination="@id/mainScreenFragment"
+            app:popUpTo="@id/editMyDetailsFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/helloMushroomsFragment"
@@ -201,7 +208,9 @@
         tools:layout="@layout/fragment_hello_mushrooms">
         <action
             android:id="@+id/action_helloMushroomsFragment_to_mainScreenFragment"
-            app:destination="@id/mainScreenFragment" />
+            app:destination="@id/mainScreenFragment"
+            app:popUpTo="@id/helloMushroomsFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/myDetailsFragment"
@@ -210,12 +219,11 @@
         tools:layout="@layout/fragment_my_details">
         <action
             android:id="@+id/action_myDetailsFragment_to_mainScreenFragment"
-            app:destination="@id/mainScreenFragment" />
+            app:destination="@id/mainScreenFragment"
+            app:popUpTo="@id/myDetailsFragment"
+            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_myDetailsFragment_to_editMyDetailsFragment"
             app:destination="@id/editMyDetailsFragment" />
-        <action
-            android:id="@+id/action_myDetailsFragment_self"
-            app:destination="@id/myDetailsFragment" />
     </fragment>
 </navigation>
