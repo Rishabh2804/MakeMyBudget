@@ -57,10 +57,10 @@ class EditMyDetailsFragment : Fragment() {
                 //Then the user is directed to the main screen fragment
                 navigate()
             }
+        }
 
-            binding.cancelButton.setOnClickListener{
-                navigate()
-            }
+        binding.cancelButton.setOnClickListener{
+            navigate()
         }
 
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
