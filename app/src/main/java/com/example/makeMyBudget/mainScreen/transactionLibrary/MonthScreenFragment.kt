@@ -12,9 +12,7 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.makeMyBudget.mainScreen.viewModels.MainScreenViewModel
 import com.example.makeMyBudget.mainScreen.viewModels.TransactionViewModel
 import com.example.makemybudget.R
@@ -129,28 +127,7 @@ class MonthScreenFragment : Fragment() {
             binding.transactionItems.adapter = adapter
             //setting the layout manager to the recycler view
             binding.transactionItems.layoutManager = LinearLayoutManager(requireContext())
-            val swipeHandler = object : SwipeHandler() {
-                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    //if user swipes left, delete the transaction
-                    if (direction == ItemTouchHelper.LEFT) {
-                        adapter.deleteTransaction(
-                            viewHolder.absoluteAdapterPosition,
-                            it.toMutableList()
-                        )
-                    }
-                    //if user swipes right, complete the transaction
-                    else if (direction == ItemTouchHelper.RIGHT) {
-                        adapter.completeTransaction(
-                            viewHolder.absoluteAdapterPosition,
-                            it.toMutableList()
-                        )
-                    }
-                }
-            }
-
-            val itemTouchHelper = ItemTouchHelper(swipeHandler)
-            itemTouchHelper.attachToRecyclerView(binding.transactionItems)
-        }
+      }
 
         //if the user clicks on the add transaction button, he will be redirected to the add transaction screen
         binding.addTransactionButton.setOnClickListener {

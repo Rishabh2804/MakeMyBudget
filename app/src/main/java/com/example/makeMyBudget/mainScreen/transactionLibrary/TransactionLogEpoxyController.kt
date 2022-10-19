@@ -4,9 +4,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +11,7 @@ import com.example.makeMyBudget.entities.Transaction
 import com.example.makeMyBudget.mainScreen.MainScreenFragmentDirections
 import com.example.makeMyBudget.mainScreen.viewModels.TransactionViewModel
 import com.example.makemybudget.R
+import com.example.makemybudget.databinding.TransactionLogItemBinding
 
 class TransactionLogEpoxyController(
     val fragment: Fragment,
@@ -22,54 +20,37 @@ class TransactionLogEpoxyController(
 ) : RecyclerView.Adapter<TransactionLogEpoxyController.Holder>() {
     var transactionLog = mutableListOf<TransactionLogItem>()
 
-    inner class Holder(val view: View) : RecyclerView.ViewHolder(view) {
-        var cardView: CardView = itemView.findViewById(R.id.card_view)
-        var heading: TextView = itemView.findViewById(R.id.heading)
-        var arrowButton: ImageView = itemView.findViewById(R.id.expand_collapse)
-        var recyclerView: RecyclerView = itemView.findViewById(R.id.recycler_view)
+    inner class Holder(val binding: TransactionLogItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bindView(item: TransactionLogItem) {
 
             val adapter =
                 TransactionListAdapter(item.transactionLog, fragment, context, viewModel, listener)
 
-//            val swipeHandler = object : SwipeHandler() {
-//                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-//                    if (direction == ItemTouchHelper.LEFT) {
-//                        adapter.deleteTransaction(
-//                            viewHolder.absoluteAdapterPosition,
-//                            item.transactionLog
-//                        )
-//                    } else if (direction == ItemTouchHelper.RIGHT) {
-//                        adapter.completeTransaction(
-//                            viewHolder.absoluteAdapterPosition,
-//                            item.transactionLog
-//                        )
-//                    }
-//                }
-//            }
+            binding.apply {
 
+                heading.text = item.title
+                recyclerView.adapter = adapter
+                recyclerView.layoutManager =
+                    androidx.recyclerview.widget.LinearLayoutManager(recyclerView.context)
 
-            heading.text = item.title
-            recyclerView.adapter = adapter
-            recyclerView.layoutManager =
-                androidx.recyclerview.widget.LinearLayoutManager(recyclerView.context)
-
-//            val itemTouchHelper = ItemTouchHelper(swipeHandler)
-//            itemTouchHelper.attachToRecyclerView(recyclerView)
-
-            recyclerView.visibility = if (item.title == "Completed")
-                View.VISIBLE
-            else
-                View.GONE
-
-            cardView.setOnClickListener {
-                if (recyclerView.visibility == View.GONE) {
-                    recyclerView.visibility = View.VISIBLE
-                    arrowButton.setImageResource(R.drawable.ic_baseline_collapse_up)
+                recyclerView.visibility = if (item.title == "Completed") {
+                    this.expandCollapse.setImageResource(R.drawable.ic_baseline_collapse_up)
+                    View.VISIBLE
                 } else {
-                    recyclerView.visibility = View.GONE
-                    arrowButton.setImageResource(R.drawable.ic_baseline_expand_down)
+                    this.expandCollapse.setImageResource(R.drawable.ic_baseline_expand_down)
+                    View.GONE
+                }
+
+                cardView.setOnClickListener {
+                    if (recyclerView.visibility == View.GONE) {
+                        recyclerView.visibility = View.VISIBLE
+                        this.expandCollapse.setImageResource(R.drawable.ic_baseline_collapse_up)
+                    } else {
+                        recyclerView.visibility = View.GONE
+                        this.expandCollapse.setImageResource(R.drawable.ic_baseline_expand_down)
+                    }
                 }
             }
         }
@@ -82,9 +63,9 @@ class TransactionLogEpoxyController(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.transaction_log_item, parent, false)
-        return Holder(view)
+        val binding =
+            TransactionLogItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return Holder(binding)
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {

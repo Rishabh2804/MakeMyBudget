@@ -3,20 +3,19 @@ package com.example.makeMyBudget.mainScreen.transactionLibrary
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.RecyclerView
 import com.applandeo.materialcalendarview.EventDay
 import com.example.makeMyBudget.mainScreen.viewModels.MainScreenViewModel
 import com.example.makeMyBudget.mainScreen.viewModels.TransactionViewModel
 import com.example.makemybudget.R
 import com.example.makemybudget.databinding.FragmentCalenderViewBinding
+
 import java.util.*
 
 class CalenderViewFragment : Fragment() {
@@ -99,28 +98,28 @@ class CalenderViewFragment : Fragment() {
                     transactionViewModel,
                     listener
                 )
-            val swipeHandler = object : SwipeHandler() {
-                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    if (direction == ItemTouchHelper.LEFT) {
-                        adapter.deleteTransaction(
-                            viewHolder.absoluteAdapterPosition,
-                            it.toMutableList()
 
-                        )
-                        setDefaultSwipeDirs(0)
-                    } else if (direction == ItemTouchHelper.RIGHT) {
-                        adapter.completeTransaction(
-                            viewHolder.absoluteAdapterPosition,
-                            it.toMutableList()
-                        )
-                    }
-                }
-            }
+//            val swipeHandler = object : SwipeHandler() {
+//                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+//                    if (direction == ItemTouchHelper.LEFT) {
+//                        adapter.deleteTransaction(
+//                            viewHolder.absoluteAdapterPosition,
+//                            it.toMutableList()
+//                        )
+//                        setDefaultSwipeDirs(0)
+//                    } else if (direction == ItemTouchHelper.RIGHT) {
+//                        adapter.completeTransaction(
+//                            viewHolder.absoluteAdapterPosition,
+//                            it.toMutableList()
+//                        )
+//                    }
+//                }
+//            }
+//            ItemTouchHelper(swipeHandler).attachToRecyclerView(binding.dailyTransactions)
 
             binding.dailyTransactions.adapter = adapter
             binding.dailyTransactions.layoutManager =
                 androidx.recyclerview.widget.LinearLayoutManager(requireContext())
-            ItemTouchHelper(swipeHandler).attachToRecyclerView(binding.dailyTransactions)
         }
 
         val onBackPressedCallback = object : OnBackPressedCallback(true) {
