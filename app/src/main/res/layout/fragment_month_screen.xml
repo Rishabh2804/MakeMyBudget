@@ -31,7 +31,6 @@
 
             app:title="Month Year"
 
-            app:titleCentered="true"
             app:titleTextAppearance="@style/TextAppearance.AppCompat.Large"
             app:titleTextColor="#17116E">
 
@@ -78,10 +77,10 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="40dp"
             android:fontFamily="@font/original_surfer"
-            android:text="35000.00"
             android:textColor="#246EE9"
             android:textSize="33sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:text="35000.00" />
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -110,10 +109,10 @@
             android:layout_marginTop="147dp"
             android:layout_marginBottom="5dp"
             android:fontFamily="@font/original_surfer"
-            android:text="25000.00"
             android:textColor="#4FCF41"
             android:textSize="25sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:text="25000.00" />
 
         <TextView
             android:id="@+id/amount_spent_text"
@@ -123,7 +122,7 @@
             android:layout_marginTop="120dp"
             android:layout_marginEnd="20dp"
             android:text="AMOUNT SPENT"
-            android:textSize="19dp"
+            android:textSize="19sp"
             android:textStyle="bold" />
 
         <TextView
@@ -134,26 +133,22 @@
             android:layout_marginTop="147dp"
             android:layout_marginEnd="20dp"
             android:fontFamily="@font/original_surfer"
-            android:text="10000.00"
             android:textColor="#FF2400"
             android:textSize="25sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:text="10000.00" />
 
     </androidx.cardview.widget.CardView>
 
-    <ScrollView
-        android:id="@+id/transaction_history"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/transaction_items"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/basicInfo">
+        app:layout_constraintTop_toBottomOf="@id/basicInfo" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/transaction_items"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

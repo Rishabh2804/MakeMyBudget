@@ -14,7 +14,7 @@ class YearEpoxyController(val fragment: Fragment) : AsyncEpoxyController() {
 
     override fun buildModels() {
         transactYears.forEachIndexed { index, epoxyData ->
-            val monthAdapter= MonthAdapter(epoxyData.mutableList, fragment)
+            val monthAdapter = MonthAdapter(epoxyData.mutableList, fragment)
             year {
                 id(index)
                 year(epoxyData.year.toString())

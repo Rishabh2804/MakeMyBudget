@@ -40,7 +40,6 @@ class CalenderViewFragment : Fragment() {
         transactionViewModel.setUserID(userID)
         viewModel.setUserID(userID)
 
-
         // getting monthYear through arguments of CalenderViewFragment
         val monthYear = CalenderViewFragmentArgs.fromBundle(requireArguments()).monthYear
         // monthYear is of the form YYYYMM in long format
@@ -58,17 +57,17 @@ class CalenderViewFragment : Fragment() {
         //markDates(monthYear)
 
         viewModel.setDate(calender.timeInMillis)
-        viewModel.getDates.observe(viewLifecycleOwner)
-        { dates ->
+        viewModel.getDates.observe(viewLifecycleOwner) { dates ->
             val highlightDays = mutableListOf<EventDay>()
             dates.forEach { date ->
                 val calendar = Calendar.getInstance()
                 calendar.timeInMillis = date
                 highlightDays.add(EventDay(calendar, R.color.category_bills, R.color.category_food))
-
             }
+
             binding.calenderView.setEvents(highlightDays)
         }
+
         binding.calenderView.setOnDayClickListener { eventDay ->
             val calendar = eventDay.calendar
             viewModel.setMonthYear(calendar.get(Calendar.YEAR) * 100 + calendar.get(Calendar.MONTH))
@@ -76,8 +75,6 @@ class CalenderViewFragment : Fragment() {
 //            binding.calenderView.selectedDates = mutableListOf(calendar)
 //           binding.calenderView.setHighlightedDays(mutableListOf(calendar))
         }
-
-
 
         viewModel.expenseByDateAndType
             .observe(viewLifecycleOwner) {

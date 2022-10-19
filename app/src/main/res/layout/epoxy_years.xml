@@ -3,16 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-<!--    <data>-->
+    <!--    <data>-->
 
-<!--        <variable-->
-<!--            name="year_name"-->
-<!--            type="String" />-->
+    <!--        <variable-->
+    <!--            name="year_name"-->
+    <!--            type="String" />-->
 
-<!--        <variable-->
-<!--            name="onClick"-->
-<!--            type="android.view.View.OnClickListener" />-->
-<!--    </data>-->
+    <!--        <variable-->
+    <!--            name="onClick"-->
+    <!--            type="android.view.View.OnClickListener" />-->
+    <!--    </data>-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -21,33 +21,39 @@
         <TextView
             android:id="@+id/year"
             android:layout_width="0dp"
-            android:layout_height="32dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            app:layout_constraintBottom_toTopOf="@id/view"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
+            android:text="2022"
+            android:textSize="15sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintBottom_toBottomOf="@id/drop_down_button"
             app:layout_constraintEnd_toStartOf="@+id/drop_down_button"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/drop_down_button">
 
-        <ImageButton
+        </TextView>
+
+        <ImageView
             android:id="@+id/drop_down_button"
             android:layout_width="wrap_content"
-            android:layout_height="32dp"
-            android:layout_marginEnd="5dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="10dp"
             android:background="@android:color/transparent"
             android:minWidth="32dp"
-            app:layout_constraintBottom_toBottomOf="@id/year"
+            app:layout_constraintBottom_toTopOf="@id/view"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/year"
-            app:srcCompat="@drawable/ic_baseline_expand_down"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_collapse_up"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             app:layout_constraintTop_toBottomOf="@id/year"
-            tools:layout_editor_absoluteX="10dp">
+            tools:listitem="@layout/epoxy_months">
 
         </androidx.recyclerview.widget.RecyclerView>
     </androidx.constraintlayout.widget.ConstraintLayout>

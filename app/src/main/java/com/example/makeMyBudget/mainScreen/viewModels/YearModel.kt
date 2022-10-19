@@ -2,6 +2,7 @@ package com.example.makeMyBudget.mainScreen.viewModels
 
 import android.view.View
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.epoxy.EpoxyAttribute
@@ -42,7 +43,7 @@ abstract class YearModel : EpoxyModelWithHolder<YearModel.holder>() {
 
     inner class holder : EpoxyHolder() {
         lateinit var view: TextView
-        lateinit var button: ImageButton
+        lateinit var button: ImageView
         lateinit var list: RecyclerView
 
         override fun bindView(itemView: View) {

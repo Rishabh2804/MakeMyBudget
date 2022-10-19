@@ -127,7 +127,7 @@ class MonthScreenFragment : Fragment() {
             binding.transactionItems.adapter = adapter
             //setting the layout manager to the recycler view
             binding.transactionItems.layoutManager = LinearLayoutManager(requireContext())
-      }
+        }
 
         //if the user clicks on the add transaction button, he will be redirected to the add transaction screen
         binding.addTransactionButton.setOnClickListener {

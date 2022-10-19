@@ -1,8 +1,8 @@
 package com.example.makeMyBudget.mainScreen.viewModels
 
 import com.example.makeMyBudget.daoS.MonthDetail
-import com.example.makeMyBudget.mainScreen.transactionLibrary.MonthCardDetail
 import com.example.makeMyBudget.mainScreen.tabs.MonthlyTimelineTabFragment.Companion.months
+import com.example.makeMyBudget.mainScreen.transactionLibrary.MonthCardDetail
 
 data class EpoxyData(val year: Int, var mutableList: MutableList<MonthCardDetail>)
 
