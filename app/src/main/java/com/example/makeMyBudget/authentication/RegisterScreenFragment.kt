@@ -4,15 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.makeMyBudget.entities.User
-import com.example.makeMyBudget.mainScreen.viewModels.UserModel
 import com.example.makemybudget.databinding.FragmentRegisterScreenBinding
 import com.facebook.CallbackManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn

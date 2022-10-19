@@ -96,6 +96,7 @@ class TransactionDetailFragment : Fragment() {
                 navigate()
             }
         }
+
         requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
         return binding.root
     }

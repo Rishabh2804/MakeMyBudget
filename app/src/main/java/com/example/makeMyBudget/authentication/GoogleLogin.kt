@@ -1,12 +1,10 @@
 package com.example.makeMyBudget.authentication
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavDirections
-import androidx.navigation.fragment.NavHostFragment
 import com.example.makemybudget.R
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -22,6 +20,7 @@ import kotlinx.coroutines.launch
 class GoogleLogin {
 
     companion object {
+        @SuppressLint("StaticFieldLeak")
         private lateinit var googleSignInClient: GoogleSignInClient
         private lateinit var firebaseAuth: FirebaseAuth
         private lateinit var sharedPreferences: SharedPreferences
@@ -34,7 +33,7 @@ class GoogleLogin {
             this.fragment = fragment
 
             sharedPreferences =
-                fragment.requireActivity()!!.getSharedPreferences("user_auth", Context.MODE_PRIVATE)
+                fragment.requireActivity().getSharedPreferences("user_auth", Context.MODE_PRIVATE)
 
             val googleSignInOptions =
                 GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -54,19 +53,18 @@ class GoogleLogin {
         @OptIn(DelicateCoroutinesApi::class)
         fun firebaseAuthWithGoogle(account: GoogleSignInAccount) {
             sharedPreferences =
-                fragment.requireActivity()!!.getSharedPreferences("user_auth", Context.MODE_PRIVATE)
+                fragment.requireActivity().getSharedPreferences("user_auth", Context.MODE_PRIVATE)
 
             firebaseAuth = FirebaseAuth.getInstance()
             val credentials = GoogleAuthProvider.getCredential(account.idToken, null)
             GlobalScope.launch(Dispatchers.IO) {
 
-                val auth = firebaseAuth.signInWithCredential(credentials).addOnSuccessListener {
+                firebaseAuth.signInWithCredential(credentials).addOnSuccessListener {
                     Toast.makeText(
                         fragment.requireContext(),
                         "Google sign in success 🎉",
                         Toast.LENGTH_SHORT
-                    )
-                        .show()
+                    ).show()
 
                     sharedPreferences.edit().putString("user_id", firebaseAuth.currentUser?.uid)
                         .apply()

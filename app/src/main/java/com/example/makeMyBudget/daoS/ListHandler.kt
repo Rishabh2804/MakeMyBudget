@@ -1,6 +1,5 @@
 package com.example.makeMyBudget.daoS
 
-import androidx.compose.runtime.key
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.makeMyBudget.entities.*
@@ -12,7 +11,7 @@ interface ListHandler {
         "DELETE FROM transactions " +
                 "WHERE user_id = :user_id"
     )
-    fun deleteUserData(user_id: String): Unit
+    fun deleteUserData(user_id: String)
 
     @Query(
         "SELECT * " +

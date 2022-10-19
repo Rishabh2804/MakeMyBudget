@@ -11,7 +11,7 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.makeMyBudget.mainScreen.tabs.ViewPagerAdapter
 import com.example.makeMyBudget.mainScreen.viewModels.MainScreenViewModel
@@ -25,7 +25,7 @@ class MainScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentMainScreenBinding
     private lateinit var sharedPreferences: SharedPreferences
-    private lateinit var viewModel: MainScreenViewModel
+    private val viewModel: MainScreenViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +39,7 @@ class MainScreenFragment : Fragment() {
 
         binding = FragmentMainScreenBinding.inflate(inflater, container, false)
         sharedPreferences = activity?.getSharedPreferences("user_auth", 0)!!
-        viewModel = ViewModelProvider(this)[MainScreenViewModel::class.java]
+//        viewModel = ViewModelProvider(this)[MainScreenViewModel::class.java]
 
         sharedPreferences.edit()
             .putString("pre_screen", "1").apply()
@@ -100,7 +100,7 @@ class MainScreenFragment : Fragment() {
 //                        viewModel.deleteUserData()
 //                    }
 
-                    sharedPreferences.edit().clear().apply()
+//                    sharedPreferences.edit().clear().apply()
 
                     findNavController().navigate(MainScreenFragmentDirections.actionMainScreenFragmentToLoginScreenFragment())
                     true
@@ -153,7 +153,7 @@ class MainScreenFragment : Fragment() {
                         binding.creditAmount.text = monthlyBudget.toString()
 
                         var monthlyExpenditure = 0.00
-                        var monthlySavings = 0.00
+                        var monthlySavings: Double
 
                         viewModel.monthlyExpenses.observe(viewLifecycleOwner) {
                             if (it != null) {
@@ -223,7 +223,7 @@ class MainScreenFragment : Fragment() {
             }
         }
 
-
+        binding.viewPager.setPageTransformer(ViewPagerTransformers.TabletPageTransformer())
         binding.viewPager.adapter = ViewPagerAdapter(this)
         binding.tabLayout.tabGravity = TabLayout.GRAVITY_FILL
 
@@ -273,6 +273,7 @@ class MainScreenFragment : Fragment() {
                     requireActivity().finish()
             }
         }
+
         requireActivity().onBackPressedDispatcher.addCallback(onBackPressedCallback)
 
         // Inflate the layout for this fragment

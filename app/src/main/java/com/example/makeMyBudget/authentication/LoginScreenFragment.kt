@@ -87,7 +87,9 @@ class LoginScreenFragment : Fragment() {
                         if (task.isSuccessful) {
                             sharedPreferences.edit()
                                 .putString("user_id", firebaseAuth.currentUser?.uid).apply()
+
                             sharedPreferences.edit().putBoolean("isLoggedIn", true).apply()
+
                             Toast.makeText(
                                 context,
                                 "Welcome to MakeMyBudget",

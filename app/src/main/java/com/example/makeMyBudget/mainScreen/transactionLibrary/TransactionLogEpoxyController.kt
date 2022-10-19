@@ -9,7 +9,6 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.makeMyBudget.entities.Transaction
 import com.example.makeMyBudget.mainScreen.MainScreenFragmentDirections
@@ -34,30 +33,30 @@ class TransactionLogEpoxyController(
             val adapter =
                 TransactionListAdapter(item.transactionLog, fragment, context, viewModel, listener)
 
-            val swipeHandler = object : SwipeHandler() {
-                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    if (direction == ItemTouchHelper.LEFT) {
-                        adapter.deleteTransaction(
-                            viewHolder.absoluteAdapterPosition,
-                            item.transactionLog
-                        )
-                    } else if (direction == ItemTouchHelper.RIGHT) {
-                        adapter.completeTransaction(
-                            viewHolder.absoluteAdapterPosition,
-                            item.transactionLog
-                        )
-                    }
-                }
-            }
-
-            val itemTouchHelper = ItemTouchHelper(swipeHandler)
+//            val swipeHandler = object : SwipeHandler() {
+//                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+//                    if (direction == ItemTouchHelper.LEFT) {
+//                        adapter.deleteTransaction(
+//                            viewHolder.absoluteAdapterPosition,
+//                            item.transactionLog
+//                        )
+//                    } else if (direction == ItemTouchHelper.RIGHT) {
+//                        adapter.completeTransaction(
+//                            viewHolder.absoluteAdapterPosition,
+//                            item.transactionLog
+//                        )
+//                    }
+//                }
+//            }
 
 
             heading.text = item.title
             recyclerView.adapter = adapter
             recyclerView.layoutManager =
                 androidx.recyclerview.widget.LinearLayoutManager(recyclerView.context)
-            itemTouchHelper.attachToRecyclerView(recyclerView)
+
+//            val itemTouchHelper = ItemTouchHelper(swipeHandler)
+//            itemTouchHelper.attachToRecyclerView(recyclerView)
 
             recyclerView.visibility = if (item.title == "Completed")
                 View.VISIBLE
@@ -77,7 +76,6 @@ class TransactionLogEpoxyController(
     }
 
     private val listener: (id: Long) -> Unit = {
-
         fragment.findNavController().navigate(
             MainScreenFragmentDirections.actionMainScreenFragmentToTransactionDetailFragment(it, 1)
         )

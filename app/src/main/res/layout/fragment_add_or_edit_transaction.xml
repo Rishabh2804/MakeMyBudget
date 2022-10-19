@@ -69,7 +69,8 @@
                 android:inputType="textMultiLine"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/trans_title_input"
-                tools:ignore="TouchTargetSizeCheck" />
+                tools:ignore="TouchTargetSizeCheck"
+                android:autofillHints="" />
 
             <TextView
                 android:id="@+id/trans_amount_msg"

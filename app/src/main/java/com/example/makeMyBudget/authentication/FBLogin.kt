@@ -4,8 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavDirections
-import androidx.navigation.fragment.NavHostFragment
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException

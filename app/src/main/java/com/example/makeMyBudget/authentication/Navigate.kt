@@ -3,6 +3,7 @@ package com.example.makeMyBudget.authentication
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavDirections
@@ -25,11 +26,17 @@ class Navigate {
             val userID = sharedPreferences.getString("user_id", "")!!
             userModel.setUserID(userID)
 
-            val handler = Handler()
+            val handler = Handler(Looper.getMainLooper())
             handler.postDelayed({
                 //navigating to Login Screen from Front screen
 
                 userModel.user.observe(fragment.viewLifecycleOwner) {
+
+//                    Toast.makeText(
+//                        fragment.requireContext(),
+//                        "Navigate: ${it?.user_id}",
+//                        Toast.LENGTH_LONG
+//                    ).show()
 
                     val action: NavDirections? = if (it != null) {
                         with(sharedPreferences) {
@@ -67,7 +74,7 @@ class Navigate {
 
                     NavHostFragment.findNavController(fragment).navigate(action!!)
                 }
-            }, 1000)
+            }, 1500)
         }
     }
 }

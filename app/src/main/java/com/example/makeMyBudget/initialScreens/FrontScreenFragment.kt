@@ -4,22 +4,20 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
-import androidx.fragment.app.Fragment
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.NavDirections
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.makeMyBudget.authentication.Navigate
 import com.example.makemybudget.databinding.FragmentFrontScreenBinding
 
 
-@Suppress("DEPRECATION")
 class FrontScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentFrontScreenBinding
     private lateinit var sharedPreferences: SharedPreferences
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,15 +30,14 @@ class FrontScreenFragment : Fragment() {
         val isLoggedIn: Boolean = sharedPreferences.getBoolean("isLoggedIn", false)
 
         //to hold the front screen for 5 seconds
-        val handler = Handler()
+        val handler = Handler(Looper.getMainLooper())
         handler.postDelayed({
-            if(isLoggedIn){
+            if (isLoggedIn) {
                 Navigate.action(this)
-            }
-            else{
+            } else {
                 findNavController().navigate(FrontScreenFragmentDirections.actionFrontScreenFragmentToLoginScreenFragment())
             }
-        }, 500)
+        }, 1100)
 
         return binding.root
     }
