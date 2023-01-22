@@ -21,7 +21,6 @@ import com.google.firebase.auth.FirebaseAuth
 
 class LoginScreenFragment : Fragment() {
 
-    private val SIGN_IN_CODE = 12345
 
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var binding: FragmentLoginScreenBinding
@@ -124,4 +123,10 @@ class LoginScreenFragment : Fragment() {
         } else
             callBackManager.onActivityResult(requestCode, resultCode, data)
     }
+
+    companion object {
+        private const val SIGN_IN_CODE = 12345
+        const val LOGIN_FRAGMENT_TAG = "login_fragment_tag"
+    }
+
 }

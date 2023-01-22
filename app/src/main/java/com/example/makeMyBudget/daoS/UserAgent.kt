@@ -16,6 +16,6 @@ interface UserAgent {
     suspend fun delete(user: User)
 
     @Query("SELECT * FROM user_diary WHERE user_id = :user_id")
-    fun getUser(user_id: String): LiveData<User>
+    suspend fun getUser(user_id: String): User?
 
 }

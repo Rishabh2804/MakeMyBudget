@@ -2,6 +2,7 @@ package com.example.makeMyBudget.mainScreen.viewModels
 
 import android.app.Application
 import androidx.lifecycle.*
+import com.example.makeMyBudget.authentication.GuestLogin.GUEST_USER_ID
 import com.example.makeMyBudget.daoS.MonthDetail
 import com.example.makeMyBudget.entities.*
 import com.example.makeMyBudget.repositories.ListHandlerRepo
@@ -22,7 +23,7 @@ class MainScreenViewModel(application: Application) : AndroidViewModel(applicati
 
     fun deleteUserData() {
         viewModelScope.launch {
-            listHandlerRepo.deleteUserData(_userID.value!!)
+            listHandlerRepo.deleteUserData(_userID.value ?: GUEST_USER_ID)
         }
     }
 

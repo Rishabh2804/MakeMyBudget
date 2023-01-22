@@ -17,7 +17,6 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 
 class RegisterScreenFragment : Fragment() {
-    private val SIGN_IN_CODE = 12345
 
     private lateinit var binding: FragmentRegisterScreenBinding
     private lateinit var firebaseAuth: FirebaseAuth
@@ -88,6 +87,7 @@ class RegisterScreenFragment : Fragment() {
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == SIGN_IN_CODE) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
@@ -103,5 +103,9 @@ class RegisterScreenFragment : Fragment() {
             callBackManager.onActivityResult(requestCode, resultCode, data)
     }
 
+    companion object{
+        private const val SIGN_IN_CODE = 12345
+        const val REGISTER_SCREEN_FRAGMENT_TAG = "register_screen_fragment"
+    }
 }
 

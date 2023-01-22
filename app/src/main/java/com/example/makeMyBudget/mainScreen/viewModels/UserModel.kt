@@ -1,11 +1,13 @@
 package com.example.makeMyBudget.mainScreen.viewModels
 
 import android.app.Application
-import android.widget.Toast
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.makeMyBudget.entities.User
 import com.example.makeMyBudget.repositories.UserAgentRepo
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class UserModel(application: Application) : AndroidViewModel(application) {
 
@@ -17,9 +19,10 @@ class UserModel(application: Application) : AndroidViewModel(application) {
         this._userID.value = user_ID
     }
 
-    val user: LiveData<User> = Transformations.switchMap(_userID) {
-        _userRepo.getUser(it)
-    }
+    val user: User?
+        get() = runBlocking {
+            _userRepo.getUser(_userID.value!!)
+        }
 
     fun insertUser(user: User) {
         viewModelScope.launch {

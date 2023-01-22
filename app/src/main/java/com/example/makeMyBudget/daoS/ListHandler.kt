@@ -11,7 +11,7 @@ interface ListHandler {
         "DELETE FROM transactions " +
                 "WHERE user_id = :user_id"
     )
-    fun deleteUserData(user_id: String)
+    suspend fun deleteUserData(user_id: String)
 
     @Query(
         "SELECT * " +

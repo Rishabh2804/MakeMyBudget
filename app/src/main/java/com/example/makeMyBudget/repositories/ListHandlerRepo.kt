@@ -10,7 +10,7 @@ import com.example.makeMyBudget.entities.*
 class ListHandlerRepo(application: Application) {
     private val listHandlerDao = TransactionDB.getDatabase(application).listHandlerDao()
 
-    fun deleteUserData(userId: String) {
+    suspend fun deleteUserData(userId: String) {
         listHandlerDao.deleteUserData(userId)
     }
 

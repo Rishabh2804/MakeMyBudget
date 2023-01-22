@@ -17,71 +17,64 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class GoogleLogin {
+object GoogleLogin {
 
-    companion object {
-        @SuppressLint("StaticFieldLeak")
-        private lateinit var googleSignInClient: GoogleSignInClient
-        private lateinit var firebaseAuth: FirebaseAuth
-        private lateinit var sharedPreferences: SharedPreferences
+    @SuppressLint("StaticFieldLeak")
+    private lateinit var googleSignInClient: GoogleSignInClient
+    private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var sharedPreferences: SharedPreferences
 
-        private lateinit var fragment: Fragment
+    private lateinit var fragment: Fragment
 
-        private const val SIGN_IN_CODE = 12345
+    private const val SIGN_IN_CODE = 12345
 
-        fun login(fragment: Fragment) {
-            this.fragment = fragment
 
-            sharedPreferences =
-                fragment.requireActivity().getSharedPreferences("user_auth", Context.MODE_PRIVATE)
+    fun login(fragment: Fragment) {
+        this.fragment = fragment
 
-            val googleSignInOptions =
-                GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestIdToken(fragment.getString(R.string.default_web_client_id))
-                    .requestEmail()
-                    .build()
+        sharedPreferences =
+            fragment.requireActivity().getSharedPreferences("user_auth", Context.MODE_PRIVATE)
 
-            googleSignInClient =
-                GoogleSignIn.getClient(fragment.requireActivity(), googleSignInOptions)
-            val intent = googleSignInClient.signInIntent
-            fragment.startActivityForResult(
-                intent,
-                SIGN_IN_CODE,
-            )
-        }
+        val googleSignInOptions =
+            GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(fragment.getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build()
 
-        @OptIn(DelicateCoroutinesApi::class)
-        fun firebaseAuthWithGoogle(account: GoogleSignInAccount) {
-            sharedPreferences =
-                fragment.requireActivity().getSharedPreferences("user_auth", Context.MODE_PRIVATE)
+        googleSignInClient =
+            GoogleSignIn.getClient(fragment.requireActivity(), googleSignInOptions)
+        val intent = googleSignInClient.signInIntent
+        fragment.startActivityForResult(
+            intent,
+            SIGN_IN_CODE,
+        )
+    }
 
-            firebaseAuth = FirebaseAuth.getInstance()
-            val credentials = GoogleAuthProvider.getCredential(account.idToken, null)
-            GlobalScope.launch(Dispatchers.IO) {
+    @OptIn(DelicateCoroutinesApi::class)
+    fun firebaseAuthWithGoogle(account: GoogleSignInAccount) {
+        sharedPreferences =
+            fragment.requireActivity().getSharedPreferences("user_auth", Context.MODE_PRIVATE)
 
-                firebaseAuth.signInWithCredential(credentials).addOnSuccessListener {
-                    Toast.makeText(
-                        fragment.requireContext(),
-                        "Google sign in success 🎉",
-                        Toast.LENGTH_SHORT
-                    ).show()
+        firebaseAuth = FirebaseAuth.getInstance()
+        val credentials = GoogleAuthProvider.getCredential(account.idToken, null)
+        GlobalScope.launch(Dispatchers.IO) {
 
-                    sharedPreferences.edit().putString("user_id", firebaseAuth.currentUser?.uid)
-                        .apply()
+            firebaseAuth.signInWithCredential(credentials).addOnSuccessListener {
+                Toast.makeText(
+                    fragment.requireContext(),
+                    "Google sign in success 🎉",
+                    Toast.LENGTH_SHORT
+                ).show()
 
-                    Toast.makeText(
-                        fragment.requireContext(),
-                        "Google Login: ${firebaseAuth.currentUser?.uid}",
-                        Toast.LENGTH_LONG
-                    ).show()
+                sharedPreferences.edit().putString("user_id", firebaseAuth.currentUser?.uid)
+                    .apply()
 
-                    sharedPreferences.edit().putBoolean("isLoggedIn", true).apply()
-                    sharedPreferences.edit().putBoolean("isRegistered", true).apply()
+                sharedPreferences.edit().putBoolean("isLoggedIn", true).apply()
+                sharedPreferences.edit().putBoolean("isRegistered", true).apply()
 
-                    Navigate.action(fragment)
-                }
+                Navigate.action(fragment)
             }
         }
-
     }
+
 }

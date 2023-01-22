@@ -42,5 +42,8 @@ class FrontScreenFragment : Fragment() {
         return binding.root
     }
 
+    companion object{
+        const val FRONT_SCREEN_FRAGMENT_TAG = "front_screen_fragment"
+    }
 
 }

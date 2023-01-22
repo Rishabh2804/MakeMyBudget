@@ -14,9 +14,6 @@
             android:id="@+id/action_frontScreenFragment_to_loginScreenFragment"
             app:destination="@id/authentication" />
         <action
-            android:id="@+id/action_frontScreenFragment_to_transactionDetailFragment"
-            app:destination="@id/transactionDetailFragment" />
-        <action
             android:id="@+id/action_frontScreenFragment_to_userBudgetDetailsFragment"
             app:destination="@id/userBudgetDetailsFragment" />
         <action
@@ -137,7 +134,8 @@
     <fragment
         android:id="@+id/calenderViewFragment"
         android:name="com.example.makeMyBudget.mainScreen.transactionLibrary.CalenderViewFragment"
-        android:label="CalenderViewFragment">
+        android:label="CalenderViewFragment"
+        tools:layout="@layout/fragment_calender_view">
         <argument
             android:name="monthYear"
             app:argType="integer" />

@@ -88,19 +88,21 @@ class MainScreenFragment : Fragment() {
                 }
                 R.id.logout -> {
 
-                    sharedPreferences.edit().putBoolean("isLoggedIn", false).apply()
-                    sharedPreferences.edit().putBoolean("isRegistered", false).apply()
-                    sharedPreferences.edit().putBoolean("allCheck", false).apply()
+                    sharedPreferences.edit().apply {
+                        putBoolean("isLoggedIn", false)
+                        putBoolean("isRegistered", false)
+                        putBoolean("allCheck", false)
+                        putString("tab_position", "0")
+                        putString("pre_screen", "0")
+                    }.apply()
 
-                    sharedPreferences.edit().putString("tab_position", "0").apply()
+                    if (sharedPreferences.getBoolean("isGuest", false)) {
+                        viewModel.deleteUserData()
+                    }
 
-                    sharedPreferences.edit().putString("pre_screen", "0").apply()
+                    viewModel.setUserID("")
 
-//                    if (sharedPreferences.getBoolean("isGuest", true)) {
-//                        viewModel.deleteUserData()
-//                    }
-
-//                    sharedPreferences.edit().clear().apply()
+                    sharedPreferences.edit().clear().apply()
 
                     findNavController().navigate(MainScreenFragmentDirections.actionMainScreenFragmentToLoginScreenFragment())
                     true
