@@ -3,18 +3,23 @@ package com.example.makeMyBudget.mainScreen.drawerScreens
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.example.makeMyBudget.entities.User
+import com.example.makeMyBudget.mainScreen.viewModels.UserModel
 import com.example.makemybudget.databinding.FragmentEditMyDetailsBinding
 
 class EditMyDetailsFragment : Fragment() {
 
     private lateinit var binding: FragmentEditMyDetailsBinding
     private lateinit var sharedPreferences: SharedPreferences
+
+    val userModel: UserModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,12 +59,26 @@ class EditMyDetailsFragment : Fragment() {
                 //after all changes, editor is applied to make a permanent change in shared preferences
                 editor.apply()
 
-                //Then the user is directed to the main screen fragment
-                navigate()
+                try {
+                    userModel.updateUser(
+                        sharedPreferences.run {
+                            User(
+                                getString("username", "")!!,
+                                getString("budget", "")!!,
+                                getString("user_id", "")!!
+                            )
+                        }
+                    )
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                } finally {
+                    //Then the user is directed to the main screen fragment
+                    navigate()
+                }
             }
         }
 
-        binding.cancelButton.setOnClickListener{
+        binding.cancelButton.setOnClickListener {
             navigate()
         }
 

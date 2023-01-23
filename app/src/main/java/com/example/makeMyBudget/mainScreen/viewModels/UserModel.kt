@@ -29,4 +29,10 @@ class UserModel(application: Application) : AndroidViewModel(application) {
             _userRepo.insert(user)
         }
     }
+
+    fun updateUser(user: User) {
+        viewModelScope.launch {
+            _userRepo.update(user)
+        }
+    }
 }
